@@ -1,0 +1,25 @@
+{
+  "method":"post",
+  "url":"_URL_/companies/1001/accounts",
+  "authorization":"Bearer _TOKEN_",
+  "payload": {
+    "name_en": "_RANDOM_NAME_",
+    "name_en": "s",
+    "type": "partner",
+    "status": "active",
+    "read_only": true,
+    "code":"_RANDOM_NUMBER_",
+    "parent_id":1,
+    "phones":[
+      {
+        "phone":"_RANDOM_NUMBER_",
+        "default":1,
+        "notes":"this is generated randomly"
+      },
+      {
+        "phone":"07505149171",
+        "default":0
+      }
+    ]
+  }
+}

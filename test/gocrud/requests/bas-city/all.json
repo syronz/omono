@@ -1,0 +1,6 @@
+{
+  "method":"get",
+	"url":"_URL_/companies/1001/cities?order_by=bas_cities.city&direction=asc&page=0&page_size=10000&select=bas_cities.id,bas_cities.city",
+	"authorization":"Bearer _TOKEN_",
+	"payload": {}
+}

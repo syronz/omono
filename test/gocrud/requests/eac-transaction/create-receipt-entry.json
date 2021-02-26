@@ -1,0 +1,81 @@
+{
+  "method":"post",
+  "url":"_URL_/companies/1001/journals",
+  "authorization":"Bearer _TOKEN_",
+  "payload": {
+    "currency_id": 1,
+    "rate":1200.00,
+
+    "amount": 10000,
+    "type": "receipt-entry",
+    "post_date": "2019-02-19T13:15:32.000Z",
+    "slots": [
+      {
+        "account_id": 4,
+        "debit": 1000,
+        "credit": 0,
+        "description":"receipt-entry"
+      },
+      {
+        "account_id": 42,
+        "debit": 0,
+        "credit": 100,
+        "description":"receipt-entry"
+      },
+      {
+        "account_id": 43,
+        "debit": 0,
+        "credit": 100,
+        "description":"receipt-entry"
+      },
+      {
+        "account_id": 44,
+        "debit": 0,
+        "credit": 100,
+        "description":"receipt-entry"
+      },
+      {
+        "account_id": 46,
+        "debit": 0,
+        "credit": 100,
+        "description":"receipt-entry"
+      },
+      {
+        "account_id": 48,
+        "debit": 0,
+        "credit": 100,
+        "description":"receipt-entry"
+      },
+      {
+        "account_id": 49,
+        "debit": 0,
+        "credit": 100,
+        "description":"receipt-entry"
+      },
+      {
+        "account_id": 50,
+        "debit": 0,
+        "credit": 100,
+        "description":"receipt-entry"
+      },
+      {
+        "account_id": 51,
+        "debit": 0,
+        "credit": 100,
+        "description":"receipt-entry"
+      },
+      {
+        "account_id": 52,
+        "debit": 0,
+        "credit": 100,
+        "description":"receipt-entry"
+      },
+      {
+        "account_id": 53,
+        "debit": 0,
+        "credit": 100,
+        "description":"receipt-entry"
+      }
+    ]
+  }
+}

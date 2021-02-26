@@ -1,0 +1,649 @@
+# corerr/terms.err.go -------------------------------------------------------------------
+["internal server error"]
+en = 'internal server error'
+ku = 'halay server'
+ar = 'internal server error'
+
+["route not found"]
+en = 'route not found'
+ku = 'route booni nie'
+ar = 'al route la moujood'
+
+[unauthorized]
+en = 'unauthorized'
+ku = 'daxl naboo'
+ar = 'unauthorized'
+
+["please report error to the programmer"]
+en = 'please report error to the programmer'
+ku = 'tkaya programmeraka agadar kanawa'
+ar = 'please report error to the programmer'
+
+["record %v:%v not found in %v"]
+en = 'record %v:%v not found in %v'
+ku = 'recordi %v:%v booni nie la %v'
+ar = 'la moujood %v:%v not found in %v'
+
+["record not found"]
+en = 'record not found'
+ku = 'recordaka booni nie'
+ar = 'record not found'
+
+["%v is not valid"]
+en = '%v is not valid'
+ku = '%v halaya'
+ar = '%v is not valid'
+
+["bind failed"]
+en = 'bind failed'
+ku = 'data qabul nakre'
+ar = 'bind failed'
+
+["validation failed"]
+en = 'validation failed'
+ku = 'validation shkasti hena'
+ar = 'validation failed'
+
+["%v is required"]
+en = '%v is required'
+ku = '%v pewista'
+ar = '%v is required'
+
+["minimum accepted character for %v is %v"]
+en = 'minimum accepted character for %v is %v'
+ku = '%v abe ba lani kam %v pit be'
+ar = 'minimum accepted character for %v is %v'
+
+["maximum accepted character for %v is %v"]
+en = 'maximum accepted character for %v is %v'
+ku = '%v ziater la %v pit warnagre'
+ar = 'maximum accepted character for %v is %v'
+
+["accepted value for %v are: [%v]"]
+en = 'accepted value for %v are: [%v]'
+ku = 'datay qabul kraw bo %v awanan: [%v]'
+ar = 'accepted value for %v are: [%v]'
+
+["duplicate happened"]
+en = 'duplicate happened'
+ku = 'peshtr daxl krawa'
+ar = 'duplication happened'
+
+["some %v related to this %v so it is not %v"]
+en = 'some %v related to this %v so it is not %v'
+ku = 'bashek la %v rabtian haya bam %va boya %v nakre'
+ar = 'some %v related to this %v so it is not %v'
+
+["error because of foreign key"]
+en = 'error because of external data'
+ku = 'hala ba hoy datay darawa'
+ar = 'error because of external data'
+
+["%v with value %v already exists"]
+en = '%v with value %v already exists'
+ku = '%[2]v peshtr daxl krawa wak %[1]v'
+ar = '%v with value %v already exists'
+
+["%v is already exist"]
+en = '%v is already exist'
+ku = '%v peshtr daxl krawa'
+ar = '%v is already exist'
+
+["error in binding %v"]
+en = 'error in binding %v'
+ku = 'hala la wargrtni data bo %v'
+ar = 'error in binding %v'
+
+["invalid ID"]
+en = 'invalid ID'
+ku = 'ideka halaya'
+ar = 'invalid ID'
+
+["invalid %v for %v"]
+en = 'invalid %v for %v'
+ku = 'am %vya bo %v qabul nakre'
+ar = 'invalid %v for %v'
+
+["you don't have permission"]
+en = '''you don't have permission'''
+ku = 'regapedraw nie'
+ar = '''you don't have permission'''
+
+["token is required"]
+en = 'token is required'
+ku = 'token pewista'
+ar = 'al token zaroor'
+
+["token is not valid"]
+en = 'token is not valid'
+ku = 'tokenaka halaya'
+ar = 'token is not valid'
+
+["token is expired"]
+en = 'token is expired'
+ku = 'tokenaka basarcho'
+ar = 'token is expired'
+
+["%v not exist"]
+en = '%v not exist'
+ku = '%v booni nie'
+ar = '%v not exist'
+
+["forbidden to %v %v"]
+en = 'forbidden to %v %v'
+ku = 'regapedraw nie bo %v la %v'
+ar = 'forbidden to %v %v'
+
+["forbidden"]
+en = 'forbidden'
+ku = 'regapedraw nie'
+ar = 'forbidden'
+
+["%v is inactive"]
+en = '%v is inactive'
+ku = '%v wastenrawa'
+ar = '%v is inactive'
+
+["minimum accepted value for %v is %v"]
+en = 'minimum accepted value for %v is %v'
+ku = '%v abe ba lani kam %v be'
+ar = 'minimum accepted value for %v is %v'
+
+["maximum accepted value for %v is %v"]
+en = 'maximum accepted value for %v is %v'
+ku = '%v ziater la %v warnagre'
+ar = 'maximum accepted value for %v is %v'
+
+["%v shouldn't be less than %v"]
+en = "%v shouldn't be less than %v"
+ku = "%v nabe la %v kamtr be"
+ar = "%v shouldn't be less than %v"
+
+["%v shouldn't be more than %v"]
+en = "%v shouldn't be more than %v"
+ku = "%v nabe la %v ziatr be"
+ar = "%v shouldn't be more than %v"
+
+["%v has child, therefore not deleted"]
+en = "%v has child, therefore not deleted"
+ku = "%v mndali haya, boya delete nabe"
+ar = "%v has child, therefore not deleted"
+
+["%v is connected to a %v:%v, please delete it first"]
+en = "%v is connected to a %v:%v, please delete it first"
+ku = "%v rabti haya ba %v:%v, la peshda aw delete kan"
+ar = "%v is connected to a %v:%v, please delete it first"
+
+["need data to be inserted"]
+en = 'need data to be inserted'
+ku = 'peshtr abe datay ka daxl kre'
+ar = 'need data to be inserted'
+
+["you don't have permission to this %v"]
+en = "you don't have permission to this %v"
+ku = "you don't have permission to this %v"
+ar = "you don't have permission to this %v"
+
+# corterm/terms.go ----------------------------------------------------------------------
+[username]
+en = 'username'
+ku = 'nawibakarhenar'
+ar = 'username'
+
+[password]
+en = 'password'
+ku = 'password'
+ar = 'password'
+
+[resources]
+en = 'resources'
+ku = 'bashakan'
+ar = 'resources'
+
+[name]
+en = 'name'
+ku = 'naw'
+ar = 'name'
+
+[role]
+en = 'role'
+ku = 'ark'
+ar = 'role'
+
+[roles]
+en = 'roles'
+ku = 'arkakan'
+ar = 'roles'
+
+[language]
+en = 'language'
+ku = 'zman'
+ar = 'language'
+
+[email]
+en = 'email'
+ku = 'email'
+ar = 'email'
+
+[value]
+en = 'value'
+ku = 'value'
+ar = 'value'
+
+[ID]
+en = 'ID'
+ku = 'ID'
+ar = 'ID'
+
+[description]
+en = 'description'
+ku = 'tebini'
+ar = 'description'
+
+[created]
+en = 'created'
+ku = 'drwst'
+ar = 'created'
+
+[updated]
+en = 'updated'
+ku = 'opdate'
+ar = 'updated'
+
+[deleted]
+en = 'deleted'
+ku = 'delete'
+ar = 'deleted'
+
+[list]
+en = 'list'
+ku = 'list'
+ar = 'list'
+
+[fields]
+en = 'fields'
+ku = 'fieldakan'
+ar = 'fields'
+
+[type]
+en = 'type'
+ku = 'jor'
+ar = 'type'
+
+[code]
+en = 'code'
+ku = 'code'
+ar = 'code'
+
+[scope]
+en = 'scope'
+ku = 'scope'
+ar = 'scope'
+
+[notes]
+en = 'notes'
+ku = 'notes'
+ar = 'notes'
+
+[profile]
+en = 'profile'
+ku = 'profile'
+ar = 'profile'
+
+[status]
+en = 'status'
+ku = 'status'
+ar = 'status'
+
+[message]
+en = 'message'
+ku = 'message'
+ar = 'message'
+
+[messages]
+en = 'messages'
+ku = 'messages'
+ar = 'messages'
+
+[tag]
+en = 'tag'
+ku = 'tag'
+ar = 'tag'
+
+[tags]
+en = 'tags'
+ku = 'tags'
+ar = 'tags'
+
+["%v created successfully"]
+en = '%v created successfully'
+ku = '%v ba sarkawtooyi drwst kra'
+ar = '%v alcreated naam'
+
+["%v updated successfully"]
+en = '%v updated successfully'
+ku = '%v ba sarkawtuyi update boo'
+ar = '%v updated successfully'
+
+["%v deleted successfully"]
+en = '%v deleted successfully'
+ku = '%v ba sarkawtuyi delete boo'
+ar = '%v deleted successfully'
+
+["list of %v"]
+en = 'list of %v'
+ku = 'listi %v'
+ar = 'list of %v'
+
+["temporary token"]
+en = 'temporary token'
+ku = 'temporary token'
+ar = 'temporary token'
+
+["%v info"]
+en = '%v info'
+ku = 'maloomati %v'
+ar = '%v info'
+
+
+# base/message/baserr/terms.err.go ------------------------------------------------------
+["username or password is wrong"]
+en = 'username or password is wrong'
+ku = 'username yan passwordakat halaya'
+ar = 'username or password is wrong'
+
+["default role_id is not valid, update settings"]
+en = 'default role_id is not valid, update settings'
+ku = 'role_id xazn kraw la setting halaya, abe raqam be'
+ar = 'default role_id is not valid, update settings'
+
+# base/message/basterm/terms.msg.go -----------------------------------------------------
+[user]
+en = 'user'
+ku = 'bakar-henar'
+ar = 'user'
+
+[users]
+en = 'users'
+ku = 'bakar-henarakan'
+ar = 'users'
+
+[setting]
+en = 'setting'
+ku = 'rekxstn'
+ar = 'setting'
+
+[settings]
+en = 'settings'
+ku = 'rekxstnakan'
+ar = 'settings'
+
+[account]
+en = 'account'
+ku = 'hazhmar'
+ar = 'account'
+
+[accounts]
+en = 'accounts'
+ku = 'hazhmarakan'
+ar = 'accounts'
+
+[company]
+en = 'company'
+ku = 'compania'
+ar = 'company'
+
+[companies]
+en = 'companies'
+ku = 'companieakan'
+ar = 'companies'
+
+[color]
+en = 'color'
+ku = 'rang'
+ar = 'color'
+
+[colors]
+en = 'colors'
+ku = 'rangakan'
+ar = 'colors'
+
+[phone]
+en = 'phone'
+ku = 'phone'
+ar = 'phone'
+
+[phones]
+en = 'phones'
+ku = 'phones'
+ar = 'phones'
+
+[activity]
+en = 'activity'
+ku = 'activity'
+ar = 'activity'
+
+[activities]
+en = 'activities'
+ku = 'activities'
+ar = 'activities'
+
+[city]
+en = 'city'
+ku = 'city'
+ar = 'city'
+
+[cities]
+en = 'cities'
+ku = 'cities'
+ar = 'cities'
+
+["user loged in successfully"]
+en = 'user loged in successfully'
+ku = 'user ba sarkawtooyi daxl boo'
+ar = 'user loged in successfully'
+
+["username and password"]
+en = 'username and password'
+ku = 'username w password'
+ar = 'username and password'
+
+["user registered successfully"]
+en = 'user registered successfully'
+ku = 'user ba sarkawtooyi register boo'
+ar = 'user registered successfully'
+
+# pkg/filter/parser.go ------------------------------------------------------------------
+["column %v not not exist"]
+en = 'column %v not not exist'
+ku = 'stuni %v booni nie'
+ar = 'column %v not not exist'
+
+["filter is not valid"]
+en = 'filter is not valid'
+ku = 'filter halaya'
+ar = 'filter is not valid'
+
+# domain/eaccounting/eacterm/terms.go ---------------------------------------------------
+["symbol"]
+en = 'symbol'
+ku = 'symbol'
+ar = 'symbol'
+
+["currency"]
+en = 'currency'
+ku = 'currency'
+ar = 'currency'
+
+["currencies"]
+en = 'currencies'
+ku = 'currencies'
+ar = 'currencies'
+
+["transaction"]
+en = 'transaction'
+ku = 'transaction'
+ar = 'transaction'
+
+["transactions"]
+en = 'transactions'
+ku = 'transactions'
+ar = 'transactions'
+
+["journal"]
+en = 'journal'
+ku = 'journal'
+ar = 'journal'
+
+["difference is not zero %v"]
+en = 'difference is not zero %v'
+ku = 'jyawazekan sifr nie %v'
+ar = 'difference is not zero %v'
+
+["asset"]
+en = 'asset'
+ku = 'sarmaya'
+ar = 'asset'
+
+["cash"]
+en = 'cash'
+ku = 'کاش'
+ar = 'cash'
+
+["equity"]
+en = 'equity'
+ku = 'بەرابەری'
+ar = 'equity'
+
+["capital"]
+en = 'capital'
+ku = 'دەستمایه'
+ar = 'capital'
+
+["update balance"]
+en = 'update balance'
+ku = 'update balance'
+ar = 'update balance'
+
+["transaction type is not valid"]
+en = 'transaction type is not valid'
+ku = 'transactionaka typakay halaya'
+ar = 'transaction type is not valid'
+
+["rate"]
+en = 'rate'
+ku = 'rate'
+ar = 'rate'
+
+["rates"]
+en = 'rates'
+ku = 'rates'
+ar = 'rates'
+
+["balance sheet"]
+en = 'balance sheet'
+ku = 'balance sheet'
+ar = 'balance sheet'
+
+["post date"]
+en= "post date"
+ku="post date"
+ar="post date"
+
+["slots!"]
+en= "slots!"
+ku="slots!"
+ar="slots!"
+
+["currency ID"]
+en= "currency ID"
+ku="currency ID"
+ar="currency ID"
+
+["there is no currency rate, please enter rates to continue"]
+en = 'there is no currency rate, please enter rates to continue'
+ku = 'there is no currency rate, please enter rates to continue'
+ar = 'there is no currency rate, please enter rates to continue'
+# domain/material/matterm/matterm.go ----------------------------------------------------
+["group"]
+en = 'group'
+ku = 'group'
+ar = 'group'
+
+["groups"]
+en = 'groups'
+ku = 'groups'
+ar = 'groups'
+["unit"]
+en = 'unit'
+ku = 'unit'
+ar = 'unit'
+
+["units"]
+en = 'units'
+ku = 'units'
+ar = 'units'
+
+["product"]
+en = 'product'
+ku = 'product'
+ar = 'product'
+
+["products"]
+en = 'products'
+ku = 'products'
+ar = 'products'
+
+["price retail"]
+en = 'price retail'
+ku = 'nrxi tak froshi'
+ar = 'price retail'
+
+["product %v is inactive, for continue please active it"]
+en = "product '%v' is inactive, for continue please active it"
+ku = "barhami '%v' active nie, bo away waslaka drwst kre barhamaka active kan yan la waslakada mayhenen"
+ar = "product '%v' is inactive, for continue please active it"
+
+["price not added for this mode %v in product %v"]
+en = 'price not added for this mode %v in product %v'
+ku = 'nrx ziad nakrawa bo aw mode %v bo barhami %v'
+ar = 'price not added for this mode %v in product %v'
+
+["barcode"]
+en = 'barcode'
+ku = 'barcode'
+ar = 'barcode'
+
+# domain/sync/synterm/synterm.go --------------------------------------------------------
+["detail"]
+en = 'detail'
+ku = 'tebini'
+ar = 'detail'
+
+
+# domain/location/locterm/locterm.go ----------------------------------------------------
+["store"]
+en = 'store'
+ku = 'store'
+ar = 'store'
+
+["stores"]
+en = 'stores'
+ku = 'stores'
+ar = 'stores'
+
+# domain/bill/bilterm/bilterm.go --------------------------------------------------------
+["invoice"]
+en = 'invoice'
+ku = 'invoice'
+ar = 'invoice'
+
+["invoices"]
+en = 'invoices'
+ku = 'invoices'
+ar = 'invoices'
+
+["price_mode"]
+en = 'price_mode'
+ku = 'price_mode'
+ar = 'price_mode'

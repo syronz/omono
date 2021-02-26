@@ -1,0 +1,40 @@
+{
+  "method":"put",
+	"url":"_URL_/companies/1001/nodes/101/journals/1",
+	"authorization":"Bearer _TOKEN_",
+	"payload": {
+    "currency_id": 1,
+    "post_date": "2020-01-22T14:23:43.000Z",
+    "slots": [
+      {
+        "account_id": 4,
+        "company_id": 1001,
+        "debit": 3000,
+        "id": 1
+      },
+      {
+        "account_id": 6,
+        "company_id": 1001,
+        "currency_id": 2,
+        "credit": 1500,
+        "id": 2
+      },
+      {
+        "account_id": 9,
+        "company_id": 1001,
+        "credit": 500,
+        "id": 3
+      },
+      {
+        "account_id": 10,
+        "company_id": 1001,
+        "credit": 500
+      },
+      {
+        "account_id":11,
+        "company_id": 1001,
+        "credit": 500
+      }
+    ]
+  }
+}

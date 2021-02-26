@@ -1,0 +1,14 @@
+{
+  "method":"post",
+  "url":"_URL_/companies/1001/phones",
+  "authorization":"Bearer _TOKEN_",
+  "payload": {
+    "company_id": 1001,
+    "node_id": 101,
+    "account_id": 2,
+    "phone":"_RANDOM_NUMBER_",
+    "phone":"07505149172",
+    "default":1,
+    "notes":"this is notes"
+  }
+}

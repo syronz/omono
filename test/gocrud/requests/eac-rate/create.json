@@ -1,0 +1,11 @@
+{
+  "method":"post",
+	"url":"_URL_/companies/1001/rates",
+	"authorization":"Bearer _TOKEN_",
+	"payload": {
+		"currency_id": 1,
+		"city_id2": 1,
+		"rate": _RANDOM_NUMBER_,
+		"notes": "_RANDOM_NAME_"
+	}
+}

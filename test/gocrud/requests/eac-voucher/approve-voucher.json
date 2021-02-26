@@ -1,0 +1,5 @@
+{
+    "method":"patch",
+      "url":"_URL_/companies/1001/nodes/101/vouchers/approve/5",
+      "authorization":"Bearer _TOKEN_"
+  }

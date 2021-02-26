@@ -1,0 +1,7 @@
+{
+  "method":"get",
+	"url":"_URL_/companies/1001/charts/accounts?refresh=true",
+	"url":"_URL_/companies/1001/charts/accounts?lang=ku",
+	"authorization":"Bearer _TOKEN_",
+	"payload": {}
+}

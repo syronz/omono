@@ -1,0 +1,11 @@
+{
+  "method":"post",
+	"url":"_URL_/companies/1001/roles",
+	"authorization":"Bearer _TOKEN_",
+	"payload": {
+		"created_at": "",
+		"name": "",
+		"resources": "",
+		"description": ""
+	}
+}

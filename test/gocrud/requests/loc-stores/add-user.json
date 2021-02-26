@@ -1,0 +1,8 @@
+{
+  "method":"post",
+	"url":"_URL_/companies/1001/stores/1/users",
+	"authorization":"Bearer _TOKEN_",
+	"payload": {
+		"user_id": 79
+	}
+}

@@ -1,0 +1,20 @@
+{
+  "method":"post",
+  "url":"_URL_/companies/1001/products",
+  "authorization":"Bearer _TOKEN_",
+  "payload": {
+    "unit_id": 1,
+    "barcode": "83742",
+    "name": "Corner Alfemo, greendize 32x170",
+    "name_en": "Corner Alfemo, greendize 32x170",
+    "status": "active",
+    "type": "stocking",
+    "has_expiry": false,
+    "description": "",
+    "price_retail": 300,
+    "tags": [ 
+      { "id": 5 }, 
+      { "id": 7 } 
+    ]
+  }
+}

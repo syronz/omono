@@ -1,0 +1,11 @@
+{
+  "method":"post",
+  "url":"_URL_/companies/1001/messages",
+  "authorization":"Bearer _TOKEN_",
+  "payload": {
+    "recepient_id": 81,
+    "title": "test notification",
+    "message": "test notification",
+    "uri": "http://erp14.com"
+  }
+}

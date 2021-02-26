@@ -1,0 +1,12 @@
+{
+  "method":"put",
+	"url":"_URL_/companies/1001/nodes/101/tags/3",
+	"authorization":"Bearer _TOKEN_",
+	"payload": {
+		"tag": "_RANDOM_NUMBER_ Updated",
+		"type": "normal",
+		"keyword_en": "updated",
+		"keyword_ku": "_RANDOM_NUMBER_",
+		"keyword_ar": "_RANDOM_NUMBER_"
+	}
+}

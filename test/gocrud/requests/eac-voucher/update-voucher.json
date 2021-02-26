@@ -1,0 +1,37 @@
+{
+    "method":"put",
+      "url":"_URL_/companies/1001/nodes/101/vouchers/update/1",
+      "authorization":"Bearer _TOKEN_",
+      "payload": {
+      "currency_id": 2,
+      "rate":1200.00,
+      "post_date": "2021-01-22T14:23:43.000Z",
+      "description": "updated the note",
+      "slots": [
+        {
+          "account_id": 4,
+          "debit": 4000,
+          "credit": 0,
+          "description":"first",
+          "id":1
+        },
+        {
+          "account_id": 6,
+          "debit": 0,
+          "credit": 1000,
+          "description":"first",
+          "id":2
+
+        },
+        {
+          "account_id": 17,
+          "debit": 0,
+          "credit": 3000,
+          "description":"first",
+          "id":3
+
+        }
+      ]
+    }
+  }
+  

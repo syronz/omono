@@ -1,0 +1,12 @@
+{
+  "method":"post",
+  "url":"_URL_/register",
+  "authorization":"Bearer _TOKEN_",
+  "payload": {
+    "name": "_RANDOM_NAME_",
+    "username": "_RANDOM_NAME_",
+    "password": "1234567890",
+    "lang":"ku",
+    "email":"sabina.diako@gmail.com"
+  }
+}

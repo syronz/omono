@@ -1,0 +1,10 @@
+{
+  "method":"get",
+	"url":"_URL_/cities/1001101000000017?lang=ar",
+	"url":"_URL_/cities/string",
+	"url":"_URL_/cities/1001101000000017",
+	"url":"_URL_/companies/1001/nodes/101/cities/1",
+	"url":"_URL_/companies/1002/nodes/101/cities/7",
+	"authorization":"Bearer _TOKEN_",
+	"payload": {}
+}

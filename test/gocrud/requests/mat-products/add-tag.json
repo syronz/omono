@@ -1,0 +1,8 @@
+{
+  "method":"post",
+  "url":"_URL_/companies/1001/products/2/tags",
+  "authorization":"Bearer _TOKEN_",
+  "payload": {
+    "tag_id": 8
+  }
+}

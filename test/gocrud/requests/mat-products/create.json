@@ -1,0 +1,25 @@
+{
+  "method":"post",
+  "url":"_URL_/companies/1001/products",
+  "authorization":"Bearer _TOKEN_",
+  "payload": {
+    "unit_id": 1,
+    "barcode": "_RANDOM_NUMBER_",
+    "name": "_RANDOM_NAME_",
+    "name_en": "_RANDOM_NAME_",
+    "name_ku": "_RANDOM_NAME_",
+    "name_ar": "_RANDOM_NAME_",
+    "status": "active",
+    "type": "stocking",
+    "has_expiry": true,
+    "description": "_RANDOM_NUMBER_",
+    "price_whole":1000,
+    "price_vip":1000,
+    "price_distributor":1000,
+    "price_export":1000,
+    "price_retail":1000,
+    "price_old":1000,
+    "price_partial":1000,
+    "tags": [ { "id": 1 }, { "id": 2 }, { "id": 3 } ]
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "method":"get",
+	"url":"_URL_/companies/1001/messages/1097977740116165?temporary_token=_TOKEN_",
+	"payload": {}
+}

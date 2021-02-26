@@ -1,0 +1,21 @@
+{
+  "method":"post",
+  "url":"_URL_/companies/1001/products",
+  "authorization":"Bearer _TOKEN_",
+  "payload": {
+    "unit_id": 1,
+    "barcode": "x1",
+    "name": "Thinkpad X1 Extreme Gen3 ",
+    "name_en": "Thinkpad X1 Extreme Gen3 ",
+    "status": "active",
+    "type": "stocking",
+    "has_expiry": false,
+    "description": " no description",
+    "price_retail": 300,
+    "tags": [ 
+      { "id": 1 }, 
+      { "id": 3 }, 
+      { "id": 8 } 
+    ]
+  }
+}

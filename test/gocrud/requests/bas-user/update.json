@@ -1,0 +1,13 @@
+{
+  "method":"put",
+  "url":"_URL_/companies/1001/nodes/101/users/11",
+  "authorization":"Bearer _TOKEN_",
+  "payload": {
+    "role_id":2,
+    "name": "_RANDOM_NAME_",
+    "username": "_RANDOM_NAME_",
+    "lang":"ku",
+    "email":"2sabina.diako@gmail.com",
+    "status":"active"
+  }
+}

@@ -1,0 +1,7 @@
+{
+    "method":"get",
+      "url":"_URL_/companies/1001/journals/counter/1/year/2021/type/journal-entry",
+      "authorization":"Bearer _TOKEN_",
+      "payload": {}
+  }
+  

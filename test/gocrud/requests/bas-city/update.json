@@ -1,0 +1,9 @@
+{
+  "method":"put",
+	"url":"_URL_/companies/1001/nodes/101/cities/5",
+	"authorization":"Bearer _TOKEN_",
+	"payload": {
+		"city": "updated3",
+		"notes": "updated3"
+	}
+}

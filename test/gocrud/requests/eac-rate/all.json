@@ -1,0 +1,6 @@
+{
+  "method":"get",
+	"url":"_URL_/companies/1001/rates?order_by=eac_rates.created_at&direction=asc&page=0&page_size=10000&select=eac_rates.id,eac_rates.rate",
+	"authorization":"Bearer _TOKEN_",
+	"payload": {}
+}
