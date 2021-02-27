@@ -9,7 +9,6 @@ import (
 	"omono/domain/base/enum/accounttype"
 	"omono/domain/base/message/basterm"
 	"omono/domain/service"
-	"omono/domain/sync"
 	"omono/internal/core"
 	"omono/internal/core/corterm"
 	"omono/internal/response"
@@ -274,8 +273,8 @@ func (p *AccountAPI) GetCashAccount(c *gin.Context) {
 	var account basmodel.Account
 
 	fix := types.FixedNode{
-		CompanyID: p.Engine.Envs.ToUint64(sync.CompanyID),
-		NodeID:    p.Engine.Envs.ToUint64(sync.NodeID),
+		CompanyID: 1001,
+		NodeID:    101,
 		ID:        p.Engine.Setting[settingfields.CashAccountID].ToRowID(),
 	}
 

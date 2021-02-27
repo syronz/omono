@@ -1,9 +1,0 @@
-{
-    "method":"post",
-    "url":"_URL_/companies/1001/journals",
-    "authorization":"Bearer _TOKEN_",
-    "payload": {
-      "amount": 10000
-    }
-  }
-  

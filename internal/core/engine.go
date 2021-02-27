@@ -2,7 +2,6 @@ package core
 
 import (
 	"omono/domain/base/basmodel"
-	"omono/domain/eaccounting/eacmodel"
 	"omono/internal/types"
 
 	"github.com/sirupsen/logrus"
@@ -13,15 +12,14 @@ import (
 // Engine to keep all database connections and
 // logs configuration and environments and etc
 type Engine struct {
-	DB            *gorm.DB
-	ReadDB        *gorm.DB
-	ActivityDB    *gorm.DB
-	APILog        *logrus.Logger
-	Envs          types.Envs
-	AES           goaes.BuildModel
-	Setting       map[types.Setting]types.SettingMap
-	ActivityCh    chan basmodel.Activity
-	TransactionCh chan eacmodel.TransactionCh
+	DB         *gorm.DB
+	ReadDB     *gorm.DB
+	ActivityDB *gorm.DB
+	APILog     *logrus.Logger
+	Envs       types.Envs
+	AES        goaes.BuildModel
+	Setting    map[types.Setting]types.SettingMap
+	ActivityCh chan basmodel.Activity
 }
 
 // Clone return an engine just like before

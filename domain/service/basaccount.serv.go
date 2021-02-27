@@ -2,15 +2,10 @@ package service
 
 import (
 	"fmt"
-	"github.com/syronz/dict"
-	"github.com/syronz/limberr"
 	"omono/domain/base/basmodel"
 	"omono/domain/base/basrepo"
 	"omono/domain/base/enum/accountstatus"
 	"omono/domain/base/message/basterm"
-	"omono/domain/eaccounting/eacmodel"
-	"omono/domain/eaccounting/eacrepo"
-	"omono/domain/eaccounting/eacterm"
 	"omono/internal/consts"
 	"omono/internal/core"
 	"omono/internal/core/coract"
@@ -20,6 +15,9 @@ import (
 	"omono/pkg/glog"
 	"strconv"
 	"time"
+
+	"github.com/syronz/dict"
+	"github.com/syronz/limberr"
 
 	"gorm.io/gorm"
 )
@@ -204,28 +202,8 @@ func (p *BasAccountServ) Delete(fix types.FixedNode) (account basmodel.Account, 
 	// 	return
 	// }
 
-	// check transactions
-	params := param.NewForDelete("eac_slots", "account_id", fix.ID)
-
-	currencyServ := ProvideEacCurrencyService(eacrepo.ProvideCurrencyRepo(p.Engine))
-	slotServ := ProvideEacSlotService(eacrepo.ProvideSlotRepo(p.Engine), currencyServ, *p)
-
-	var slots []eacmodel.Slot
-	if slots, err = slotServ.Repo.List(params); err != nil {
-		err = corerr.Tick(err, "E1066139", "related transactions not fetch from the database")
-		return
-	}
-
-	if len(slots) > 0 {
-		err = limberr.New("account has transactions", "E1015263").
-			Message(corerr.VIsConnectedToAVVPleaseDeleteItFirst, dict.R(basterm.Account),
-				dict.R(eacterm.Transactions), slots[0].TransactionID).
-			Custom(corerr.ForeignErr).Build()
-		return
-	}
-
 	// check if a user defined under this account
-	params = param.NewForDelete("bas_users", "id", fix.ID)
+	params := param.NewForDelete("bas_users", "id", fix.ID)
 
 	userServ := ProvideBasUserService(basrepo.ProvideUserRepo(p.Engine))
 

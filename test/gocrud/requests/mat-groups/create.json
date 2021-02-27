@@ -1,9 +1,0 @@
-{
-  "method":"post",
-	"url":"_URL_/companies/1001/groups",
-	"authorization":"Bearer _TOKEN_",
-	"payload": {
-		"name": "_RANDOM_NAME_",
-		"status": "active"
-	}
-}

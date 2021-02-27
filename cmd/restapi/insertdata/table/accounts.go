@@ -1,15 +1,11 @@
 package table
 
 import (
-	"github.com/syronz/dict"
 	"omono/domain/base/basmodel"
 	"omono/domain/base/basrepo"
 	"omono/domain/base/enum/accountstatus"
 	"omono/domain/base/enum/accounttype"
-	"omono/domain/base/message/basterm"
-	"omono/domain/eaccounting/eacterm"
 	"omono/domain/service"
-	"omono/domain/sync"
 	"omono/internal/core"
 	"omono/internal/types"
 	"omono/pkg/glog"
@@ -26,11 +22,11 @@ func InsertAccounts(engine *core.Engine) {
 		{
 			FixedNode: types.FixedNode{
 				ID:        1,
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
+				CompanyID: 1001,
+				NodeID:    101,
 			},
 			NameEn: helper.StrPointer("Asset"),
-			NameKu: helper.StrPointer(dict.T(eacterm.Asset, engine.Envs.ToLang(core.DefaultLang))),
+			NameKu: helper.StrPointer("asset"),
 			Code:   "1",
 			Type:   accounttype.Asset,
 			Status: accountstatus.Active,
@@ -38,11 +34,11 @@ func InsertAccounts(engine *core.Engine) {
 		{
 			FixedNode: types.FixedNode{
 				ID:        2,
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
+				CompanyID: 1001,
+				NodeID:    101,
 			},
 			NameEn:   helper.StrPointer("Cash"),
-			NameKu:   helper.StrPointer(dict.T(eacterm.Cash, engine.Envs.ToLang(core.DefaultLang))),
+			NameKu:   helper.StrPointer("cash"),
 			ParentID: types.RowIDPointer(1),
 			Code:     "11",
 			Type:     accounttype.Cash,
@@ -51,11 +47,11 @@ func InsertAccounts(engine *core.Engine) {
 		{
 			FixedNode: types.FixedNode{
 				ID:        79,
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
+				CompanyID: 1001,
+				NodeID:    101,
 			},
 			NameEn:   helper.StrPointer("Users"),
-			NameKu:   helper.StrPointer(dict.T(basterm.User, engine.Envs.ToLang(core.DefaultLang))),
+			NameKu:   helper.StrPointer("users"),
 			ParentID: types.RowIDPointer(1),
 			Code:     "12",
 			Type:     accounttype.User,
@@ -64,11 +60,11 @@ func InsertAccounts(engine *core.Engine) {
 		{
 			FixedNode: types.FixedNode{
 				ID:        4,
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
+				CompanyID: 1001,
+				NodeID:    101,
 			},
 			NameEn: helper.StrPointer("Equity"),
-			NameKu: helper.StrPointer(dict.T(eacterm.Equity, engine.Envs.ToLang(core.DefaultLang))),
+			NameKu: helper.StrPointer("equity"),
 			Code:   "2",
 			Type:   accounttype.Equity,
 			Status: accountstatus.Active,
@@ -76,11 +72,10 @@ func InsertAccounts(engine *core.Engine) {
 		{
 			FixedNode: types.FixedNode{
 				ID:        5,
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
+				CompanyID: 1001,
+				NodeID:    101,
 			},
 			NameEn:   helper.StrPointer("Capital"),
-			NameKu:   helper.StrPointer(dict.T(eacterm.Capital, engine.Envs.ToLang(core.DefaultLang))),
 			ParentID: types.RowIDPointer(4),
 			Code:     "21",
 			Type:     accounttype.Capital,

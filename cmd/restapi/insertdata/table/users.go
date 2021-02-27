@@ -1,15 +1,15 @@
 package table
 
 import (
-	"github.com/syronz/dict"
 	"omono/domain/base"
 	"omono/domain/base/basmodel"
 	"omono/domain/base/basrepo"
 	"omono/domain/service"
-	"omono/domain/sync"
 	"omono/internal/core"
 	"omono/internal/types"
 	"omono/pkg/glog"
+
+	"github.com/syronz/dict"
 )
 
 // InsertUsers for add required users
@@ -22,8 +22,8 @@ func InsertUsers(engine *core.Engine) {
 		{
 			FixedCol: types.FixedCol{
 				ID:        79,
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
+				CompanyID: 1001,
+				NodeID:    101,
 			},
 			RoleID:   1,
 			Code:     "112001",
@@ -34,8 +34,8 @@ func InsertUsers(engine *core.Engine) {
 		},
 		// {
 		// 	FixedCol: types.FixedCol{
-		// 		CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-		// 		NodeID:    engine.Envs.ToUint64(sync.NodeID),
+		// 		CompanyID: 1001,
+		// 		NodeID:    101,
 		// 	},
 		// 	RoleID:   2,
 		// 	Code:     "112002",
@@ -46,8 +46,8 @@ func InsertUsers(engine *core.Engine) {
 		// },
 		// {
 		// 	FixedCol: types.FixedCol{
-		// 		CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-		// 		NodeID:    engine.Envs.ToUint64(sync.NodeID),
+		// 		CompanyID: 1001,
+		// 		NodeID:    101,
 		// 	},
 		// 	RoleID:   3,
 		// 	Code:     "112003",

@@ -1,14 +1,10 @@
 package table
 
 import (
-	"fmt"
 	"omono/cmd/restapi/enum/settingfields"
 	"omono/domain/base/basmodel"
 	"omono/domain/base/basrepo"
-	"omono/domain/bill"
 	"omono/domain/service"
-	"omono/domain/sync"
-	"omono/internal/consts"
 	"omono/internal/core"
 	"omono/internal/types"
 	"omono/pkg/glog"
@@ -23,8 +19,8 @@ func InsertSettings(engine *core.Engine) {
 		{
 			FixedCol: types.FixedCol{
 				ID:        1,
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
+				CompanyID: 1001,
+				NodeID:    101,
 			},
 			Property:    settingfields.CompanyName,
 			Value:       "item",
@@ -34,8 +30,8 @@ func InsertSettings(engine *core.Engine) {
 		{
 			FixedCol: types.FixedCol{
 				ID:        2,
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
+				CompanyID: 1001,
+				NodeID:    101,
 			},
 			Property:    settingfields.DefaultLang,
 			Value:       "ku",
@@ -45,8 +41,8 @@ func InsertSettings(engine *core.Engine) {
 		{
 			FixedCol: types.FixedCol{
 				ID:        3,
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
+				CompanyID: 1001,
+				NodeID:    101,
 			},
 			Property:    settingfields.CompanyLogo,
 			Value:       "invoice",
@@ -56,8 +52,8 @@ func InsertSettings(engine *core.Engine) {
 		{
 			FixedCol: types.FixedCol{
 				ID:        4,
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
+				CompanyID: 1001,
+				NodeID:    101,
 			},
 			Property:    settingfields.InvoiceLogo,
 			Value:       "public/logo.png",
@@ -66,21 +62,9 @@ func InsertSettings(engine *core.Engine) {
 		},
 		{
 			FixedCol: types.FixedCol{
-				ID:        5,
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
-			},
-			Property: bill.InvoiceNumberPattern,
-			Value: fmt.Sprintf("%v-%v-%v", consts.InvoicePatternYear, consts.InvoicePatternStoreCode,
-				consts.InvoicePatternYearCounter),
-			Type:        "string",
-			Description: "YEAR, STORE_CDODE, YEAR_COUNTER, YEAR_CUMULATIVE",
-		},
-		{
-			FixedCol: types.FixedCol{
 				ID:        6,
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
+				CompanyID: 1001,
+				NodeID:    101,
 			},
 			Property:    settingfields.CashAccountID,
 			Value:       "2",
@@ -90,8 +74,8 @@ func InsertSettings(engine *core.Engine) {
 		{
 			FixedCol: types.FixedCol{
 				ID:        7,
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
+				CompanyID: 1001,
+				NodeID:    101,
 			},
 			Property:    settingfields.CompanyEmail,
 			Value:       "XYZ@mail.com",
@@ -101,8 +85,8 @@ func InsertSettings(engine *core.Engine) {
 		{
 			FixedCol: types.FixedCol{
 				ID:        8,
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
+				CompanyID: 1001,
+				NodeID:    101,
 			},
 			Property:    settingfields.CompanyPhone,
 			Value:       "+96477000000",
@@ -112,8 +96,8 @@ func InsertSettings(engine *core.Engine) {
 		{
 			FixedCol: types.FixedCol{
 				ID:        9,
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
+				CompanyID: 1001,
+				NodeID:    101,
 			},
 			Property:    settingfields.CompanyAddress,
 			Value:       "Iraq Sulaimani 203452",
@@ -123,8 +107,8 @@ func InsertSettings(engine *core.Engine) {
 		{
 			FixedCol: types.FixedCol{
 				ID:        10,
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
+				CompanyID: 1001,
+				NodeID:    101,
 			},
 			Property:    settingfields.DefaultCurrency,
 			Value:       "USD",

@@ -4,13 +4,8 @@ import (
 	"omono/domain/base"
 	"omono/domain/base/basmodel"
 	"omono/domain/base/basrepo"
-	"omono/domain/bill"
-	"omono/domain/eaccounting"
-	"omono/domain/location"
-	"omono/domain/material"
 	"omono/domain/notification"
 	"omono/domain/service"
-	"omono/domain/sync"
 	"omono/internal/core"
 	"omono/internal/types"
 	"omono/pkg/glog"
@@ -25,8 +20,8 @@ func InsertRoles(engine *core.Engine) {
 		{
 			FixedCol: types.FixedCol{
 				ID:        1,
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
+				CompanyID: 1001,
+				NodeID:    101,
 			},
 			Name: "Admin",
 			Resources: types.ResourceJoin([]types.Resource{
@@ -39,26 +34,14 @@ func InsertRoles(engine *core.Engine) {
 				base.PhoneRead, base.PhoneWrite, base.PhoneExcel,
 				base.CityRead, base.CityWrite, base.CityExcel,
 				notification.MessageWrite, notification.MessageExcel,
-				eaccounting.CurrencyRead, eaccounting.CurrencyWrite, eaccounting.CurrencyExcel,
-				eaccounting.RateRead, eaccounting.RateWrite, eaccounting.RateExcel,
-				eaccounting.TransactionRead, eaccounting.TransactionManual, eaccounting.TransactionUpdate, eaccounting.TransactionDelete, eaccounting.TransactionExcel,
-				eaccounting.JournalWrite, eaccounting.JournalPrint, eaccounting.LastYearCounter, eaccounting.PaymentEntry, eaccounting.VoucherWrite, eaccounting.BalanceSheet,
-				material.CompanyRead, material.CompanyWrite, material.CompanyExcel,
-				material.ColorRead, material.ColorWrite, material.ColorExcel,
-				material.GroupRead, material.GroupWrite, material.GroupExcel,
-				material.UnitRead, material.UnitWrite, material.UnitExcel,
-				material.TagRead, material.TagWrite, material.TagExcel,
-				material.ProductRead, material.ProductWrite, material.ProductExcel,
-				location.StoreRead, location.StoreWrite, location.StoreExcel,
-				bill.InvoiceRead, bill.InvoiceWrite, bill.InvoiceExcel,
 			}),
 			Description: "admin has all privileges - do not edit",
 		},
 		{
 			FixedCol: types.FixedCol{
 				ID:        2,
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
+				CompanyID: 1001,
+				NodeID:    101,
 			},
 			Name: "Cashier",
 			Resources: types.ResourceJoin([]types.Resource{
@@ -70,8 +53,8 @@ func InsertRoles(engine *core.Engine) {
 		{
 			FixedCol: types.FixedCol{
 				ID:        3,
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
+				CompanyID: 1001,
+				NodeID:    101,
 			},
 			Name: "Reader",
 			Resources: types.ResourceJoin([]types.Resource{
@@ -85,7 +68,7 @@ func InsertRoles(engine *core.Engine) {
 			FixedCol: types.FixedCol{
 				ID:        4,
 				CompanyID: 1002,
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
+				NodeID:    101,
 			},
 			Name: "should_be_deleted",
 			Resources: types.ResourceJoin([]types.Resource{

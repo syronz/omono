@@ -3,7 +3,6 @@ package startoff
 import (
 	"omono/domain/base"
 	"omono/domain/notification"
-	"omono/domain/sync"
 	"omono/internal/core"
 	"omono/internal/types"
 	"os"
@@ -52,9 +51,6 @@ func LoadEnvs() *core.Engine {
 	envs[base.AdminUsername] = os.Getenv("OMEGA_BASE_ADMIN_USERNAME")
 	envs[base.AdminPassword] = os.Getenv("OMEGA_BASE_ADMIN_PASSWORD")
 	envs[base.DefaultUsersParentID] = os.Getenv("OMEGA_BASE_DEFAULT_USER_PARENT_ID")
-
-	envs[sync.CompanyID] = os.Getenv("OMEGA_SYNC_COMPANY_ID")
-	envs[sync.NodeID] = os.Getenv("OMEGA_SYNC_NODE_ID")
 
 	envs[notification.AppURL] = os.Getenv("OMEGA_NOTIFICATION_APP_URL")
 

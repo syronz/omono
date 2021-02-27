@@ -1,15 +1,15 @@
 package basmodel
 
 import (
+	"github.com/syronz/dict"
+	"github.com/syronz/limberr"
 	"omono/domain/base/message/basterm"
 	"omono/internal/consts"
 	"omono/internal/core/coract"
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
 	"omono/internal/types"
-	"github.com/syronz/dict"
 	"omono/pkg/helper"
-	"github.com/syronz/limberr"
 	"regexp"
 	"strings"
 )

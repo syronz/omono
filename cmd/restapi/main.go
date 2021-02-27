@@ -2,18 +2,17 @@ package main
 
 import (
 	"flag"
-	"github.com/syronz/dict"
 	"omono/cmd/restapi/insertdata"
 	"omono/cmd/restapi/server"
 	"omono/cmd/restapi/startoff"
 	"omono/domain/base/basmodel"
 	"omono/domain/base/basrepo"
-	"omono/domain/eaccounting/eacmodel"
-	"omono/domain/eaccounting/eacrepo"
 	"omono/domain/service"
 	"omono/internal/core"
 	"omono/internal/corstartoff"
 	"omono/pkg/glog"
+
+	"github.com/syronz/dict"
 )
 
 var cpuprofile = flag.String("cpuprofile", "", "write cpu profile to `file`")
@@ -42,15 +41,6 @@ func main() {
 	basActivityServ := service.ProvideBasActivityService(activityRepo)
 	//ActivityWatcher is use a channel for checking all activities for recording
 	go basActivityServ.ActivityWatcher()
-
-	engine.TransactionCh = make(chan eacmodel.TransactionCh, 1)
-	phoneServ := service.ProvideBasPhoneService(basrepo.ProvidePhoneRepo(engine))
-	accountServ := service.ProvideBasAccountService(basrepo.ProvideAccountRepo(engine), phoneServ)
-	currencyServ := service.ProvideEacCurrencyService(eacrepo.ProvideCurrencyRepo(engine))
-	slotServ := service.ProvideEacSlotService(eacrepo.ProvideSlotRepo(engine), currencyServ, accountServ)
-	transactionRepo := eacrepo.ProvideTransactionRepo(engine)
-	transactionServ := service.ProvideEacTransactionService(transactionRepo, slotServ)
-	go transactionServ.JournalEntryWatcher()
 
 	/*
 		//init of views

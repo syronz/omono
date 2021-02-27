@@ -1,6 +1,0 @@
-{
-  "method":"get",
-	"url":"_URL_/companies/1001/transactions?order_by=eac_transactions.id&direction=asc&page=0&page_size=10000&select=eac_transactions.id,eac_transactions.status",
-	"authorization":"Bearer _TOKEN_",
-	"payload": {}
-}

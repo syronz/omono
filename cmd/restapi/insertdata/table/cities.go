@@ -4,7 +4,6 @@ import (
 	"omono/domain/base/basmodel"
 	"omono/domain/base/basrepo"
 	"omono/domain/service"
-	"omono/domain/sync"
 	"omono/internal/core"
 	"omono/internal/types"
 	"omono/pkg/glog"
@@ -19,8 +18,8 @@ func InsertCities(engine *core.Engine) {
 		{
 			FixedCol: types.FixedCol{
 				ID:        1,
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
+				CompanyID: 1001,
+				NodeID:    101,
 			},
 			// TODO:  <23-02-21, yourname> use city in envs //
 			City:  "Sulaimaniyah",
@@ -29,8 +28,8 @@ func InsertCities(engine *core.Engine) {
 		{
 			FixedCol: types.FixedCol{
 				ID:        2,
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
+				CompanyID: 1001,
+				NodeID:    101,
 			},
 			City:  "Hawler",
 			Notes: "please delete",
@@ -38,8 +37,8 @@ func InsertCities(engine *core.Engine) {
 		{
 			FixedCol: types.FixedCol{
 				ID:        3,
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
+				CompanyID: 1001,
+				NodeID:    101,
 			},
 			City:  "Kirkuk",
 			Notes: "please delete",
@@ -47,8 +46,8 @@ func InsertCities(engine *core.Engine) {
 		{
 			FixedCol: types.FixedCol{
 				ID:        4,
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
+				CompanyID: 1001,
+				NodeID:    101,
 			},
 			City:  "Duhok",
 			Notes: "please delete",

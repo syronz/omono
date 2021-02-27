@@ -1,8 +1,0 @@
-{
-  "method":"get",
-	"url":"_URL_/companies/1001/stores?filter=loc_stores.id[gt]'7'[and]loc_stores.status[eq]'active'",
-	"url":"_URL_/companies/1001/stores?filter=loc_stores.name[like]'programmer%25'[and]loc_stores.status[eq]'active'",
-	"url":"_URL_/companies/1001/stores",
-	"authorization":"Bearer _TOKEN_",
-	"payload": {}
-}

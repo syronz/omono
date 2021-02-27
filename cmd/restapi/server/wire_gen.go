@@ -8,31 +8,13 @@ package server
 import (
 	"omono/domain/base/basapi"
 	"omono/domain/base/basrepo"
-	"omono/domain/bill/bilapi"
-	"omono/domain/bill/bilrepo"
-	"omono/domain/eaccounting/eacapi"
-	"omono/domain/eaccounting/eacrepo"
-	"omono/domain/location/locapi"
-	"omono/domain/location/locrepo"
-	"omono/domain/material/matapi"
-	"omono/domain/material/matrepo"
 	"omono/domain/notification/notapi"
 	"omono/domain/notification/notrepo"
 	"omono/domain/service"
-	"omono/domain/sync/synapi"
-	"omono/domain/sync/synrepo"
 	"omono/internal/core"
 )
 
 // Injectors from wire.go:
-
-// Sync Domain
-func initSynCompanyAPI(e *core.Engine) synapi.CompanyAPI {
-	companyRepo := synrepo.ProvideCompanyRepo(e)
-	synCompanyServ := service.ProvideSynCompanyService(companyRepo)
-	companyAPI := synapi.ProvideCompanyAPI(synCompanyServ)
-	return companyAPI
-}
 
 // Base Domain
 func initSettingAPI(e *core.Engine) basapi.SettingAPI {
@@ -96,113 +78,4 @@ func initNotMessageAPI(e *core.Engine) notapi.MessageAPI {
 	notMessageServ := service.ProvideNotMessageService(messageRepo)
 	messageAPI := notapi.ProvideMessageAPI(notMessageServ)
 	return messageAPI
-}
-
-// EAccountig Domain
-func initCurrencyAPI(e *core.Engine) eacapi.CurrencyAPI {
-	currencyRepo := eacrepo.ProvideCurrencyRepo(e)
-	eacCurrencyServ := service.ProvideEacCurrencyService(currencyRepo)
-	currencyAPI := eacapi.ProvideCurrencyAPI(eacCurrencyServ)
-	return currencyAPI
-}
-
-func initTransactionAPI(e *core.Engine, slotServ service.EacSlotServ) eacapi.TransactionAPI {
-	transactionRepo := eacrepo.ProvideTransactionRepo(e)
-	eacTransactionServ := service.ProvideEacTransactionService(transactionRepo, slotServ)
-	transactionAPI := eacapi.ProvideTransactionAPI(eacTransactionServ)
-	return transactionAPI
-}
-
-func initVoucherAPI(e *core.Engine, tempSlotServ service.EacTempSlotServ) eacapi.VoucherAPI {
-	voucherRepo := eacrepo.ProvideVoucherRepo(e)
-	eacVoucherServ := service.ProvideEacVoucherService(voucherRepo, tempSlotServ)
-	voucherAPI := eacapi.ProvideVoucherAPI(eacVoucherServ)
-	return voucherAPI
-}
-
-func initBalanceSheetAPI(e *core.Engine) eacapi.BalanceSheetAPI {
-	balanceSheetRepo := eacrepo.ProvideBalanceSheetRepo(e)
-	eacBalanceSheetServ := service.ProvideEacBalanceSheetService(balanceSheetRepo)
-	balanceSheetAPI := eacapi.ProvideBalanceSheetAPI(eacBalanceSheetServ)
-	return balanceSheetAPI
-}
-
-func initSlotAPI(e *core.Engine, currencyServ service.EacCurrencyServ, accountServ service.BasAccountServ) eacapi.SlotAPI {
-	slotRepo := eacrepo.ProvideSlotRepo(e)
-	eacSlotServ := service.ProvideEacSlotService(slotRepo, currencyServ, accountServ)
-	slotAPI := eacapi.ProvideSlotAPI(eacSlotServ)
-	return slotAPI
-}
-
-func initTempSlotAPI(e *core.Engine, currencyServ service.EacCurrencyServ, accountServ service.BasAccountServ) eacapi.TempSlotAPI {
-	tempSlotRepo := eacrepo.ProvideTempSlotRepo(e)
-	eacTempSlotServ := service.ProvideEacTempSlotService(tempSlotRepo, currencyServ, accountServ)
-	tempSlotAPI := eacapi.ProvideTempSlotAPI(eacTempSlotServ)
-	return tempSlotAPI
-}
-
-func initEacRateAPI(e *core.Engine) eacapi.RateAPI {
-	rateRepo := eacrepo.ProvideRateRepo(e)
-	eacRateServ := service.ProvideEacRateService(rateRepo)
-	rateAPI := eacapi.ProvideRateAPI(eacRateServ)
-	return rateAPI
-}
-
-// Material Domain
-func initMatCompanyAPI(e *core.Engine) matapi.CompanyAPI {
-	companyRepo := matrepo.ProvideCompanyRepo(e)
-	matCompanyServ := service.ProvideMatCompanyService(companyRepo)
-	companyAPI := matapi.ProvideCompanyAPI(matCompanyServ)
-	return companyAPI
-}
-
-func initMatColorAPI(e *core.Engine) matapi.ColorAPI {
-	colorRepo := matrepo.ProvideColorRepo(e)
-	matColorServ := service.ProvideMatColorService(colorRepo)
-	colorAPI := matapi.ProvideColorAPI(matColorServ)
-	return colorAPI
-}
-
-func initMatGroupAPI(e *core.Engine) matapi.GroupAPI {
-	groupRepo := matrepo.ProvideGroupRepo(e)
-	matGroupServ := service.ProvideMatGroupService(groupRepo)
-	groupAPI := matapi.ProvideGroupAPI(matGroupServ)
-	return groupAPI
-}
-
-func initMatUnitAPI(e *core.Engine) matapi.UnitAPI {
-	unitRepo := matrepo.ProvideUnitRepo(e)
-	matUnitServ := service.ProvideMatUnitService(unitRepo)
-	unitAPI := matapi.ProvideUnitAPI(matUnitServ)
-	return unitAPI
-}
-
-func initMatTagAPI(e *core.Engine) matapi.TagAPI {
-	tagRepo := matrepo.ProvideTagRepo(e)
-	matTagServ := service.ProvideMatTagService(tagRepo)
-	tagAPI := matapi.ProvideTagAPI(matTagServ)
-	return tagAPI
-}
-
-func initMatProductAPI(e *core.Engine) matapi.ProductAPI {
-	productRepo := matrepo.ProvideProductRepo(e)
-	matProductServ := service.ProvideMatProductService(productRepo)
-	productAPI := matapi.ProvideProductAPI(matProductServ)
-	return productAPI
-}
-
-// Location Domain
-func initLocStoreAPI(e *core.Engine) locapi.StoreAPI {
-	storeRepo := locrepo.ProvideStoreRepo(e)
-	locStoreServ := service.ProvideLocStoreService(storeRepo)
-	storeAPI := locapi.ProvideStoreAPI(locStoreServ)
-	return storeAPI
-}
-
-// Bill Domain
-func initBilInvoiceAPI(e *core.Engine) bilapi.InvoiceAPI {
-	invoiceRepo := bilrepo.ProvideInvoiceRepo(e)
-	bilInvoiceServ := service.ProvideBilInvoiceService(invoiceRepo)
-	invoiceAPI := bilapi.ProvideInvoiceAPI(bilInvoiceServ)
-	return invoiceAPI
 }
