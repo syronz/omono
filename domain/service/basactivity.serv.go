@@ -114,6 +114,7 @@ func (p *BasActivityServ) Record(c *gin.Context, ev types.Event, data ...interfa
 	glog.CheckError(err, fmt.Sprintf("Failed in saving activity for %+v", activity))
 }
 
+// FillBeforeAfter check if there is a need for entering before data or not
 func (p *BasActivityServ) FillBeforeAfter(recordType RecordType, data ...interface{}) (before, after []byte) {
 	var err error
 	if recordType == writeBefore || recordType == writeBoth {
@@ -128,6 +129,7 @@ func (p *BasActivityServ) FillBeforeAfter(recordType RecordType, data ...interfa
 	return
 }
 
+// FindRecordType is helper function for finding the best way for recording data
 func (p *BasActivityServ) FindRecordType(data ...interface{}) RecordType {
 	switch len(data) {
 	case 0:
@@ -143,6 +145,7 @@ func (p *BasActivityServ) FindRecordType(data ...interface{}) RecordType {
 	return writeBefore
 }
 
+// IsRecordSetInEnvironment check if in the env file record activated or not
 func (p *BasActivityServ) IsRecordSetInEnvironment(recordType RecordType) bool {
 	switch recordType {
 	case read:

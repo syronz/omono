@@ -1,13 +1,11 @@
 package subapi
 
 import (
-	"fmt"
 	"net/http"
 	"omono/cmd/restapi/enum/settingfields"
 	"omono/domain/base"
 	"omono/domain/base/message/basterm"
 	"omono/domain/service"
-	"omono/domain/subscriber/enum/accounttype"
 	"omono/domain/subscriber/submodel"
 	"omono/internal/core"
 	"omono/internal/core/corterm"
@@ -212,7 +210,6 @@ func (p *AccountAPI) ChartOfAccount(c *gin.Context) {
 	var err error
 
 	params.Select = "bas_accounts.id,bas_accounts.parent_id,bas_accounts.code,bas_accounts.name_ar,bas_accounts.name_en,bas_accounts.name_ku,bas_accounts.type"
-	params.PreCondition = fmt.Sprintf("bas_accounts.type != '%v'", accounttype.Customer)
 	if params.CompanyID, err = resp.GetCompanyID("E1080813"); err != nil {
 		return
 	}

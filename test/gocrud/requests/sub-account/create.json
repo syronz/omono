@@ -4,8 +4,7 @@
   "authorization":"Bearer _TOKEN_",
   "payload": {
     "name_en": "_RANDOM_NAME_",
-    "name_en": "s",
-    "type": "partner",
+    "type": "regular",
     "status": "active",
     "read_only": true,
     "code":"_RANDOM_NUMBER_",

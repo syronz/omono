@@ -150,7 +150,7 @@ func (p *BasAuthServ) TemporaryTokenHour(hour int, lang dict.Lang) (tmpKey strin
 	return
 }
 
-// Register will create a user with minumum permission
+// Register will create a user with minimum permission
 func (p *BasAuthServ) Register(user basmodel.User) (createdUser basmodel.User, err error) {
 	userServ := ProvideBasUserService(basrepo.ProvideUserRepo(p.Engine))
 

@@ -45,7 +45,6 @@ func (p *UserRepo) FindByID(fix types.FixedCol) (user basmodel.User, err error) 
 	err = p.Engine.ReadDB.Table(basmodel.UserTable).
 		Select(colsStr).
 		Joins("INNER JOIN bas_roles ON bas_roles.id = bas_users.role_id").
-		Joins("INNER JOIN bas_accounts ON bas_accounts.id = bas_users.id").
 		Where("bas_users.id = ? AND bas_users.deleted_at IS NULL", fix.ID.ToUint64()).
 		First(&user).Error
 
@@ -85,9 +84,6 @@ func (p *UserRepo) List(params param.Param) (users []basmodel.User, err error) {
 
 	err = p.Engine.ReadDB.Table(basmodel.UserTable).Select(colsStr).
 		Joins("INNER JOIN bas_roles ON bas_roles.id = bas_users.role_id").
-		Joins("INNER JOIN bas_accounts ON bas_accounts.id = bas_users.id").
-		Joins("LEFT JOIN bas_account_phones ON bas_accounts.id = bas_account_phones.account_id").
-		Joins("LEFT JOIN bas_phones ON bas_phones.id = bas_account_phones.phone_id").
 		Where(whereStr).
 		Order(params.Order).
 		Limit(params.Limit).
@@ -113,9 +109,6 @@ func (p *UserRepo) Count(params param.Param) (count int64, err error) {
 
 	err = p.Engine.ReadDB.Table(basmodel.UserTable).
 		Joins("INNER JOIN bas_roles ON bas_roles.id = bas_users.role_id").
-		Joins("INNER JOIN bas_accounts ON bas_accounts.id = bas_users.id").
-		Joins("LEFT JOIN bas_account_phones ON bas_accounts.id = bas_account_phones.account_id").
-		Joins("LEFT JOIN bas_phones ON bas_phones.id = bas_account_phones.phone_id").
 		Where(whereStr).
 		Count(&count).Error
 

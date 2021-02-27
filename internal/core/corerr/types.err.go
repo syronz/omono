@@ -6,6 +6,7 @@ import (
 	"omono/domain/base"
 )
 
+// CustomError types
 const (
 	Nil limberr.CustomError = iota
 	UnkownErr

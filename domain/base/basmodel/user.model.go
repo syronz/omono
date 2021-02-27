@@ -28,14 +28,11 @@ type User struct {
 	Lang           dict.Lang   `gorm:"type:varchar(2);default:'en'" json:"lang,omitempty"`
 	Email          string      `json:"email,omitempty"`
 	Name           string      `gorm:"<-:false" json:"name,omitempty" table:"-"`
-	NameEn         string      `gorm:"<-:false" json:"name_en,omitempty" table:"bas_accounts.name_en"`
-	NameKu         string      `gorm:"<-:false" json:"name_ku,omitempty" table:"bas_accounts.name_ku"`
-	NameAr         string      `gorm:"<-:false" json:"name_ar,omitempty" table:"bas_accounts.name_ar"`
 	Extra          interface{} `gorm:"-" json:"user_extra,omitempty" table:"-"`
 	Resources      string      `gorm:"-" json:"resources,omitempty" table:"bas_roles.resources"`
 	Role           string      `gorm:"->" json:"role,omitempty" table:"bas_roles.name as role"`
 	Phone          string      `gorm:"-" json:"phone,omitempty" table:"-"`
-	Status         types.Enum  `gorm:"<-:false;default:'active';type:enum('active','inactive')" json:"status,omitempty" table:"bas_accounts.status"`
+	Status         types.Enum  `gorm:"default:'active';type:enum('active','inactive')" json:"status,omitempty"`
 }
 
 // Validate check the type of

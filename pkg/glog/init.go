@@ -6,6 +6,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+// Init initiate the global logger
 func Init(format, output, level string, indent, file bool) {
 	serverLogParam := LogParam{
 		format:       format,
@@ -18,6 +19,7 @@ func Init(format, output, level string, indent, file bool) {
 	logger = initLog(serverLogParam)
 }
 
+// New return a pointer to initiated logger
 func New(format, output, level string, indent, file bool) *logrus.Logger {
 	serverLogParam := LogParam{
 		format:       format,

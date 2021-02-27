@@ -36,7 +36,7 @@ func ProvideAccountRepo(engine *core.Engine) AccountRepo {
 // FindByID finds the account via its id
 func (p *AccountRepo) FindByID(fix types.FixedCol) (account submodel.Account, err error) {
 	err = p.Engine.ReadDB.Table(submodel.AccountTable).
-		Where("id = ? AND bas_accounts.deleted_at is null", fix.ID.ToUint64()).
+		Where("id = ? AND sub_accounts.deleted_at is null", fix.ID.ToUint64()).
 		First(&account).Error
 
 	account.ID = fix.ID
@@ -49,7 +49,7 @@ func (p *AccountRepo) FindByID(fix types.FixedCol) (account submodel.Account, er
 func (p *AccountRepo) TxFindAccountStatus(db *gorm.DB, fix types.FixedCol) (account submodel.Account, err error) {
 	// err = db.Clauses(clause.Locking{Strength: "UPDATE"}).Table(submodel.AccountTable).
 	err = db.Table(submodel.AccountTable).
-		Where("id = ? AND bas_accounts.deleted_at is null", fix.ID.ToUint64()).
+		Where("id = ? AND sub_accounts.deleted_at is null", fix.ID.ToUint64()).
 		First(&account).Error
 
 	account.ID = fix.ID

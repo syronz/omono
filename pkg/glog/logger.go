@@ -27,6 +27,7 @@ func CheckError(err error, message string, data ...interface{}) {
 	}
 }
 
+// LogError record an error with message and veriadic parameters
 func LogError(err error, message string, data ...interface{}) {
 	if data == nil {
 		logger.WithFields(logrus.Fields{
@@ -53,14 +54,17 @@ func CheckInfo(err error, message string, data ...interface{}) {
 	}
 }
 
+// Info is information
 func Info(data ...interface{}) {
 	logger.Info(data...)
 }
 
+// Error is error
 func Error(data ...interface{}) {
 	logger.Error(data...)
 }
 
+// Fatal stop application
 func Fatal(data ...interface{}) {
 	logger.Fatal(data...)
 }

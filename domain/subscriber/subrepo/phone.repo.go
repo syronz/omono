@@ -60,8 +60,8 @@ func (p *PhoneRepo) FindAccountPhoneByID(fix types.FixedCol) (aPhone submodel.Ac
 func (p *PhoneRepo) AccountsPhones(fix types.FixedCol) (phones []submodel.Phone, err error) {
 	err = p.Engine.ReadDB.Table(submodel.AccountPhoneTable).
 		Select("*").
-		Joins("INNER JOIN bas_phones on bas_account_phones.phone_id = bas_phones.id").
-		Where("bas_account_phones.account_id = ?", fix.ID.ToUint64()).
+		Joins("INNER JOIN sub_phones on sub_account_phones.phone_id = sub_phones.id").
+		Where("sub_account_phones.account_id = ?", fix.ID.ToUint64()).
 		Find(&phones).Error
 	err = p.dbError(err, "E1061411", submodel.Phone{}, corterm.List)
 
@@ -162,7 +162,7 @@ func (p *PhoneRepo) JoinAccountPhone(db *gorm.DB, account submodel.Account,
 	return
 }
 
-// SeparateAccountPhone delete a row in bas_account_phones
+// SeparateAccountPhone delete a row in sub_account_phones
 func (p *PhoneRepo) SeparateAccountPhone(accountPhone submodel.AccountPhone) (err error) {
 	if err = p.Engine.DB.Table(submodel.AccountPhoneTable).
 		Delete(&accountPhone).Error; err != nil {

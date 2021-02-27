@@ -41,16 +41,16 @@ func (r *Response) GetRowID(idIn, code, part string) (id types.RowID, err error)
 	return
 }
 
-func (r *Response) GetFixIDs(idIn, code, part string) (id types.RowID, err error) {
-	if id, err = r.GetRowID(idIn, code, part); err != nil {
-		return
-	}
+// func (r *Response) GetFixIDs(idIn, code, part string) (id types.RowID, err error) {
+// 	if id, err = r.GetRowID(idIn, code, part); err != nil {
+// 		return
+// 	}
 
-	return
-}
+// 	return
+// }
 
 func (r *Response) GetFixedCol(idIn, code, part string) (fixedCol types.FixedCol, err error) {
-	fixedCol.ID, err = r.GetFixIDs(idIn, code, part)
+	fixedCol.ID, err = r.GetRowID(idIn, code, part)
 	return
 }
 

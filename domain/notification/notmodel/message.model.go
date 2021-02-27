@@ -15,7 +15,7 @@ const (
 type Message struct {
 	types.FixedCol `gorm:"embedded"`
 	CreatedBy      *types.RowID `json:"created_by"`
-	RecepientID    types.RowID  `json:"recepient_id"`
+	RecipientID    types.RowID  `json:"recipient_id"`
 	Hash           uint64       `gorm:"not null;unique;type:varchar(50)" json:"hash,omitempty"`
 	Title          string       `gorm:"type:varchar(200)" json:"title,omitempty"`
 	Message        string       `gorm:"not null" json:"message,omitempty"`

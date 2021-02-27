@@ -10,6 +10,7 @@ const (
 	DefaultRegisteredRole types.Setting = "default_registered_role"
 )
 
+// SettingList is used for validation
 var SettingList = []types.Setting{
 	DefaultRegisteredRole,
 }

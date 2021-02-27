@@ -5,7 +5,7 @@ import "strings"
 // Enum is used for define all types
 type Enum string
 
-// JoinEnum convert slice of enums to a string seperated by comma
+// JoinEnum convert slice of enums to a string separated by comma
 func JoinEnum(arr []Enum) string {
 	var strArr []string
 

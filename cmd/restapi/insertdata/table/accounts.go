@@ -23,53 +23,11 @@ func InsertAccounts(engine *core.Engine) {
 			FixedCol: types.FixedCol{
 				ID: 1,
 			},
-			NameEn: helper.StrPointer("Asset"),
-			NameKu: helper.StrPointer("asset"),
+			NameEn: "Test Customer",
+			NameKu: helper.StrPointer("test customer"),
 			Code:   "1",
-			Type:   accounttype.Asset,
+			Type:   accounttype.VIP,
 			Status: accountstatus.Active,
-		},
-		{
-			FixedCol: types.FixedCol{
-				ID: 2,
-			},
-			NameEn:   helper.StrPointer("Cash"),
-			NameKu:   helper.StrPointer("cash"),
-			ParentID: types.RowIDPointer(1),
-			Code:     "11",
-			Type:     accounttype.Cash,
-			Status:   accountstatus.Active,
-		},
-		{
-			FixedCol: types.FixedCol{
-				ID: 79,
-			},
-			NameEn:   helper.StrPointer("Users"),
-			NameKu:   helper.StrPointer("users"),
-			ParentID: types.RowIDPointer(1),
-			Code:     "12",
-			Type:     accounttype.User,
-			Status:   accountstatus.Active,
-		},
-		{
-			FixedCol: types.FixedCol{
-				ID: 4,
-			},
-			NameEn: helper.StrPointer("Equity"),
-			NameKu: helper.StrPointer("equity"),
-			Code:   "2",
-			Type:   accounttype.Equity,
-			Status: accountstatus.Active,
-		},
-		{
-			FixedCol: types.FixedCol{
-				ID: 5,
-			},
-			NameEn:   helper.StrPointer("Capital"),
-			ParentID: types.RowIDPointer(4),
-			Code:     "21",
-			Type:     accounttype.Capital,
-			Status:   accountstatus.Active,
 		},
 	}
 

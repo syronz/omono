@@ -62,7 +62,7 @@ func TestPhoneCreate(test *testing.T) {
 				Notes:     "This phone number has been created",
 				AccountID: 1,
 			},
-			err: errors.New("this phone has lenght more than 8 digits"),
+			err: errors.New("this phone has length more than 8 digits"),
 		},
 
 		{

@@ -189,7 +189,7 @@ func TestUserUpdate(test *testing.T) {
 
 //Test for delete
 //notice for deletion we just take the fixed columns
-//the service/user.Delete() func only accpets the fixed columnss
+//the service/user.Delete() func only accepts the fixed columnss
 func TestUserDelete(test *testing.T) {
 	//the engine is skipped
 	_, userService := initUserTest()

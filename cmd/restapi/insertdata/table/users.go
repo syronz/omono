@@ -4,6 +4,7 @@ import (
 	"omono/domain/base"
 	"omono/domain/base/basmodel"
 	"omono/domain/base/basrepo"
+	"omono/domain/base/enum/userstatus"
 	"omono/domain/service"
 	"omono/internal/core"
 	"omono/internal/types"
@@ -28,6 +29,7 @@ func InsertUsers(engine *core.Engine) {
 			Username: engine.Envs[base.AdminUsername],
 			Password: engine.Envs[base.AdminPassword],
 			Lang:     dict.Ku,
+			Status:   userstatus.Active,
 		},
 		// {
 		// 	FixedCol: types.FixedCol{

@@ -22,8 +22,7 @@ type Account struct {
 	types.FixedCol
 	ParentID  *types.RowID `json:"parent_id"`
 	Code      string       `gorm:"unique" json:"code"`
-	NameEn    *string      `gorm:"unique" json:"name_en,omitempty"`
-	NameAr    *string      `gorm:"unique" json:"name_ar,omitempty" `
+	NameEn    string       `gorm:"unique" json:"name_en,omitempty"`
 	NameKu    *string      `gorm:"unique" json:"name_ku,omitempty" `
 	Type      types.Enum   `json:"type,omitempty"`
 	Status    types.Enum   `gorm:"default:'active';type:enum('active','inactive')" json:"status,omitempty"`

@@ -41,6 +41,7 @@ func (p *NotMessageServ) FindByID(fix types.FixedCol) (message notmodel.Message,
 	return
 }
 
+// FindByHash is a safe way for view the notification
 func (p *NotMessageServ) FindByHash(hash uint64) (message notmodel.Message, err error) {
 	params := param.New()
 	params.PreCondition = fmt.Sprintf("not_messages.hash = %v", hash)

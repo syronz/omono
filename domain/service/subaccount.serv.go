@@ -169,13 +169,8 @@ func (p *SubAccountServ) Delete(fix types.FixedCol) (account submodel.Account, e
 
 	//check if account is only read-only
 	if account.ReadOnly {
-		//this temp variable will be given to the name of account if exists in english
-		var tmp string
-		if account.NameEn != nil {
-			tmp = *account.NameEn
-		}
 		err = limberr.New("account has a child", "E1082665").
-			Message(corerr.VHasChildThereforeNotDeleted, tmp).
+			Message(corerr.VHasChildThereforeNotDeleted, account.NameEn).
 			Custom(corerr.ForeignErr).Build()
 		return
 	}
@@ -239,9 +234,7 @@ func treeChartOfAccounts(accounts []submodel.Account) (root submodel.Tree) {
 		arr[i].ID = v.ID
 		arr[i].ParentID = v.ParentID
 		arr[i].Code = v.Code
-		if v.NameEn != nil {
-			arr[i].Name = *v.NameEn
-		}
+		arr[i].Name = v.NameEn
 		arr[i].Type = v.Type
 	}
 

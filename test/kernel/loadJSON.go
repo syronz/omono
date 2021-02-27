@@ -12,6 +12,7 @@ import (
 	"runtime"
 )
 
+// TestEnvs is used for testing, it load tdd.json
 type TestEnvs struct {
 	Core struct {
 		Port                 string `json:"port"`
