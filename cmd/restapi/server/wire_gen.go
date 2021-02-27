@@ -53,16 +53,16 @@ func initActivityAPI(engine *core.Engine) basapi.ActivityAPI {
 	return activityAPI
 }
 
-func initAccountAPI(e *core.Engine, phoneServ service.BasPhoneServ) subapi.AccountAPI {
+func initAccountAPI(e *core.Engine, phoneServ service.SubPhoneServ) subapi.AccountAPI {
 	accountRepo := subrepo.ProvideAccountRepo(e)
-	subAccountServ := service.ProvideBasAccountService(accountRepo, phoneServ)
+	subAccountServ := service.ProvideSubAccountService(accountRepo, phoneServ)
 	accountAPI := subapi.ProvideAccountAPI(subAccountServ)
 	return accountAPI
 }
 
 func initBasPhoneAPI(e *core.Engine) subapi.PhoneAPI {
 	phoneRepo := subrepo.ProvidePhoneRepo(e)
-	subPhoneServ := service.ProvideBasPhoneService(phoneRepo)
+	subPhoneServ := service.ProvideSubPhoneService(phoneRepo)
 	phoneAPI := subapi.ProvidePhoneAPI(subPhoneServ)
 	return phoneAPI
 }

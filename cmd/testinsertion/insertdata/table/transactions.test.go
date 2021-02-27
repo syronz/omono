@@ -18,7 +18,7 @@ import (
 func InsertTransactions(engine *core.Engine) {
 	phoneServ := service.ProvideBasPhoneService(basrepo.ProvidePhoneRepo(engine))
 	accountRepo := basrepo.ProvideAccountRepo(engine)
-	accountService := service.ProvideBasAccountService(accountRepo, phoneServ)
+	accountService := service.ProvideSubAccountService(accountRepo, phoneServ)
 
 	currencyRepo := eacrepo.ProvideCurrencyRepo(engine)
 	currencyService := service.ProvideEacCurrencyService(currencyRepo)
@@ -102,7 +102,7 @@ func InsertTransactions(engine *core.Engine) {
 func InsertJournals(engine *core.Engine) {
 	phoneServ := service.ProvideBasPhoneService(basrepo.ProvidePhoneRepo(engine))
 	accountRepo := basrepo.ProvideAccountRepo(engine)
-	accountService := service.ProvideBasAccountService(accountRepo, phoneServ)
+	accountService := service.ProvideSubAccountService(accountRepo, phoneServ)
 
 	currencyRepo := eacrepo.ProvideCurrencyRepo(engine)
 	currencyService := service.ProvideEacCurrencyService(currencyRepo)

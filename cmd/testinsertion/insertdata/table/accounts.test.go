@@ -18,7 +18,7 @@ import (
 func InsertAccounts(engine *core.Engine) {
 	phoneServ := service.ProvideBasPhoneService(basrepo.ProvidePhoneRepo(engine))
 	accountRepo := basrepo.ProvideAccountRepo(engine)
-	accountService := service.ProvideBasAccountService(accountRepo, phoneServ)
+	accountService := service.ProvideSubAccountService(accountRepo, phoneServ)
 
 	// reset the accounts table
 	// reset in the roles.test.go

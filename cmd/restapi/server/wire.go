@@ -43,7 +43,7 @@ func initActivityAPI(engine *core.Engine) basapi.ActivityAPI {
 }
 
 func initAccountAPI(e *core.Engine, phoneServ service.BasPhoneServ) basapi.AccountAPI {
-	wire.Build(basrepo.ProvideAccountRepo, service.ProvideBasAccountService,
+	wire.Build(basrepo.ProvideAccountRepo, service.ProvideSubAccountService,
 		basapi.ProvideAccountAPI)
 	return basapi.AccountAPI{}
 }

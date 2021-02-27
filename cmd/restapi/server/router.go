@@ -65,40 +65,6 @@ func Route(rg gin.RouterGroup, engine *core.Engine) {
 	rg.GET("/excel/companies/:companyID/roles",
 		access.Check(base.RoleExcel), basRoleAPI.Excel)
 
-	rg.GET("/companies/:companyID/accounts",
-		access.Check(base.AccountRead), basAccountAPI.List)
-	rg.GET("/companies/:companyID/nodes/:nodeID/accounts/:accountID",
-		access.Check(base.AccountRead), basAccountAPI.FindByID)
-	rg.POST("/companies/:companyID/accounts",
-		access.Check(base.AccountWrite), basAccountAPI.Create)
-	rg.PUT("/companies/:companyID/nodes/:nodeID/accounts/:accountID",
-		access.Check(base.AccountWrite), basAccountAPI.Update)
-	rg.DELETE("/companies/:companyID/nodes/:nodeID/accounts/:accountID",
-		access.Check(base.AccountWrite), basAccountAPI.Delete)
-	rg.GET("/excel/companies/:companyID/accounts",
-		access.Check(base.AccountExcel), basAccountAPI.Excel)
-	rg.GET("/companies/:companyID/charts/accounts",
-		access.Check(base.AccountRead), basAccountAPI.ChartOfAccount)
-	rg.GET("/companies/:companyID/cash/account",
-		access.Check(base.AccountRead), basAccountAPI.GetCashAccount)
-	rg.GET("/companies/:companyID/accounts/leafs",
-		access.Check(base.AccountRead), basAccountAPI.SearchLeafs)
-
-	rg.GET("/phones",
-		access.Check(base.SuperAccess), basPhoneAPI.List)
-	rg.GET("/phones/:phoneID",
-		access.Check(base.PhoneRead), basPhoneAPI.FindByID)
-	rg.POST("/companies/:companyID/phones",
-		access.Check(base.PhoneWrite), basPhoneAPI.Create)
-	rg.PUT("/phones/:phoneID",
-		access.Check(base.SuperAccess), basPhoneAPI.Update)
-	rg.DELETE("/phones/:phoneID",
-		access.Check(base.PhoneWrite), basPhoneAPI.Delete)
-	rg.GET("/excel/companies/:companyID/phones",
-		access.Check(base.PhoneExcel), basPhoneAPI.Excel)
-	rg.DELETE("/companies/:companyID/nodes/:nodeID/separate/:accountPhoneID",
-		access.Check(base.PhoneWrite), basPhoneAPI.Separate)
-
 	rg.GET("/username/:username",
 		access.Check(base.UserRead), basUserAPI.FindByUsername)
 	rg.GET("/companies/:companyID/users",
@@ -148,5 +114,40 @@ func Route(rg gin.RouterGroup, engine *core.Engine) {
 		access.Check(notification.MessageWrite), notMessageAPI.Delete)
 	rg.GET("/excel/companies/:companyID/messages",
 		access.Check(notification.MessageExcel), notMessageAPI.Excel)
+
+	// Subscriber Domain
+	rg.GET("/companies/:companyID/accounts",
+		access.Check(base.AccountRead), basAccountAPI.List)
+	rg.GET("/companies/:companyID/nodes/:nodeID/accounts/:accountID",
+		access.Check(base.AccountRead), basAccountAPI.FindByID)
+	rg.POST("/companies/:companyID/accounts",
+		access.Check(base.AccountWrite), basAccountAPI.Create)
+	rg.PUT("/companies/:companyID/nodes/:nodeID/accounts/:accountID",
+		access.Check(base.AccountWrite), basAccountAPI.Update)
+	rg.DELETE("/companies/:companyID/nodes/:nodeID/accounts/:accountID",
+		access.Check(base.AccountWrite), basAccountAPI.Delete)
+	rg.GET("/excel/companies/:companyID/accounts",
+		access.Check(base.AccountExcel), basAccountAPI.Excel)
+	rg.GET("/companies/:companyID/charts/accounts",
+		access.Check(base.AccountRead), basAccountAPI.ChartOfAccount)
+	rg.GET("/companies/:companyID/cash/account",
+		access.Check(base.AccountRead), basAccountAPI.GetCashAccount)
+	rg.GET("/companies/:companyID/accounts/leafs",
+		access.Check(base.AccountRead), basAccountAPI.SearchLeafs)
+
+	rg.GET("/phones",
+		access.Check(base.SuperAccess), basPhoneAPI.List)
+	rg.GET("/phones/:phoneID",
+		access.Check(base.PhoneRead), basPhoneAPI.FindByID)
+	rg.POST("/companies/:companyID/phones",
+		access.Check(base.PhoneWrite), basPhoneAPI.Create)
+	rg.PUT("/phones/:phoneID",
+		access.Check(base.SuperAccess), basPhoneAPI.Update)
+	rg.DELETE("/phones/:phoneID",
+		access.Check(base.PhoneWrite), basPhoneAPI.Delete)
+	rg.GET("/excel/companies/:companyID/phones",
+		access.Check(base.PhoneExcel), basPhoneAPI.Excel)
+	rg.DELETE("/companies/:companyID/nodes/:nodeID/separate/:accountPhoneID",
+		access.Check(base.PhoneWrite), basPhoneAPI.Separate)
 
 }

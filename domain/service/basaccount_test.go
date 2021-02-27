@@ -16,12 +16,12 @@ import (
 	"testing"
 )
 
-func initAccountTest() (engine *core.Engine, accountServ BasAccountServ) {
+func initAccountTest() (engine *core.Engine, accountServ SubAccountServ) {
 	logQuery, debugLevel := initServiceTest()
 	engine = kernel.StartMotor(logQuery, debugLevel)
 
 	phoneServ := ProvideBasPhoneService(basrepo.ProvidePhoneRepo(engine))
-	accountServ = ProvideBasAccountService(basrepo.ProvideAccountRepo(engine), phoneServ)
+	accountServ = ProvideSubAccountService(basrepo.ProvideAccountRepo(engine), phoneServ)
 
 	return
 }

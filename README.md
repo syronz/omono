@@ -1,4 +1,4 @@
-# OMEGA
+# OMONO
 
 [![BuildStatus](https://api.travis-ci.org/syronz/omono.svg?branch=master)](http://travis-ci.org/syronz/omono) 
 [![ReportCard](https://goreportcard.com/badge/github.com/syronz/omono)](https://goreportcard.com/report/github.com/syronz/omono) 
@@ -12,13 +12,14 @@
 [![GoDoc](https://godoc.org/github.com/syronz/omono?status.png)](https://godoc.org/github.com/syronz/omono)
 [![MIT license](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
+refactoring omega for a monolith project
 
 ## Run
 in the main directory
 
 ```bash
-source config/envs.sample
-reflex -r '\.go' -s -- sh -c 'go run cmd/omono/main.go'
+source cmd/restapi/restapi.sample.env
+reflex -r '\.go' -s -- sh -c 'go run cmd/restapi/main.go'
 ```
 
 ## Logrus levels
@@ -39,44 +40,7 @@ run mysql
 docker run --rm --name db-mysql -d -v mysql-data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=Qaz1@345 -e TZ='Asia/Baghdad' -p 3306:3306 mysql
 ```
 
-#TODO
-- [ ] implement refresh token
-- [ ] apilogger after a while should be zipped and new file created
-- [ ] find a way to prevent creating name, role, status and code in migration for bas_users
-
-# Requesed RMS part
-1. inventory import should lock the price for agent
-2. transfer should be like bellow:
-
-  location a => location b
-
-  item | QTY | Price | Total
-
-  -----|-----|-------|-------
-
-  item1| 32  | 30000 | 960000
-
-3. expiration date on direct-recharge invoice
-4. bulk direct recharge
-5. finance report: separate direct recharge
-6.
-7. notification or approve management for return items
-8. unique serial for serial base items
-9. special process for updating the phone
-10. enable static ip
-
 ## sed command for mass update
 ```
 for i in $(grep -rl gorm);do sed -i 's/github.com\/jinzhu/gorm.io/' $i ;done
-```
-
-#questions?
-1. I decide to don't let code column for account be null, what is the point of null for code in
-   bas_accounts table?
-
-## New error in service layer
-```
-		err = limberr.New("user_id not exist in the token", "E1058403").
-			Message(corerr.VNotExist, "user_id").
-			Custom(corerr.ForbiddenErr).Build()
 ```
