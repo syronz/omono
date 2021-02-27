@@ -14,6 +14,7 @@ require (
 	github.com/syronz/limberr v0.0.0-20210226101700-af3e32bbc600
 	github.com/syronz/numberprinter v0.0.0-20210127054559-96d6fdd5180a
 	golang.org/x/crypto v0.0.0-20210220033148-5ea612d1eb83
+	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
 	gorm.io/driver/mysql v1.0.4
 	gorm.io/gorm v1.20.12
 )

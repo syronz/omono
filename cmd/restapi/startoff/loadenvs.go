@@ -40,7 +40,7 @@ func LoadEnvs() *core.Engine {
 	envs[core.ErrPanel] = os.Getenv("OMONO_CORE_ERR_PANEL")
 	envs[core.OriginalError] = os.Getenv("OMONO_CORE_ORIGINAL_ERROR")
 	envs[core.GinMode] = os.Getenv("GIN_MODE")
-	envs[core.Url] = os.Getenv("OMONO_CORE_URL")
+	envs[core.URL] = os.Getenv("OMONO_CORE_URL")
 
 	envs[base.PasswordSalt] = os.Getenv("OMONO_BASE_PASSWORD_SALT")
 	envs[base.JWTSecretKey] = os.Getenv("OMONO_BASE_JWT_SECRET_KEY")

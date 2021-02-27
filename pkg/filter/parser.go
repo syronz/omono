@@ -3,9 +3,10 @@ package filter
 import (
 	"fmt"
 	"omono/pkg/helper"
-	"github.com/syronz/limberr"
 	"regexp"
 	"strings"
+
+	"github.com/syronz/limberr"
 )
 
 //Parser will break the filter into the sub-query

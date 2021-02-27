@@ -16,12 +16,12 @@ type ConfigEmail struct {
 	Password string
 }
 
-// EmailConfig initiate the functionality
-func EmailConfig() *ConfigEmail {
+// Config initiate the functionality
+func Config() *ConfigEmail {
 	return &ConfigEmail{}
 }
 
-// Send email with body and attachment
+// SendEmail email with body and attachment
 func (c *ConfigEmail) SendEmail(subject, title, attachment string, body interface{}) {
 	m := gomail.NewMessage()
 	m.SetHeader("From", c.From)

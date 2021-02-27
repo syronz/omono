@@ -2,6 +2,7 @@ package core
 
 import "omono/internal/types"
 
+// list of core environment keys
 const (
 	Port                 types.Envkey = "CORE_PORT"
 	Addr                 types.Envkey = "CORE_ADDR"
@@ -28,5 +29,5 @@ const (
 	ErrPanel             types.Envkey = "ERR_PANEL"
 	OriginalError        types.Envkey = "ORIGINAL_ERROR"
 	GinMode              types.Envkey = "GIN_MODE"
-	Url                  types.Envkey = "URL"
+	URL                  types.Envkey = "URL"
 )

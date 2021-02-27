@@ -1,12 +1,12 @@
 package basmodel
 
 import (
+	"github.com/syronz/dict"
+	"github.com/syronz/limberr"
 	"omono/internal/core/coract"
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
 	"omono/internal/types"
-	"github.com/syronz/dict"
-	"github.com/syronz/limberr"
 )
 
 // SettingTable is used inside the repo layer for specify the table name
