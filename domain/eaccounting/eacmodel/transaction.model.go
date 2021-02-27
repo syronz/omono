@@ -2,6 +2,7 @@ package eacmodel
 
 import (
 	"errors"
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
 	"omono/domain/eaccounting/eacterm"
 	"omono/domain/eaccounting/enum/transactionstatus"
@@ -11,7 +12,6 @@ import (
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
 	"omono/internal/types"
-	"omono/pkg/dict"
 	"omono/pkg/helper"
 	"time"
 )

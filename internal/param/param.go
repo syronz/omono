@@ -2,9 +2,9 @@ package param
 
 import (
 	"fmt"
+	"github.com/syronz/dict"
 	"omono/internal/consts"
 	"omono/internal/types"
-	"omono/pkg/dict"
 )
 
 // Param for describing request's parameter

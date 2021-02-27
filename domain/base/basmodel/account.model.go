@@ -1,13 +1,13 @@
 package basmodel
 
 import (
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
 	"omono/domain/base/enum/accounttype"
 	"omono/internal/core/coract"
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
 	"omono/internal/types"
-	"omono/pkg/dict"
 	"omono/pkg/helper"
 )
 

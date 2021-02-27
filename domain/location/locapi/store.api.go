@@ -1,6 +1,7 @@
 package locapi
 
 import (
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
 	"net/http"
 	"omono/domain/base/message/basterm"
@@ -13,7 +14,6 @@ import (
 	"omono/internal/core/corterm"
 	"omono/internal/response"
 	"omono/internal/types"
-	"omono/pkg/dict"
 	"omono/pkg/excel"
 
 	"github.com/gin-gonic/gin"

@@ -10,7 +10,7 @@ import (
 	"omono/internal/core/validator"
 	"omono/internal/param"
 	"omono/internal/types"
-	"omono/pkg/dict"
+	"github.com/syronz/dict"
 	"omono/pkg/helper"
 	"reflect"
 

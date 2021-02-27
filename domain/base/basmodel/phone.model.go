@@ -1,13 +1,13 @@
 package basmodel
 
 import (
+	"github.com/syronz/dict"
+	"github.com/syronz/limberr"
 	"omono/domain/base/message/basterm"
 	"omono/internal/core/coract"
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
 	"omono/internal/types"
-	"omono/pkg/dict"
-	"github.com/syronz/limberr"
 )
 
 // PhoneTable is used inside the repo layer

@@ -1,12 +1,12 @@
 package basmodel
 
 import (
+	"github.com/syronz/dict"
+	"github.com/syronz/limberr"
 	"omono/internal/core/coract"
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
 	"omono/internal/types"
-	"omono/pkg/dict"
-	"github.com/syronz/limberr"
 )
 
 // RoleTable is a global instance for working with role

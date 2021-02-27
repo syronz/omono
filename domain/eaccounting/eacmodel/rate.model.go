@@ -1,13 +1,13 @@
 package eacmodel
 
 import (
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
 	"omono/domain/eaccounting/eacterm"
 	"omono/internal/core/coract"
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
 	"omono/internal/types"
-	"omono/pkg/dict"
 )
 
 // RateTable is a global instance for working with rate

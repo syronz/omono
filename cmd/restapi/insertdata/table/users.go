@@ -1,6 +1,7 @@
 package table
 
 import (
+	"github.com/syronz/dict"
 	"omono/domain/base"
 	"omono/domain/base/basmodel"
 	"omono/domain/base/basrepo"
@@ -8,7 +9,6 @@ import (
 	"omono/domain/sync"
 	"omono/internal/core"
 	"omono/internal/types"
-	"omono/pkg/dict"
 	"omono/pkg/glog"
 )
 
@@ -21,6 +21,7 @@ func InsertUsers(engine *core.Engine) {
 	users := []basmodel.User{
 		{
 			FixedCol: types.FixedCol{
+				ID:        79,
 				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
 				NodeID:    engine.Envs.ToUint64(sync.NodeID),
 			},
@@ -31,35 +32,35 @@ func InsertUsers(engine *core.Engine) {
 			Password: engine.Envs[base.AdminPassword],
 			Lang:     dict.Ku,
 		},
-		{
-			FixedCol: types.FixedCol{
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
-			},
-			RoleID:   2,
-			Code:     "112002",
-			Name:     "cashier",
-			Username: "cashier",
-			Password: "cashier2020",
-			Lang:     dict.En,
-		},
-		{
-			FixedCol: types.FixedCol{
-				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
-				NodeID:    engine.Envs.ToUint64(sync.NodeID),
-			},
-			RoleID:   3,
-			Code:     "112003",
-			Name:     "reader",
-			Username: "reader",
-			Password: "reader2020",
-			Lang:     dict.Ar,
-		},
+		// {
+		// 	FixedCol: types.FixedCol{
+		// 		CompanyID: engine.Envs.ToUint64(sync.CompanyID),
+		// 		NodeID:    engine.Envs.ToUint64(sync.NodeID),
+		// 	},
+		// 	RoleID:   2,
+		// 	Code:     "112002",
+		// 	Name:     "cashier",
+		// 	Username: "cashier",
+		// 	Password: "cashier2020",
+		// 	Lang:     dict.En,
+		// },
+		// {
+		// 	FixedCol: types.FixedCol{
+		// 		CompanyID: engine.Envs.ToUint64(sync.CompanyID),
+		// 		NodeID:    engine.Envs.ToUint64(sync.NodeID),
+		// 	},
+		// 	RoleID:   3,
+		// 	Code:     "112003",
+		// 	Name:     "reader",
+		// 	Username: "reader",
+		// 	Password: "reader2020",
+		// 	Lang:     dict.Ar,
+		// },
 	}
 
 	for _, v := range users {
-		if _, err := userService.Create(v); err != nil {
-			glog.Error("error in saving users", err)
+		if _, err := userService.Save(v); err != nil {
+			glog.Fatal("error in saving users", err)
 		}
 	}
 

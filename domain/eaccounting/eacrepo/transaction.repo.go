@@ -2,6 +2,7 @@ package eacrepo
 
 import (
 	"errors"
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
 	"omono/domain/base/message/basterm"
 	"omono/domain/eaccounting/eacmodel"
@@ -12,7 +13,6 @@ import (
 	"omono/internal/core/validator"
 	"omono/internal/param"
 	"omono/internal/types"
-	"omono/pkg/dict"
 	"omono/pkg/helper"
 	"reflect"
 	"time"

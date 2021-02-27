@@ -3,6 +3,7 @@ package service
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/syronz/dict"
 	"omono/domain/base/basmodel"
 	"omono/domain/base/basrepo"
 	"omono/domain/base/enum/accountstatus"
@@ -10,7 +11,6 @@ import (
 	"omono/internal/core"
 	"omono/internal/param"
 	"omono/internal/types"
-	"omono/pkg/dict"
 	"omono/pkg/helper"
 	"omono/test/kernel"
 	"testing"

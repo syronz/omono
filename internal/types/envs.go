@@ -1,7 +1,7 @@
 package types
 
 import (
-	"omono/pkg/dict"
+	"github.com/syronz/dict"
 	"strconv"
 	"strings"
 	"time"

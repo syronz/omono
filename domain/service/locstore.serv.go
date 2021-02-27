@@ -2,6 +2,7 @@ package service
 
 import (
 	"fmt"
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
 	"omono/domain/base/basmodel"
 	"omono/domain/location"
@@ -14,7 +15,6 @@ import (
 	"omono/internal/core/corerr"
 	"omono/internal/param"
 	"omono/internal/types"
-	"omono/pkg/dict"
 	"omono/pkg/glog"
 )
 

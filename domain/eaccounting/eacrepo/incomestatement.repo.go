@@ -1,6 +1,7 @@
 package eacrepo
 
 import (
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
 	"omono/domain/base/message/basterm"
 	"omono/domain/eaccounting/eacmodel"
@@ -9,7 +10,6 @@ import (
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
 	"omono/internal/param"
-	"omono/pkg/dict"
 )
 
 // IncomeStatementRepo for injecting engine

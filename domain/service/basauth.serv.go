@@ -1,6 +1,7 @@
 package service
 
 import (
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
 	"omono/domain/base"
 	"omono/domain/base/basmodel"
@@ -12,7 +13,6 @@ import (
 	"omono/internal/core/corerr"
 	"omono/internal/param"
 	"omono/internal/types"
-	"omono/pkg/dict"
 	"omono/pkg/glog"
 	"omono/pkg/password"
 	"time"

@@ -2,6 +2,7 @@ package service
 
 import (
 	"fmt"
+	"github.com/syronz/dict"
 	"omono/cmd/restapi/enum/settingfields"
 	"omono/domain/base"
 	"omono/domain/base/basmodel"
@@ -16,7 +17,6 @@ import (
 	"omono/internal/core/corerr"
 	"omono/internal/param"
 	"omono/internal/types"
-	"omono/pkg/dict"
 	"omono/pkg/glog"
 
 	"gorm.io/gorm"

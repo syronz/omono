@@ -1,6 +1,7 @@
 package table
 
 import (
+	"github.com/syronz/dict"
 	"omono/domain/base/basmodel"
 	"omono/domain/base/basrepo"
 	"omono/domain/base/enum/accountstatus"
@@ -11,7 +12,6 @@ import (
 	"omono/domain/sync"
 	"omono/internal/core"
 	"omono/internal/types"
-	"omono/pkg/dict"
 	"omono/pkg/glog"
 	"omono/pkg/helper"
 )
@@ -50,7 +50,7 @@ func InsertAccounts(engine *core.Engine) {
 		},
 		{
 			FixedNode: types.FixedNode{
-				ID:        3,
+				ID:        79,
 				CompanyID: engine.Envs.ToUint64(sync.CompanyID),
 				NodeID:    engine.Envs.ToUint64(sync.NodeID),
 			},

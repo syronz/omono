@@ -1,6 +1,7 @@
 package matrepo
 
 import (
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
 	"omono/domain/material/matmodel"
 	"omono/domain/material/matterm"
@@ -10,7 +11,6 @@ import (
 	"omono/internal/core/validator"
 	"omono/internal/param"
 	"omono/internal/types"
-	"omono/pkg/dict"
 	"omono/pkg/helper"
 	"reflect"
 )

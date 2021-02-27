@@ -1,8 +1,8 @@
 package corerr
 
 import (
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
-	"omono/pkg/dict"
 )
 
 // RecordNotFoundHelper reduce the code size in case of NotFoundErr happened

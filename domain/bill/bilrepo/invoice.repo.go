@@ -2,6 +2,7 @@ package bilrepo
 
 import (
 	"errors"
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
 	"omono/domain/bill/bilmodel"
 	"omono/domain/bill/bilterm"
@@ -11,7 +12,6 @@ import (
 	"omono/internal/core/validator"
 	"omono/internal/param"
 	"omono/internal/types"
-	"omono/pkg/dict"
 	"omono/pkg/helper"
 	"reflect"
 

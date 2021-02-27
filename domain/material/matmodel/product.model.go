@@ -1,6 +1,7 @@
 package matmodel
 
 import (
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
 	"omono/domain/material/enum/productstatus"
 	"omono/domain/material/enum/producttype"
@@ -9,7 +10,6 @@ import (
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
 	"omono/internal/types"
-	"omono/pkg/dict"
 	"omono/pkg/helper"
 )
 

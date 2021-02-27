@@ -1,11 +1,11 @@
 package response
 
 import (
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
 	"omono/internal/types"
-	"omono/pkg/dict"
 	"strconv"
 )
 

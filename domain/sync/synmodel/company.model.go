@@ -1,6 +1,7 @@
 package synmodel
 
 import (
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
 	"omono/domain/sync/enum/companytype"
 	"omono/domain/sync/synterm"
@@ -8,7 +9,6 @@ import (
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
 	"omono/internal/types"
-	"omono/pkg/dict"
 	"omono/pkg/helper"
 	"time"
 )

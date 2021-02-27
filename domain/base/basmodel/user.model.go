@@ -7,7 +7,7 @@ import (
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
 	"omono/internal/types"
-	"omono/pkg/dict"
+	"github.com/syronz/dict"
 	"omono/pkg/helper"
 	"github.com/syronz/limberr"
 	"regexp"

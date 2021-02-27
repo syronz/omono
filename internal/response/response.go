@@ -3,11 +3,11 @@ package response
 import (
 	"errors"
 	"fmt"
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
 	"omono/internal/core"
 	"omono/internal/core/corerr"
 	"omono/internal/param"
-	"omono/pkg/dict"
 
 	"github.com/gin-gonic/gin"
 )

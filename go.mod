@@ -9,6 +9,7 @@ require (
 	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-gonic/gin v1.6.3
 	github.com/sirupsen/logrus v1.8.0
+	github.com/syronz/dict v1.1.0
 	github.com/syronz/goAES v0.3.0
 	github.com/syronz/limberr v0.0.0-20210226101700-af3e32bbc600
 	github.com/syronz/numberprinter v0.0.0-20210127054559-96d6fdd5180a

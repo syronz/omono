@@ -5,7 +5,7 @@ import (
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
 	"omono/internal/types"
-	"omono/pkg/dict"
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
 )
 

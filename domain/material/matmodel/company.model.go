@@ -4,12 +4,12 @@ Deprecated should be delete after database goes to version 16
 package matmodel
 
 import (
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
 	"omono/internal/core/coract"
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
 	"omono/internal/types"
-	"omono/pkg/dict"
 )
 
 // CompanyTable is a global instance for working with company

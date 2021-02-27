@@ -1,13 +1,13 @@
 package bilrepo
 
 import (
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
 	"omono/domain/bill/bilmodel"
 	"omono/domain/bill/bilterm"
 	"omono/internal/core"
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
-	"omono/pkg/dict"
 	"omono/pkg/helper"
 	"reflect"
 

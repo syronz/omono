@@ -1,6 +1,7 @@
 package notrepo
 
 import (
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
 	"omono/domain/base/message/basterm"
 	"omono/domain/notification/notmodel"
@@ -10,7 +11,6 @@ import (
 	"omono/internal/core/validator"
 	"omono/internal/param"
 	"omono/internal/types"
-	"omono/pkg/dict"
 	"omono/pkg/helper"
 	"reflect"
 )

@@ -2,7 +2,7 @@ package core
 
 import (
 	"fmt"
-	"omono/pkg/dict"
+	"github.com/syronz/dict"
 )
 
 // FieldError is a type of error for demonstrate binding problem

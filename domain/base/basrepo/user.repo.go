@@ -3,6 +3,7 @@ package basrepo
 import (
 	// "github.com/cockroachdb/errors"
 
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
 	"omono/domain/base/basmodel"
 	"omono/domain/base/message/basterm"
@@ -12,7 +13,6 @@ import (
 	"omono/internal/core/validator"
 	"omono/internal/param"
 	"omono/internal/types"
-	"omono/pkg/dict"
 	"omono/pkg/helper"
 	"reflect"
 	"time"

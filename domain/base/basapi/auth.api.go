@@ -1,6 +1,7 @@
 package basapi
 
 import (
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
 	"net/http"
 	"omono/domain/base"
@@ -12,7 +13,6 @@ import (
 	"omono/internal/core/corterm"
 	"omono/internal/param"
 	"omono/internal/response"
-	"omono/pkg/dict"
 	"omono/pkg/helper"
 	"strconv"
 

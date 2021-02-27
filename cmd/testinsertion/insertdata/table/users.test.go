@@ -1,13 +1,13 @@
 package table
 
 import (
+	"github.com/syronz/dict"
 	"omono/domain/base"
 	"omono/domain/base/basmodel"
 	"omono/domain/base/basrepo"
 	"omono/domain/service"
 	"omono/internal/core"
 	"omono/internal/types"
-	"omono/pkg/dict"
 	"omono/pkg/glog"
 )
 

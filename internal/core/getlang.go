@@ -1,7 +1,7 @@
 package core
 
 import (
-	"omono/pkg/dict"
+	"github.com/syronz/dict"
 
 	"github.com/gin-gonic/gin"
 )

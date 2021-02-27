@@ -2,6 +2,7 @@ package service
 
 import (
 	"fmt"
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
 	"omono/domain/bill"
 	"omono/domain/bill/bilmodel"
@@ -22,7 +23,6 @@ import (
 	"omono/internal/core/corerr"
 	"omono/internal/param"
 	"omono/internal/types"
-	"omono/pkg/dict"
 	"omono/pkg/glog"
 	"strings"
 	"time"

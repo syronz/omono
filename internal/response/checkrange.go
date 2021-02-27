@@ -2,13 +2,13 @@ package response
 
 import (
 	"fmt"
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
 	"omono/domain/service"
 	"omono/internal/consts"
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
 	"omono/internal/types"
-	"omono/pkg/dict"
 )
 
 // CheckRange will checks the range for companyID and nodeID

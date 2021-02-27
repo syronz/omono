@@ -12,7 +12,7 @@ func Insert(engine *core.Engine) {
 		table.InsertCities(engine)
 		table.InsertCompanys(engine)
 		table.InsertRoles(engine)
-		//table.InsertAccounts(engine)
+		table.InsertAccounts(engine)
 
 		table.InsertUsers(engine)
 		table.InsertSettings(engine)

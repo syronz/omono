@@ -1,6 +1,7 @@
 package bilmodel
 
 import (
+	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
 	"omono/domain/bill/bilterm"
 	"omono/domain/bill/enum/invoicestatus"
@@ -12,7 +13,6 @@ import (
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
 	"omono/internal/types"
-	"omono/pkg/dict"
 	"omono/pkg/helper"
 )
 

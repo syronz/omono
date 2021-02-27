@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"github.com/syronz/dict"
 	"omono/cmd/restapi/insertdata"
 	"omono/cmd/restapi/server"
 	"omono/cmd/restapi/startoff"
@@ -12,7 +13,6 @@ import (
 	"omono/domain/service"
 	"omono/internal/core"
 	"omono/internal/corstartoff"
-	"omono/pkg/dict"
 	"omono/pkg/glog"
 )
 

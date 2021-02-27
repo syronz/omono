@@ -2,11 +2,11 @@ package main
 
 import (
 	"flag"
+	"github.com/syronz/dict"
 	"omono/cmd/restapi/startoff"
 	"omono/cmd/testinsertion/insertdata"
 	"omono/internal/core"
 	"omono/internal/corstartoff"
-	"omono/pkg/dict"
 	"omono/pkg/glog"
 	"omono/test/kernel"
 )

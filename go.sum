@@ -62,6 +62,8 @@ github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXf
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
 github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81PSLYec5m4=
 github.com/stretchr/testify v1.6.1/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
+github.com/syronz/dict v1.1.0 h1:iBA0BcN2bpyv+gi7Y1LcP8uT3APq+U5c/DjzgosAvhg=
+github.com/syronz/dict v1.1.0/go.mod h1:fP2KGduN2teXA4Xf364JeK/3KGSwhpQiaUhIEYplTDs=
 github.com/syronz/goAES v0.3.0 h1:osbf6oYn0xaZUtlljWHkYmS2pUP3HuMPlAmtVa4cra8=
 github.com/syronz/goAES v0.3.0/go.mod h1:5bXPMfiPVfXQWqZ5UFuPlQW1Lkx4fv3dJ8IoBZPXQgo=
 github.com/syronz/limberr v0.0.0-20210226101700-af3e32bbc600 h1:U/BKLcseFGQDnlFUz+UibH46turxF9JOrLMhGai0f3E=

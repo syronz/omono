@@ -1,9 +1,9 @@
 package kernel
 
 import (
+	"github.com/syronz/dict"
 	"omono/internal/core"
 	"omono/internal/corstartoff"
-	"omono/pkg/dict"
 	"omono/pkg/glog"
 )
 

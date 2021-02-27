@@ -2,7 +2,6 @@ package service
 
 import (
 	"fmt"
-	"github.com/syronz/limberr"
 	"omono/domain/base"
 	"omono/domain/base/basmodel"
 	"omono/domain/base/basrepo"
@@ -15,6 +14,8 @@ import (
 	"omono/internal/types"
 	"omono/pkg/glog"
 	"omono/pkg/password"
+
+	"github.com/syronz/limberr"
 )
 
 // BasUserServ for injecting auth basrepo
@@ -193,7 +194,7 @@ func (p *BasUserServ) Save(user basmodel.User) (createdUser basmodel.User, err e
 		Code:     user.Code,
 		ParentID: types.RowIDPointer(p.Engine.Envs.ToUint64("DEFAULT_USER_PARENT_ID")),
 		Type:     accounttype.User,
-		Status:   user.Status,
+		Status:   accountstatus.Active,
 	}
 	account.ID = user.ID
 	account.CompanyID = user.CompanyID

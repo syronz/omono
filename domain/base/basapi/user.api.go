@@ -2,6 +2,7 @@ package basapi
 
 import (
 	"fmt"
+	"github.com/syronz/dict"
 	"net/http"
 	"omono/domain/base"
 	"omono/domain/base/basmodel"
@@ -12,7 +13,6 @@ import (
 	"omono/internal/core/corterm"
 	"omono/internal/response"
 	"omono/internal/types"
-	"omono/pkg/dict"
 	"omono/pkg/excel"
 	"omono/pkg/glog"
 
