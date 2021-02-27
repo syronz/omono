@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"omono/cmd/restapi/insertdata"
 	"omono/cmd/restapi/server"
 	"omono/cmd/restapi/startoff"
@@ -15,47 +14,38 @@ import (
 	"github.com/syronz/dict"
 )
 
-var cpuprofile = flag.String("cpuprofile", "", "write cpu profile to `file`")
-
 func main() {
-
 	engine := startoff.LoadEnvs()
 
+	// set glog as a global variable for logging the errors and debug
 	glog.Init(engine.Envs[core.ServerLogFormat],
 		engine.Envs[core.ServerLogOutput],
 		engine.Envs[core.ServerLogLevel],
 		engine.Envs.ToBool(core.ServerLogJSONIndent),
 		true)
 
+	// load terms
 	dict.Init(engine.Envs[core.TermsPath], engine.Envs.ToBool(core.TranslateInBackend))
 
+	// connect the database
 	corstartoff.ConnectDB(engine, false)
 	corstartoff.ConnectActivityDB(engine)
-	engine.ActivityCh = make(chan basmodel.Activity, 1)
 
+	// migrate the database
 	startoff.Migrate(engine)
 
+	// insert basic data
 	insertdata.Insert(engine)
 
+	// ActivityWatcher is use a channel for checking all activities for recording
+	engine.ActivityCh = make(chan basmodel.Activity, 1)
 	activityRepo := basrepo.ProvideActivityRepo(engine)
 	basActivityServ := service.ProvideBasActivityService(activityRepo)
-	//ActivityWatcher is use a channel for checking all activities for recording
 	go basActivityServ.ActivityWatcher()
 
-	/*
-		//init of views
-		view.InitViewReports(engine)
-		view.InitDasboardViews(engine)
-		//init of procedures
-		procedure.InitDashboardProcedure(engine)
-		procedure.InitReportProcedure(engine)
-		//init of events
-		event.InitdashboardEvent(engine)
-		event.InitreportEvent(engine)
-	*/
-
+	// load setting
 	corstartoff.LoadSetting(engine)
 
+	// start the API
 	server.Start(engine)
-
 }

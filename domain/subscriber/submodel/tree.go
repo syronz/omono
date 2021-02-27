@@ -1,4 +1,4 @@
-package basmodel
+package submodel
 
 import (
 	"omono/internal/types"

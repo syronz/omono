@@ -1,19 +1,20 @@
-package basmodel
+package submodel
 
 import (
-	"github.com/syronz/dict"
-	"github.com/syronz/limberr"
-	"omono/domain/base/enum/accounttype"
+	"omono/domain/subscriber/enum/accounttype"
 	"omono/internal/core/coract"
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
 	"omono/internal/types"
 	"omono/pkg/helper"
+
+	"github.com/syronz/dict"
+	"github.com/syronz/limberr"
 )
 
 // AccountTable is used inside the repo layer
 const (
-	AccountTable = "bas_accounts"
+	AccountTable = "sub_accounts"
 )
 
 // Account model

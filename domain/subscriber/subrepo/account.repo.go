@@ -1,19 +1,20 @@
-package basrepo
+package subrepo
 
 import (
-	"omono/domain/base/basmodel"
 	"omono/domain/base/message/basterm"
+	"omono/domain/subscriber/submodel"
 	"omono/internal/core"
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
 	"omono/internal/core/validator"
 	"omono/internal/param"
 	"omono/internal/types"
-	"github.com/syronz/dict"
 	"omono/pkg/helper"
-	"github.com/syronz/limberr"
 	"reflect"
 	"time"
+
+	"github.com/syronz/dict"
+	"github.com/syronz/limberr"
 
 	"gorm.io/gorm"
 )
@@ -28,13 +29,13 @@ type AccountRepo struct {
 func ProvideAccountRepo(engine *core.Engine) AccountRepo {
 	return AccountRepo{
 		Engine: engine,
-		Cols:   helper.TagExtracter(reflect.TypeOf(basmodel.Account{}), basmodel.AccountTable),
+		Cols:   helper.TagExtracter(reflect.TypeOf(submodel.Account{}), submodel.AccountTable),
 	}
 }
 
 // FindByID finds the account via its id
-func (p *AccountRepo) FindByID(fix types.FixedNode) (account basmodel.Account, err error) {
-	err = p.Engine.ReadDB.Table(basmodel.AccountTable).
+func (p *AccountRepo) FindByID(fix types.FixedNode) (account submodel.Account, err error) {
+	err = p.Engine.ReadDB.Table(submodel.AccountTable).
 		Where("id = ? AND company_id = ? AND node_id = ? AND bas_accounts.deleted_at is null", fix.ID.ToUint64(), fix.CompanyID, fix.NodeID).
 		First(&account).Error
 
@@ -45,9 +46,9 @@ func (p *AccountRepo) FindByID(fix types.FixedNode) (account basmodel.Account, e
 }
 
 // TxFindAccountStatus finds the account via its id and return back the status
-func (p *AccountRepo) TxFindAccountStatus(db *gorm.DB, fix types.FixedNode) (account basmodel.Account, err error) {
-	// err = db.Clauses(clause.Locking{Strength: "UPDATE"}).Table(basmodel.AccountTable).
-	err = db.Table(basmodel.AccountTable).
+func (p *AccountRepo) TxFindAccountStatus(db *gorm.DB, fix types.FixedNode) (account submodel.Account, err error) {
+	// err = db.Clauses(clause.Locking{Strength: "UPDATE"}).Table(submodel.AccountTable).
+	err = db.Table(submodel.AccountTable).
 		Where("id = ? AND company_id = ? AND bas_accounts.deleted_at is null", fix.ID.ToUint64(), fix.CompanyID).
 		First(&account).Error
 
@@ -58,7 +59,7 @@ func (p *AccountRepo) TxFindAccountStatus(db *gorm.DB, fix types.FixedNode) (acc
 }
 
 // List returns an array of accounts
-func (p *AccountRepo) List(params param.Param) (accounts []basmodel.Account, err error) {
+func (p *AccountRepo) List(params param.Param) (accounts []submodel.Account, err error) {
 	var colsStr string
 	if colsStr, err = validator.CheckColumns(p.Cols, params.Select); err != nil {
 		err = limberr.Take(err, "E1050070").Build()
@@ -71,24 +72,24 @@ func (p *AccountRepo) List(params param.Param) (accounts []basmodel.Account, err
 		return
 	}
 
-	err = p.Engine.ReadDB.Table(basmodel.AccountTable).Select(colsStr).
+	err = p.Engine.ReadDB.Table(submodel.AccountTable).Select(colsStr).
 		Where(whereStr).
 		Order(params.Order).
 		Limit(params.Limit).
 		Offset(params.Offset).
 		Find(&accounts).Error
 
-	err = p.dbError(err, "E1082445", basmodel.Account{}, corterm.List)
+	err = p.dbError(err, "E1082445", submodel.Account{}, corterm.List)
 
 	return
 }
 
 //GetAllAccounts will fetch all accounts with specified companyID
-func (p *AccountRepo) GetAllAccounts(params param.Param) (account []basmodel.Account, err error) {
-	err = p.Engine.ReadDB.Table(basmodel.AccountTable).
+func (p *AccountRepo) GetAllAccounts(params param.Param) (account []submodel.Account, err error) {
+	err = p.Engine.ReadDB.Table(submodel.AccountTable).
 		Where("company_id = ?", params.CompanyID).Find(&account).Error
 
-	err = p.dbError(err, "E1011232", basmodel.Account{}, corterm.List)
+	err = p.dbError(err, "E1011232", submodel.Account{}, corterm.List)
 
 	return
 }
@@ -101,52 +102,52 @@ func (p *AccountRepo) Count(params param.Param) (count int64, err error) {
 		return
 	}
 
-	err = p.Engine.ReadDB.Table(basmodel.AccountTable).
+	err = p.Engine.ReadDB.Table(submodel.AccountTable).
 		Where(whereStr).
 		Count(&count).Error
 
-	err = p.dbError(err, "E1056203", basmodel.Account{}, corterm.List)
+	err = p.dbError(err, "E1056203", submodel.Account{}, corterm.List)
 	return
 }
 
 // TxSave the account, in case it is not exist create it
-func (p *AccountRepo) TxSave(db *gorm.DB, account basmodel.Account) (u basmodel.Account, err error) {
-	if err = db.Table(basmodel.AccountTable).Save(&account).Error; err != nil {
+func (p *AccountRepo) TxSave(db *gorm.DB, account submodel.Account) (u submodel.Account, err error) {
+	if err = db.Table(submodel.AccountTable).Save(&account).Error; err != nil {
 		err = p.dbError(err, "E1070874", account, corterm.Updated)
 	}
 
-	db.Table(basmodel.AccountTable).Where("id = ?", account.ID).Find(&u)
+	db.Table(submodel.AccountTable).Where("id = ?", account.ID).Find(&u)
 	return
 }
 
 // Create a account
-func (p *AccountRepo) Create(account basmodel.Account) (u basmodel.Account, err error) {
-	if err = p.Engine.DB.Table(basmodel.AccountTable).Create(&account).Scan(&u).Error; err != nil {
+func (p *AccountRepo) Create(account submodel.Account) (u submodel.Account, err error) {
+	if err = p.Engine.DB.Table(submodel.AccountTable).Create(&account).Scan(&u).Error; err != nil {
 		err = p.dbError(err, "E1054044", account, corterm.Created)
 	}
 	return
 }
 
 // TxCreate a account
-func (p *AccountRepo) TxCreate(db *gorm.DB, account basmodel.Account) (u basmodel.Account, err error) {
-	if err = db.Table(basmodel.AccountTable).Create(&account).Scan(&u).Error; err != nil {
+func (p *AccountRepo) TxCreate(db *gorm.DB, account submodel.Account) (u submodel.Account, err error) {
+	if err = db.Table(submodel.AccountTable).Create(&account).Scan(&u).Error; err != nil {
 		err = p.dbError(err, "E1054044", account, corterm.Created)
 	}
 	return
 }
 
 // Delete the account
-func (p *AccountRepo) Delete(account basmodel.Account) (err error) {
+func (p *AccountRepo) Delete(account submodel.Account) (err error) {
 	now := time.Now()
 	account.DeletedAt = &now
-	if err = p.Engine.DB.Table(basmodel.AccountTable).Save(&account).Error; err != nil {
+	if err = p.Engine.DB.Table(submodel.AccountTable).Save(&account).Error; err != nil {
 		err = p.dbError(err, "E1095299", account, corterm.Deleted)
 	}
 	return
 }
 
 // dbError is an internal method for generate proper database error
-func (p *AccountRepo) dbError(err error, code string, account basmodel.Account, action string) error {
+func (p *AccountRepo) dbError(err error, code string, account submodel.Account, action string) error {
 	switch corerr.ClearDbErr(err) {
 	case corerr.Nil:
 		err = nil

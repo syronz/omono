@@ -1,11 +1,11 @@
-package basapi
+package subapi
 
 import (
 	"net/http"
 	"omono/domain/base"
-	"omono/domain/base/basmodel"
 	"omono/domain/base/message/basterm"
 	"omono/domain/service"
+	"omono/domain/subscriber/submodel"
 	"omono/internal/core"
 	"omono/internal/core/corterm"
 	"omono/internal/response"
@@ -30,7 +30,7 @@ func ProvidePhoneAPI(c service.BasPhoneServ) PhoneAPI {
 func (p *PhoneAPI) FindByID(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
-	var phone basmodel.Phone
+	var phone submodel.Phone
 	var fix types.FixedNode
 
 	if fix.ID, err = types.StrToRowID(c.Param("phoneID")); err != nil {
@@ -50,7 +50,7 @@ func (p *PhoneAPI) FindByID(c *gin.Context) {
 
 // List of phones
 func (p *PhoneAPI) List(c *gin.Context) {
-	resp, params := response.NewParam(p.Engine, c, basmodel.PhoneTable, base.Domain)
+	resp, params := response.NewParam(p.Engine, c, submodel.PhoneTable, base.Domain)
 
 	data := make(map[string]interface{})
 	var err error
@@ -77,7 +77,7 @@ func (p *PhoneAPI) List(c *gin.Context) {
 // Create phone
 func (p *PhoneAPI) Create(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
-	var phone, createdPhone basmodel.Phone
+	var phone, createdPhone submodel.Phone
 	var err error
 
 	if err = resp.Bind(&phone, "E1053717", base.Domain, basterm.Phone); err != nil {
@@ -100,7 +100,7 @@ func (p *PhoneAPI) Update(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
 
-	var phone, phoneBefore, phoneUpdated basmodel.Phone
+	var phone, phoneBefore, phoneUpdated submodel.Phone
 	var fix types.FixedNode
 
 	if fix.ID, err = types.StrToRowID(c.Param("phoneID")); err != nil {
@@ -132,7 +132,7 @@ func (p *PhoneAPI) Update(c *gin.Context) {
 func (p *PhoneAPI) Delete(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
-	var phone basmodel.Phone
+	var phone submodel.Phone
 	var fix types.FixedNode
 
 	if fix.ID, err = types.StrToRowID(c.Param("phoneID")); err != nil {
@@ -154,7 +154,7 @@ func (p *PhoneAPI) Delete(c *gin.Context) {
 func (p *PhoneAPI) Separate(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
-	var aPhone basmodel.AccountPhone
+	var aPhone submodel.AccountPhone
 	var fix types.FixedNode
 
 	if fix, err = resp.GetFixedNode(c.Param("accountPhoneID"), "E1042479", basterm.Phone); err != nil {

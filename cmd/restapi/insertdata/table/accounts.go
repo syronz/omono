@@ -1,11 +1,11 @@
 package table
 
 import (
-	"omono/domain/base/basmodel"
-	"omono/domain/base/basrepo"
-	"omono/domain/base/enum/accountstatus"
-	"omono/domain/base/enum/accounttype"
 	"omono/domain/service"
+	"omono/domain/subscriber/enum/accountstatus"
+	"omono/domain/subscriber/enum/accounttype"
+	"omono/domain/subscriber/submodel"
+	"omono/domain/subscriber/subrepo"
 	"omono/internal/core"
 	"omono/internal/types"
 	"omono/pkg/glog"
@@ -15,10 +15,10 @@ import (
 // InsertAccounts for add required accounts
 func InsertAccounts(engine *core.Engine) {
 	engine.DB.Exec("UPDATE bas_accounts SET deleted_at = null WHERE id IN (1,2,3,4,5)")
-	phoneServ := service.ProvideBasPhoneService(basrepo.ProvidePhoneRepo(engine))
-	accountRepo := basrepo.ProvideAccountRepo(engine)
+	phoneServ := service.ProvideBasPhoneService(subrepo.ProvidePhoneRepo(engine))
+	accountRepo := subrepo.ProvideAccountRepo(engine)
 	accountService := service.ProvideBasAccountService(accountRepo, phoneServ)
-	accounts := []basmodel.Account{
+	accounts := []submodel.Account{
 		{
 			FixedNode: types.FixedNode{
 				ID:        1,

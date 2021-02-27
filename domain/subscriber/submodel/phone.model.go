@@ -1,4 +1,4 @@
-package basmodel
+package submodel
 
 import (
 	"github.com/syronz/dict"
@@ -12,7 +12,7 @@ import (
 
 // PhoneTable is used inside the repo layer
 const (
-	PhoneTable = "bas_phones"
+	PhoneTable = "sub_phones"
 )
 
 // Phone model

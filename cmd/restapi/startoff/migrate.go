@@ -3,6 +3,7 @@ package startoff
 import (
 	"omono/domain/base/basmodel"
 	"omono/domain/notification/notmodel"
+	"omono/domain/subscriber/submodel"
 	"omono/internal/core"
 )
 
@@ -16,22 +17,23 @@ func Migrate(engine *core.Engine) {
 	engine.DB.Table(basmodel.RoleTable).AutoMigrate(&basmodel.Role{})
 	engine.DB.Exec("ALTER TABLE `bas_roles` ADD UNIQUE `idx_bas_roles_company_id_name`(`company_id`, name(40))")
 
-	engine.DB.Table(basmodel.AccountTable).AutoMigrate(&basmodel.Account{})
-	engine.DB.Exec("ALTER TABLE bas_accounts ADD CONSTRAINT `fk_bas_accounts_self` FOREIGN KEY (parent_id) REFERENCES bas_accounts(id) ON DELETE RESTRICT ON UPDATE RESTRICT;")
-
 	engine.DB.Table(basmodel.UserTable).AutoMigrate(&basmodel.User{})
 	engine.DB.Exec("ALTER TABLE bas_users ADD CONSTRAINT `fk_bas_users_bas_roles` FOREIGN KEY (role_id) REFERENCES bas_roles(id) ON DELETE RESTRICT ON UPDATE RESTRICT;")
-	engine.DB.Exec("ALTER TABLE bas_users ADD CONSTRAINT `fk_bas_users_bas_accounts` FOREIGN KEY (id) REFERENCES bas_accounts(id) ON DELETE RESTRICT ON UPDATE RESTRICT;")
 
 	engine.ActivityDB.Table(basmodel.ActivityTable).AutoMigrate(&basmodel.Activity{})
-	engine.DB.Table(basmodel.PhoneTable).AutoMigrate(&basmodel.Phone{})
-
-	engine.DB.Table(basmodel.AccountPhoneTable).AutoMigrate(&basmodel.AccountPhone{})
-	engine.DB.Exec("ALTER TABLE bas_account_phones ADD CONSTRAINT `fk_bas_accounts_phones_bas_accounts` FOREIGN KEY (account_id) REFERENCES bas_accounts(id) ON DELETE RESTRICT ON UPDATE RESTRICT;")
-	engine.DB.Exec("ALTER TABLE bas_account_phones ADD CONSTRAINT `fk_bas_accounts_phones_bas_phones` FOREIGN KEY (phone_id) REFERENCES bas_phones(id) ON DELETE CASCADE ON UPDATE CASCADE;")
 
 	engine.DB.Table(basmodel.CityTable).AutoMigrate(&basmodel.City{})
 	engine.DB.Exec("ALTER TABLE `bas_cities` ADD UNIQUE `idx_bas_cities_company_id_name`(`company_id`, name(20))")
+
+	// Subscriber Domain
+	engine.DB.Table(submodel.AccountTable).AutoMigrate(&submodel.Account{})
+	engine.DB.Exec("ALTER TABLE sub_accounts ADD CONSTRAINT `fk_sub_accounts_self` FOREIGN KEY (parent_id) REFERENCES sub_accounts(id) ON DELETE RESTRICT ON UPDATE RESTRICT;")
+
+	engine.DB.Table(submodel.PhoneTable).AutoMigrate(&submodel.Phone{})
+
+	engine.DB.Table(submodel.AccountPhoneTable).AutoMigrate(&submodel.AccountPhone{})
+	engine.DB.Exec("ALTER TABLE sub_account_phones ADD CONSTRAINT `fk_sub_accounts_phones_sub_accounts` FOREIGN KEY (account_id) REFERENCES sub_accounts(id) ON DELETE RESTRICT ON UPDATE RESTRICT;")
+	engine.DB.Exec("ALTER TABLE sub_account_phones ADD CONSTRAINT `fk_sub_accounts_phones_sub_phones` FOREIGN KEY (phone_id) REFERENCES sub_phones(id) ON DELETE CASCADE ON UPDATE CASCADE;")
 
 	// Notification Domain
 	engine.DB.Table(notmodel.MessageTable).AutoMigrate(&notmodel.Message{})

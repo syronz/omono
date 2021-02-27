@@ -11,6 +11,8 @@ import (
 	"omono/domain/notification/notapi"
 	"omono/domain/notification/notrepo"
 	"omono/domain/service"
+	"omono/domain/subscriber/subapi"
+	"omono/domain/subscriber/subrepo"
 	"omono/internal/core"
 )
 
@@ -51,17 +53,17 @@ func initActivityAPI(engine *core.Engine) basapi.ActivityAPI {
 	return activityAPI
 }
 
-func initAccountAPI(e *core.Engine, phoneServ service.BasPhoneServ) basapi.AccountAPI {
-	accountRepo := basrepo.ProvideAccountRepo(e)
-	basAccountServ := service.ProvideBasAccountService(accountRepo, phoneServ)
-	accountAPI := basapi.ProvideAccountAPI(basAccountServ)
+func initAccountAPI(e *core.Engine, phoneServ service.BasPhoneServ) subapi.AccountAPI {
+	accountRepo := subrepo.ProvideAccountRepo(e)
+	subAccountServ := service.ProvideBasAccountService(accountRepo, phoneServ)
+	accountAPI := subapi.ProvideAccountAPI(subAccountServ)
 	return accountAPI
 }
 
-func initBasPhoneAPI(e *core.Engine) basapi.PhoneAPI {
-	phoneRepo := basrepo.ProvidePhoneRepo(e)
-	basPhoneServ := service.ProvideBasPhoneService(phoneRepo)
-	phoneAPI := basapi.ProvidePhoneAPI(basPhoneServ)
+func initBasPhoneAPI(e *core.Engine) subapi.PhoneAPI {
+	phoneRepo := subrepo.ProvidePhoneRepo(e)
+	subPhoneServ := service.ProvideBasPhoneService(phoneRepo)
+	phoneAPI := subapi.ProvidePhoneAPI(subPhoneServ)
 	return phoneAPI
 }
 

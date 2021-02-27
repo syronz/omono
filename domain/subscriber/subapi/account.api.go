@@ -1,14 +1,14 @@
-package basapi
+package subapi
 
 import (
 	"fmt"
 	"net/http"
 	"omono/cmd/restapi/enum/settingfields"
 	"omono/domain/base"
-	"omono/domain/base/basmodel"
-	"omono/domain/base/enum/accounttype"
 	"omono/domain/base/message/basterm"
 	"omono/domain/service"
+	"omono/domain/subscriber/enum/accounttype"
+	"omono/domain/subscriber/submodel"
 	"omono/internal/core"
 	"omono/internal/core/corterm"
 	"omono/internal/response"
@@ -33,7 +33,7 @@ func ProvideAccountAPI(c service.BasAccountServ) AccountAPI {
 func (p *AccountAPI) FindByID(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
-	var account basmodel.Account
+	var account submodel.Account
 	var fix types.FixedNode
 
 	if fix, err = resp.GetFixedNode(c.Param("accountID"), "E1070061", basterm.Account); err != nil {
@@ -57,7 +57,7 @@ func (p *AccountAPI) FindByID(c *gin.Context) {
 
 // List of accounts
 func (p *AccountAPI) List(c *gin.Context) {
-	resp, params := response.NewParam(p.Engine, c, basmodel.AccountTable, base.Domain)
+	resp, params := response.NewParam(p.Engine, c, submodel.AccountTable, base.Domain)
 
 	data := make(map[string]interface{})
 	var err error
@@ -84,7 +84,7 @@ func (p *AccountAPI) List(c *gin.Context) {
 // Create account
 func (p *AccountAPI) Create(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
-	var account, createdAccount basmodel.Account
+	var account, createdAccount submodel.Account
 	var err error
 
 	if account.CompanyID, account.NodeID, err = resp.GetCompanyNode("E1057239", base.Domain); err != nil {
@@ -120,7 +120,7 @@ func (p *AccountAPI) Update(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
 
-	var account, accountBefore, accountUpdated basmodel.Account
+	var account, accountBefore, accountUpdated submodel.Account
 	var fix types.FixedNode
 
 	if fix, err = resp.GetFixedNode(c.Param("accountID"), "E1076703", basterm.Account); err != nil {
@@ -159,7 +159,7 @@ func (p *AccountAPI) Update(c *gin.Context) {
 func (p *AccountAPI) Delete(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
-	var account basmodel.Account
+	var account submodel.Account
 	var fix types.FixedNode
 
 	if fix, err = resp.GetFixedNode(c.Param("accountID"), "E1092196", basterm.Account); err != nil {
@@ -233,7 +233,7 @@ func (p *AccountAPI) Excel(c *gin.Context) {
 
 // ChartOfAccount is used cached chart of account for getting the last status of chart of accounts
 func (p *AccountAPI) ChartOfAccount(c *gin.Context) {
-	resp, params := response.NewParam(p.Engine, c, basmodel.AccountTable, base.Domain)
+	resp, params := response.NewParam(p.Engine, c, submodel.AccountTable, base.Domain)
 
 	data := make(map[string]interface{})
 	var err error
@@ -270,7 +270,7 @@ func (p *AccountAPI) ChartOfAccount(c *gin.Context) {
 func (p *AccountAPI) GetCashAccount(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
-	var account basmodel.Account
+	var account submodel.Account
 
 	fix := types.FixedNode{
 		CompanyID: 1001,
@@ -292,7 +292,7 @@ func (p *AccountAPI) GetCashAccount(c *gin.Context) {
 func (p *AccountAPI) SearchLeafs(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
-	var accounts []basmodel.Account
+	var accounts []submodel.Account
 
 	search := c.Query("search")
 

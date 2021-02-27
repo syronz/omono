@@ -1,4 +1,4 @@
-package basmodel
+package submodel
 
 import (
 	"omono/internal/types"
@@ -6,7 +6,7 @@ import (
 
 // AccountPhoneTable is used inside the repo layer
 const (
-	AccountPhoneTable = "bas_account_phones"
+	AccountPhoneTable = "sub_account_phones"
 )
 
 // AccountPhone model

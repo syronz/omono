@@ -2,10 +2,9 @@ package service
 
 import (
 	"fmt"
-	"omono/domain/base/basmodel"
-	"omono/domain/base/basrepo"
-	"omono/domain/base/enum/accountstatus"
-	"omono/domain/base/message/basterm"
+	"omono/domain/subscriber/enum/accountstatus"
+	"omono/domain/subscriber/submodel"
+	"omono/domain/subscriber/subrepo"
 	"omono/internal/consts"
 	"omono/internal/core"
 	"omono/internal/core/coract"
@@ -22,17 +21,17 @@ import (
 	"gorm.io/gorm"
 )
 
-// BasAccountServ for injecting auth basrepo
+// BasAccountServ for injecting auth subrepo
 type BasAccountServ struct {
-	Repo      basrepo.AccountRepo
+	Repo      subrepo.AccountRepo
 	Engine    *core.Engine
 	PhoneServ BasPhoneServ
 }
 
-var cacheChartOffAccount *basmodel.Tree
+var cacheChartOffAccount *submodel.Tree
 
 // ProvideBasAccountService for account is used in wire
-func ProvideBasAccountService(p basrepo.AccountRepo, phoneServ BasPhoneServ) BasAccountServ {
+func ProvideBasAccountService(p subrepo.AccountRepo, phoneServ BasPhoneServ) BasAccountServ {
 	return BasAccountServ{
 		Repo:      p,
 		Engine:    p.Engine,
@@ -41,7 +40,7 @@ func ProvideBasAccountService(p basrepo.AccountRepo, phoneServ BasPhoneServ) Bas
 }
 
 // FindByID for getting account by it's id
-func (p *BasAccountServ) FindByID(fix types.FixedNode) (account basmodel.Account, err error) {
+func (p *BasAccountServ) FindByID(fix types.FixedNode) (account submodel.Account, err error) {
 	if account, err = p.Repo.FindByID(fix); err != nil {
 		err = corerr.Tick(err, "E1049049", "can't fetch the account", fix.ID, fix.CompanyID, fix.NodeID)
 		return
@@ -56,7 +55,7 @@ func (p *BasAccountServ) FindByID(fix types.FixedNode) (account basmodel.Account
 }
 
 // TxFindAccountStatus will return the status of an account
-func (p *BasAccountServ) TxFindAccountStatus(db *gorm.DB, fix types.FixedNode) (account basmodel.Account, err error) {
+func (p *BasAccountServ) TxFindAccountStatus(db *gorm.DB, fix types.FixedNode) (account submodel.Account, err error) {
 	if account, err = p.Repo.TxFindAccountStatus(db, fix); err != nil {
 		err = corerr.Tick(err, "E1048403", "can't fetch the account's status", fix.ID, fix.CompanyID, fix.NodeID)
 		return
@@ -66,7 +65,7 @@ func (p *BasAccountServ) TxFindAccountStatus(db *gorm.DB, fix types.FixedNode) (
 }
 
 // List of accounts, it support pagination and search and return back count
-func (p *BasAccountServ) List(params param.Param) (accounts []basmodel.Account,
+func (p *BasAccountServ) List(params param.Param) (accounts []submodel.Account,
 	count int64, err error) {
 
 	if accounts, err = p.Repo.List(params); err != nil {
@@ -82,7 +81,7 @@ func (p *BasAccountServ) List(params param.Param) (accounts []basmodel.Account,
 }
 
 // GetAllAccounts will fetch all of the accounts. Currently used for balancesheet
-func (p *BasAccountServ) GetAllAccounts(params param.Param) (accounts []basmodel.Account,
+func (p *BasAccountServ) GetAllAccounts(params param.Param) (accounts []submodel.Account,
 	count int64, err error) {
 
 	if accounts, err = p.Repo.GetAllAccounts(params); err != nil {
@@ -94,7 +93,7 @@ func (p *BasAccountServ) GetAllAccounts(params param.Param) (accounts []basmodel
 }
 
 // Create a account
-func (p *BasAccountServ) Create(account basmodel.Account) (createdAccount basmodel.Account, err error) {
+func (p *BasAccountServ) Create(account submodel.Account) (createdAccount submodel.Account, err error) {
 	db := p.Engine.DB.Begin()
 
 	defer func() {
@@ -118,7 +117,7 @@ func (p *BasAccountServ) Create(account basmodel.Account) (createdAccount basmod
 }
 
 // TxCreate is used for creating an account in case of transaction activated
-func (p *BasAccountServ) TxCreate(db *gorm.DB, account basmodel.Account) (createdAccount basmodel.Account, err error) {
+func (p *BasAccountServ) TxCreate(db *gorm.DB, account submodel.Account) (createdAccount submodel.Account, err error) {
 	if err = account.Validate(coract.Save); err != nil {
 		err = corerr.TickValidate(err, "E1076780", "validation failed in creating the account", account)
 		return
@@ -144,12 +143,12 @@ func (p *BasAccountServ) TxCreate(db *gorm.DB, account basmodel.Account) (create
 }
 
 // Save a account, if it is exist update it, if not create it
-func (p *BasAccountServ) Save(account basmodel.Account) (savedAccount basmodel.Account, err error) {
+func (p *BasAccountServ) Save(account submodel.Account) (savedAccount submodel.Account, err error) {
 	return p.TxSave(p.Engine.DB, account)
 }
 
 // TxSave a account, if it is exist update it, if not create it
-func (p *BasAccountServ) TxSave(db *gorm.DB, account basmodel.Account) (savedAccount basmodel.Account, err error) {
+func (p *BasAccountServ) TxSave(db *gorm.DB, account submodel.Account) (savedAccount submodel.Account, err error) {
 	if err = account.Validate(coract.Save); err != nil {
 		err = corerr.TickValidate(err, "E1064761", corerr.ValidationFailed, account)
 		return
@@ -164,7 +163,7 @@ func (p *BasAccountServ) TxSave(db *gorm.DB, account basmodel.Account) (savedAcc
 }
 
 // Delete account, it is soft delete
-func (p *BasAccountServ) Delete(fix types.FixedNode) (account basmodel.Account, err error) {
+func (p *BasAccountServ) Delete(fix types.FixedNode) (account submodel.Account, err error) {
 	if account, err = p.FindByID(fix); err != nil {
 		err = corerr.Tick(err, "E1038835", "account not found for deleting")
 		return
@@ -185,7 +184,7 @@ func (p *BasAccountServ) Delete(fix types.FixedNode) (account basmodel.Account, 
 	// check child accounts
 	// params := param.NewForDelete("bas_accounts", "parent_id", fix.ID)
 
-	// var accounts []basmodel.Account
+	// var accounts []submodel.Account
 	// if accounts, err = p.Repo.List(params); err != nil {
 	// 	err = corerr.Tick(err, "E1036442", "accounts not fetch for delete an account")
 	// 	return
@@ -202,25 +201,6 @@ func (p *BasAccountServ) Delete(fix types.FixedNode) (account basmodel.Account, 
 	// 	return
 	// }
 
-	// check if a user defined under this account
-	params := param.NewForDelete("bas_users", "id", fix.ID)
-
-	userServ := ProvideBasUserService(basrepo.ProvideUserRepo(p.Engine))
-
-	var users []basmodel.User
-	if users, err = userServ.Repo.List(params); err != nil {
-		err = corerr.Tick(err, "E1092443", "related user not fetch for delete an account")
-		return
-	}
-
-	if len(users) > 0 {
-		err = limberr.New("account is related to a user", "E1082665").
-			Message(corerr.VIsConnectedToAVVPleaseDeleteItFirst, dict.R(basterm.Account),
-				dict.R(basterm.User), users[0].Username).
-			Custom(corerr.ForeignErr).Build()
-		return
-	}
-
 	if err = p.Repo.Delete(account); err != nil {
 		err = corerr.Tick(err, "E1045410", "account not deleted")
 		return
@@ -230,10 +210,10 @@ func (p *BasAccountServ) Delete(fix types.FixedNode) (account basmodel.Account, 
 }
 
 // Excel is used for export excel file
-func (p *BasAccountServ) Excel(params param.Param) (accounts []basmodel.Account, err error) {
+func (p *BasAccountServ) Excel(params param.Param) (accounts []submodel.Account, err error) {
 	params.Limit = p.Engine.Envs.ToInt(core.ExcelMaxRows)
 	params.Offset = 0
-	params.Order = fmt.Sprintf("%v.id ASC", basmodel.AccountTable)
+	params.Order = fmt.Sprintf("%v.id ASC", submodel.AccountTable)
 
 	if accounts, err = p.Repo.List(params); err != nil {
 		err = corerr.Tick(err, "E1023076", "cant generate the excel list for accounts")
@@ -244,8 +224,8 @@ func (p *BasAccountServ) Excel(params param.Param) (accounts []basmodel.Account,
 }
 
 // IsActive check the status of an account
-func (p *BasAccountServ) IsActive(fix types.FixedNode) (bool, basmodel.Account, error) {
-	var account basmodel.Account
+func (p *BasAccountServ) IsActive(fix types.FixedNode) (bool, submodel.Account, error) {
+	var account submodel.Account
 	var err error
 	if account, err = p.FindByID(fix); err != nil {
 		return false, account, corerr.Tick(err, "E1059307", "account not exist", fix.ID, fix.CompanyID, fix.NodeID)
@@ -254,8 +234,8 @@ func (p *BasAccountServ) IsActive(fix types.FixedNode) (bool, basmodel.Account, 
 	return account.Status == accountstatus.Active, account, nil
 }
 
-func treeChartOfAccounts(accounts []basmodel.Account) (root basmodel.Tree) {
-	arr := make([]basmodel.Tree, len(accounts))
+func treeChartOfAccounts(accounts []submodel.Account) (root submodel.Tree) {
+	arr := make([]submodel.Tree, len(accounts))
 
 	for i, v := range accounts {
 		arr[i].ID = v.ID
@@ -269,11 +249,11 @@ func treeChartOfAccounts(accounts []basmodel.Account) (root basmodel.Tree) {
 		arr[i].Type = v.Type
 	}
 
-	pMap := make(map[types.RowID]*basmodel.Tree, 1)
+	pMap := make(map[types.RowID]*submodel.Tree, 1)
 
 	pMap[0] = &root
 
-	exceed := basmodel.Tree{
+	exceed := submodel.Tree{
 		Name: "exceed",
 	}
 
@@ -307,10 +287,10 @@ func parseParent(pID *types.RowID) types.RowID {
 }
 
 // ChartOfAccountRefresh is a tree shape of accounts implemented in the nested app
-func (p *BasAccountServ) ChartOfAccountRefresh(params param.Param) (root basmodel.Tree,
+func (p *BasAccountServ) ChartOfAccountRefresh(params param.Param) (root submodel.Tree,
 	err error) {
 
-	var accounts []basmodel.Account
+	var accounts []submodel.Account
 	params.Limit = consts.MaxRowsCount
 	params.Order = "bas_accounts.code ASC"
 
@@ -328,7 +308,7 @@ func (p *BasAccountServ) ChartOfAccountRefresh(params param.Param) (root basmode
 }
 
 // ChartOfAccount is a tree shape of accounts implemented in the nested app
-func (p *BasAccountServ) ChartOfAccount(params param.Param) (root basmodel.Tree,
+func (p *BasAccountServ) ChartOfAccount(params param.Param) (root submodel.Tree,
 	err error) {
 
 	params.Limit = consts.MaxRowsCount
@@ -346,11 +326,11 @@ func (p *BasAccountServ) ChartOfAccount(params param.Param) (root basmodel.Tree,
 }
 
 // SearchLeafs is used for searching among accounts
-func (p *BasAccountServ) SearchLeafs(search string, lang dict.Lang) (accounts []basmodel.Account,
+func (p *BasAccountServ) SearchLeafs(search string, lang dict.Lang) (accounts []submodel.Account,
 	err error) {
 
 	//unfilteredAccs ..
-	var unfilteredAcc []basmodel.Account
+	var unfilteredAcc []submodel.Account
 
 	params := param.New()
 	params.PreCondition = "bas_accounts.status = 'active' AND bas_accounts.read_only = 0 AND "
