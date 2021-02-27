@@ -8,10 +8,8 @@ import (
 
 // JWTClaims for JWT
 type JWTClaims struct {
-	Username  string    `json:"username"`
-	ID        RowID     `json:"id"`
-	Lang      dict.Lang `json:"language"`
-	CompanyID uint64    `json:"company_id"`
-	NodeID    uint64    `json:"node_id"`
+	Username string    `json:"username"`
+	ID       RowID     `json:"id"`
+	Lang     dict.Lang `json:"language"`
 	jwt.StandardClaims
 }

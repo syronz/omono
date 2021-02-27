@@ -28,7 +28,7 @@ func initAccountTest() (engine *core.Engine, accountServ SubAccountServ) {
 func TestTreeChartOfAccounts(t *testing.T) {
 	accounts := []basmodel.Account{
 		{
-			FixedNode: types.FixedNode{
+			FixedCol: types.FixedCol{
 				ID: 1,
 			},
 			Code:   "1",
@@ -36,7 +36,7 @@ func TestTreeChartOfAccounts(t *testing.T) {
 			Type:   accounttype.Asset,
 		},
 		{
-			FixedNode: types.FixedNode{
+			FixedCol: types.FixedCol{
 				ID: 2,
 			},
 			ParentID: types.RowIDPointer(1),
@@ -45,7 +45,7 @@ func TestTreeChartOfAccounts(t *testing.T) {
 			Type:     accounttype.Cash,
 		},
 		{
-			FixedNode: types.FixedNode{
+			FixedCol: types.FixedCol{
 				ID: 3,
 			},
 			ParentID: types.RowIDPointer(1),
@@ -54,7 +54,7 @@ func TestTreeChartOfAccounts(t *testing.T) {
 			Type:     accounttype.Cash,
 		},
 		{
-			FixedNode: types.FixedNode{
+			FixedCol: types.FixedCol{
 				ID: 4,
 			},
 			Code:   "3",
@@ -62,7 +62,7 @@ func TestTreeChartOfAccounts(t *testing.T) {
 			Type:   accounttype.Expense,
 		},
 		{
-			FixedNode: types.FixedNode{
+			FixedCol: types.FixedCol{
 				ID: 5,
 			},
 			ParentID: types.RowIDPointer(4),
@@ -71,7 +71,7 @@ func TestTreeChartOfAccounts(t *testing.T) {
 			Type:     accounttype.Expense,
 		},
 		{
-			FixedNode: types.FixedNode{
+			FixedCol: types.FixedCol{
 				ID: 6,
 			},
 			ParentID: types.RowIDPointer(1),
@@ -106,7 +106,7 @@ func TestAccountCreate(t *testing.T) {
 	}{
 		{
 			in: basmodel.Account{
-				FixedNode: types.FixedNode{
+				FixedCol: types.FixedCol{
 					CompanyID: 1001,
 					NodeID:    101,
 				},
@@ -131,7 +131,7 @@ func TestAccountCreate(t *testing.T) {
 func TestAccountDelete(t *testing.T) {
 	_, testAccountServ := initAccountTest()
 
-	sample := types.FixedNode{
+	sample := types.FixedCol{
 		ID:        21,
 		CompanyID: 1001,
 		NodeID:    101,
@@ -184,7 +184,7 @@ func TestAccountUpdate(t *testing.T) {
 	}{
 		{
 			in: basmodel.Account{
-				FixedNode: types.FixedNode{
+				FixedCol: types.FixedCol{
 					CompanyID: 1001,
 					NodeID:    101,
 					ID:        31,

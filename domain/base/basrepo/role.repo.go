@@ -35,7 +35,7 @@ func ProvideRoleRepo(engine *core.Engine) RoleRepo {
 // FindByID finds the role via its id
 func (p *RoleRepo) FindByID(fix types.FixedCol) (role basmodel.Role, err error) {
 	err = p.Engine.ReadDB.Table(basmodel.RoleTable).
-		Where("company_id = ? AND node_id = ? AND id = ?", fix.CompanyID, fix.NodeID, fix.ID.ToUint64()).
+		Where("id = ?", fix.ID.ToUint64()).
 		First(&role).Error
 
 	role.ID = fix.ID

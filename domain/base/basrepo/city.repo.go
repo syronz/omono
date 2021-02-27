@@ -31,7 +31,7 @@ func ProvideCityRepo(engine *core.Engine) CityRepo {
 }
 
 // FindByID finds the city via its id
-func (p *CityRepo) FindByID(fix types.FixedNode) (city basmodel.City, err error) {
+func (p *CityRepo) FindByID(fix types.FixedCol) (city basmodel.City, err error) {
 	err = p.Engine.ReadDB.Table(basmodel.CityTable).
 		Where("id = ?", fix.ID.ToUint64()).
 		First(&city).Error

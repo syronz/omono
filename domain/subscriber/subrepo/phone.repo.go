@@ -33,7 +33,7 @@ func ProvidePhoneRepo(engine *core.Engine) PhoneRepo {
 }
 
 // FindByID finds the phone via its id
-func (p *PhoneRepo) FindByID(fix types.FixedNode) (phone submodel.Phone, err error) {
+func (p *PhoneRepo) FindByID(fix types.FixedCol) (phone submodel.Phone, err error) {
 	err = p.Engine.ReadDB.Table(submodel.PhoneTable).
 		Where("id = ?", fix.ID.ToUint64()).
 		First(&phone).Error
@@ -45,9 +45,9 @@ func (p *PhoneRepo) FindByID(fix types.FixedNode) (phone submodel.Phone, err err
 }
 
 // FindAccountPhoneByID finds the phone via its id
-func (p *PhoneRepo) FindAccountPhoneByID(fix types.FixedNode) (aPhone submodel.AccountPhone, err error) {
+func (p *PhoneRepo) FindAccountPhoneByID(fix types.FixedCol) (aPhone submodel.AccountPhone, err error) {
 	err = p.Engine.ReadDB.Table(submodel.AccountPhoneTable).
-		Where("id = ? AND company_id = ? AND node_id = ?", fix.ID.ToUint64(), fix.CompanyID, fix.NodeID).
+		Where("id = ?", fix.ID.ToUint64()).
 		First(&aPhone).Error
 
 	aPhone.ID = fix.ID
@@ -57,12 +57,11 @@ func (p *PhoneRepo) FindAccountPhoneByID(fix types.FixedNode) (aPhone submodel.A
 }
 
 // AccountsPhones return list of phones assigned to an account
-func (p *PhoneRepo) AccountsPhones(fix types.FixedNode) (phones []submodel.Phone, err error) {
+func (p *PhoneRepo) AccountsPhones(fix types.FixedCol) (phones []submodel.Phone, err error) {
 	err = p.Engine.ReadDB.Table(submodel.AccountPhoneTable).
 		Select("*").
 		Joins("INNER JOIN bas_phones on bas_account_phones.phone_id = bas_phones.id").
-		Where("bas_account_phones.account_id = ? AND bas_account_phones.company_id = ? AND bas_account_phones.node_id = ?",
-			fix.ID.ToUint64(), fix.CompanyID, fix.NodeID).
+		Where("bas_account_phones.account_id = ?", fix.ID.ToUint64()).
 		Find(&phones).Error
 	err = p.dbError(err, "E1061411", submodel.Phone{}, corterm.List)
 
@@ -152,8 +151,6 @@ func (p *PhoneRepo) JoinAccountPhone(db *gorm.DB, account submodel.Account,
 	phone submodel.Phone, def byte) (aphCreated submodel.AccountPhone, err error) {
 	var accountPhone submodel.AccountPhone
 	accountPhone.AccountID = account.ID
-	accountPhone.CompanyID = account.CompanyID
-	accountPhone.NodeID = account.NodeID
 	accountPhone.Default = def
 	accountPhone.PhoneID = phone.ID
 

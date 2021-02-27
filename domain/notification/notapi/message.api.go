@@ -37,10 +37,6 @@ func (p *MessageAPI) FindByID(c *gin.Context) {
 		return
 	}
 
-	if !resp.CheckRange(fix.CompanyID) {
-		return
-	}
-
 	if message, err = p.Service.FindByID(fix); err != nil {
 		resp.Error(err).JSON()
 		return
@@ -121,19 +117,6 @@ func (p *MessageAPI) Create(c *gin.Context) {
 	var message, createdMessage notmodel.Message
 	var err error
 
-	if message.CompanyID, message.NodeID, err = resp.GetCompanyNode("E8259678", notification.Domain); err != nil {
-		resp.Error(err).JSON()
-		return
-	}
-
-	if message.CompanyID, err = resp.GetCompanyID("E8234341"); err != nil {
-		return
-	}
-
-	if !resp.CheckRange(message.CompanyID) {
-		return
-	}
-
 	if err = resp.Bind(&message, "E8220672", notification.Domain, corterm.Message); err != nil {
 		return
 	}
@@ -163,10 +146,6 @@ func (p *MessageAPI) Update(c *gin.Context) {
 		return
 	}
 
-	if !resp.CheckRange(fix.CompanyID) {
-		return
-	}
-
 	if err = resp.Bind(&message, "E8250051", notification.Domain, corterm.Message); err != nil {
 		return
 	}
@@ -177,8 +156,6 @@ func (p *MessageAPI) Update(c *gin.Context) {
 	}
 
 	message.ID = fix.ID
-	message.CompanyID = fix.CompanyID
-	message.NodeID = fix.NodeID
 	message.CreatedAt = messageBefore.CreatedAt
 	if messageUpdated, err = p.Service.Save(message); err != nil {
 		resp.Error(err).JSON()

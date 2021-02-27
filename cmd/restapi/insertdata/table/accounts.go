@@ -20,10 +20,8 @@ func InsertAccounts(engine *core.Engine) {
 	accountService := service.ProvideSubAccountService(accountRepo, phoneServ)
 	accounts := []submodel.Account{
 		{
-			FixedNode: types.FixedNode{
-				ID:        1,
-				CompanyID: 1001,
-				NodeID:    101,
+			FixedCol: types.FixedCol{
+				ID: 1,
 			},
 			NameEn: helper.StrPointer("Asset"),
 			NameKu: helper.StrPointer("asset"),
@@ -32,10 +30,8 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedNode: types.FixedNode{
-				ID:        2,
-				CompanyID: 1001,
-				NodeID:    101,
+			FixedCol: types.FixedCol{
+				ID: 2,
 			},
 			NameEn:   helper.StrPointer("Cash"),
 			NameKu:   helper.StrPointer("cash"),
@@ -45,10 +41,8 @@ func InsertAccounts(engine *core.Engine) {
 			Status:   accountstatus.Active,
 		},
 		{
-			FixedNode: types.FixedNode{
-				ID:        79,
-				CompanyID: 1001,
-				NodeID:    101,
+			FixedCol: types.FixedCol{
+				ID: 79,
 			},
 			NameEn:   helper.StrPointer("Users"),
 			NameKu:   helper.StrPointer("users"),
@@ -58,10 +52,8 @@ func InsertAccounts(engine *core.Engine) {
 			Status:   accountstatus.Active,
 		},
 		{
-			FixedNode: types.FixedNode{
-				ID:        4,
-				CompanyID: 1001,
-				NodeID:    101,
+			FixedCol: types.FixedCol{
+				ID: 4,
 			},
 			NameEn: helper.StrPointer("Equity"),
 			NameKu: helper.StrPointer("equity"),
@@ -70,10 +62,8 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedNode: types.FixedNode{
-				ID:        5,
-				CompanyID: 1001,
-				NodeID:    101,
+			FixedCol: types.FixedCol{
+				ID: 5,
 			},
 			NameEn:   helper.StrPointer("Capital"),
 			ParentID: types.RowIDPointer(4),

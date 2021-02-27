@@ -41,10 +41,6 @@ func (p *UserAPI) FindByID(c *gin.Context) {
 		return
 	}
 
-	if !resp.CheckRange(fix.CompanyID) {
-		return
-	}
-
 	if user, err = p.Service.FindByID(fix); err != nil {
 		resp.Error(err).JSON()
 		return
@@ -63,15 +59,6 @@ func (p *UserAPI) FindByUsername(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	username := c.Param("username")
 	var err error
-	var fix types.FixedCol
-
-	if fix.CompanyID, err = resp.GetCompanyID("E1034598"); err != nil {
-		return
-	}
-
-	if !resp.CheckRange(fix.CompanyID) {
-		return
-	}
 
 	user, err := p.Service.FindByUsername(username)
 	if err != nil {
@@ -123,28 +110,6 @@ func (p *UserAPI) Create(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var user, createdUser basmodel.User
 	var err error
-	var fix types.FixedCol
-
-	if fix.CompanyID, err = resp.GetCompanyID("E1097541"); err != nil {
-		return
-	}
-
-	if !resp.CheckRange(fix.CompanyID) {
-		return
-	}
-
-	if user.CompanyID, user.NodeID, err = resp.GetCompanyNode("E1061527", base.Domain); err != nil {
-		resp.Error(err).JSON()
-		return
-	}
-
-	if user.CompanyID, err = resp.GetCompanyID("E1031989"); err != nil {
-		return
-	}
-
-	if !resp.CheckRange(user.CompanyID) {
-		return
-	}
 
 	if err = resp.Bind(&user, "E1082301", base.Domain, basterm.User); err != nil {
 		return
@@ -175,10 +140,6 @@ func (p *UserAPI) Update(c *gin.Context) {
 		return
 	}
 
-	if !resp.CheckRange(fix.CompanyID) {
-		return
-	}
-
 	if err = resp.Bind(&user, "E1065844", base.Domain, basterm.User); err != nil {
 		return
 	}
@@ -189,8 +150,6 @@ func (p *UserAPI) Update(c *gin.Context) {
 	}
 
 	user.ID = fix.ID
-	user.CompanyID = fix.CompanyID
-	user.NodeID = fix.NodeID
 	user.CreatedAt = userBefore.CreatedAt
 	if userUpdated, err = p.Service.Save(user); err != nil {
 		resp.Error(err).JSON()
@@ -262,8 +221,6 @@ func (p *UserAPI) Excel(c *gin.Context) {
 	for i, v := range users {
 		column := &[]interface{}{
 			v.ID,
-			v.CompanyID,
-			v.NodeID,
 			v.Username,
 			v.Role,
 			v.Lang,

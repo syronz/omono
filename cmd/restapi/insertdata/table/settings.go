@@ -18,9 +18,7 @@ func InsertSettings(engine *core.Engine) {
 	settings := []basmodel.Setting{
 		{
 			FixedCol: types.FixedCol{
-				ID:        1,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 1,
 			},
 			Property:    settingfields.CompanyName,
 			Value:       "item",
@@ -29,9 +27,7 @@ func InsertSettings(engine *core.Engine) {
 		},
 		{
 			FixedCol: types.FixedCol{
-				ID:        2,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 2,
 			},
 			Property:    settingfields.DefaultLang,
 			Value:       "ku",
@@ -40,9 +36,7 @@ func InsertSettings(engine *core.Engine) {
 		},
 		{
 			FixedCol: types.FixedCol{
-				ID:        3,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 3,
 			},
 			Property:    settingfields.CompanyLogo,
 			Value:       "invoice",
@@ -51,9 +45,7 @@ func InsertSettings(engine *core.Engine) {
 		},
 		{
 			FixedCol: types.FixedCol{
-				ID:        4,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 4,
 			},
 			Property:    settingfields.InvoiceLogo,
 			Value:       "public/logo.png",
@@ -62,9 +54,7 @@ func InsertSettings(engine *core.Engine) {
 		},
 		{
 			FixedCol: types.FixedCol{
-				ID:        6,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 6,
 			},
 			Property:    settingfields.CashAccountID,
 			Value:       "2",
@@ -73,9 +63,7 @@ func InsertSettings(engine *core.Engine) {
 		},
 		{
 			FixedCol: types.FixedCol{
-				ID:        7,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 7,
 			},
 			Property:    settingfields.CompanyEmail,
 			Value:       "XYZ@mail.com",
@@ -84,9 +72,7 @@ func InsertSettings(engine *core.Engine) {
 		},
 		{
 			FixedCol: types.FixedCol{
-				ID:        8,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 8,
 			},
 			Property:    settingfields.CompanyPhone,
 			Value:       "+96477000000",
@@ -95,9 +81,7 @@ func InsertSettings(engine *core.Engine) {
 		},
 		{
 			FixedCol: types.FixedCol{
-				ID:        9,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 9,
 			},
 			Property:    settingfields.CompanyAddress,
 			Value:       "Iraq Sulaimani 203452",
@@ -106,9 +90,7 @@ func InsertSettings(engine *core.Engine) {
 		},
 		{
 			FixedCol: types.FixedCol{
-				ID:        10,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 10,
 			},
 			Property:    settingfields.DefaultCurrency,
 			Value:       "USD",

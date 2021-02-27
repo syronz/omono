@@ -21,18 +21,18 @@ import (
 	"gorm.io/gorm"
 )
 
-// BasAccountServ for injecting auth subrepo
-type BasAccountServ struct {
+// SubAccountServ for injecting auth subrepo
+type SubAccountServ struct {
 	Repo      subrepo.AccountRepo
 	Engine    *core.Engine
-	PhoneServ BasPhoneServ
+	PhoneServ SubPhoneServ
 }
 
 var cacheChartOffAccount *submodel.Tree
 
-// ProvideBasAccountService for account is used in wire
-func ProvideBasAccountService(p subrepo.AccountRepo, phoneServ BasPhoneServ) BasAccountServ {
-	return BasAccountServ{
+// ProvideSubAccountService for account is used in wire
+func ProvideSubAccountService(p subrepo.AccountRepo, phoneServ SubPhoneServ) SubAccountServ {
+	return SubAccountServ{
 		Repo:      p,
 		Engine:    p.Engine,
 		PhoneServ: phoneServ,
@@ -40,14 +40,14 @@ func ProvideBasAccountService(p subrepo.AccountRepo, phoneServ BasPhoneServ) Bas
 }
 
 // FindByID for getting account by it's id
-func (p *BasAccountServ) FindByID(fix types.FixedNode) (account submodel.Account, err error) {
+func (p *SubAccountServ) FindByID(fix types.FixedCol) (account submodel.Account, err error) {
 	if account, err = p.Repo.FindByID(fix); err != nil {
-		err = corerr.Tick(err, "E1049049", "can't fetch the account", fix.ID, fix.CompanyID, fix.NodeID)
+		err = corerr.Tick(err, "E1049049", "can't fetch the account", fix.ID)
 		return
 	}
 
 	if account.Phones, err = p.PhoneServ.AccountsPhones(fix); err != nil {
-		err = corerr.Tick(err, "E1017084", "can't fetch the account's phones", fix.ID, fix.CompanyID, fix.NodeID)
+		err = corerr.Tick(err, "E1017084", "can't fetch the account's phones", fix.ID)
 		return
 	}
 
@@ -55,9 +55,9 @@ func (p *BasAccountServ) FindByID(fix types.FixedNode) (account submodel.Account
 }
 
 // TxFindAccountStatus will return the status of an account
-func (p *BasAccountServ) TxFindAccountStatus(db *gorm.DB, fix types.FixedNode) (account submodel.Account, err error) {
+func (p *SubAccountServ) TxFindAccountStatus(db *gorm.DB, fix types.FixedCol) (account submodel.Account, err error) {
 	if account, err = p.Repo.TxFindAccountStatus(db, fix); err != nil {
-		err = corerr.Tick(err, "E1048403", "can't fetch the account's status", fix.ID, fix.CompanyID, fix.NodeID)
+		err = corerr.Tick(err, "E1048403", "can't fetch the account's status", fix.ID)
 		return
 	}
 
@@ -65,7 +65,7 @@ func (p *BasAccountServ) TxFindAccountStatus(db *gorm.DB, fix types.FixedNode) (
 }
 
 // List of accounts, it support pagination and search and return back count
-func (p *BasAccountServ) List(params param.Param) (accounts []submodel.Account,
+func (p *SubAccountServ) List(params param.Param) (accounts []submodel.Account,
 	count int64, err error) {
 
 	if accounts, err = p.Repo.List(params); err != nil {
@@ -81,7 +81,7 @@ func (p *BasAccountServ) List(params param.Param) (accounts []submodel.Account,
 }
 
 // GetAllAccounts will fetch all of the accounts. Currently used for balancesheet
-func (p *BasAccountServ) GetAllAccounts(params param.Param) (accounts []submodel.Account,
+func (p *SubAccountServ) GetAllAccounts(params param.Param) (accounts []submodel.Account,
 	count int64, err error) {
 
 	if accounts, err = p.Repo.GetAllAccounts(params); err != nil {
@@ -93,7 +93,7 @@ func (p *BasAccountServ) GetAllAccounts(params param.Param) (accounts []submodel
 }
 
 // Create a account
-func (p *BasAccountServ) Create(account submodel.Account) (createdAccount submodel.Account, err error) {
+func (p *SubAccountServ) Create(account submodel.Account) (createdAccount submodel.Account, err error) {
 	db := p.Engine.DB.Begin()
 
 	defer func() {
@@ -117,7 +117,7 @@ func (p *BasAccountServ) Create(account submodel.Account) (createdAccount submod
 }
 
 // TxCreate is used for creating an account in case of transaction activated
-func (p *BasAccountServ) TxCreate(db *gorm.DB, account submodel.Account) (createdAccount submodel.Account, err error) {
+func (p *SubAccountServ) TxCreate(db *gorm.DB, account submodel.Account) (createdAccount submodel.Account, err error) {
 	if err = account.Validate(coract.Save); err != nil {
 		err = corerr.TickValidate(err, "E1076780", "validation failed in creating the account", account)
 		return
@@ -129,8 +129,6 @@ func (p *BasAccountServ) TxCreate(db *gorm.DB, account submodel.Account) (create
 	}
 
 	for _, phone := range account.Phones {
-		phone.CompanyID = createdAccount.CompanyID
-		phone.NodeID = createdAccount.NodeID
 		phone.AccountID = createdAccount.ID
 		if _, err = p.PhoneServ.TxCreate(db, phone); err != nil {
 			err = corerr.Tick(err, "E1040913", "error in creating phone for account", phone)
@@ -143,12 +141,12 @@ func (p *BasAccountServ) TxCreate(db *gorm.DB, account submodel.Account) (create
 }
 
 // Save a account, if it is exist update it, if not create it
-func (p *BasAccountServ) Save(account submodel.Account) (savedAccount submodel.Account, err error) {
+func (p *SubAccountServ) Save(account submodel.Account) (savedAccount submodel.Account, err error) {
 	return p.TxSave(p.Engine.DB, account)
 }
 
 // TxSave a account, if it is exist update it, if not create it
-func (p *BasAccountServ) TxSave(db *gorm.DB, account submodel.Account) (savedAccount submodel.Account, err error) {
+func (p *SubAccountServ) TxSave(db *gorm.DB, account submodel.Account) (savedAccount submodel.Account, err error) {
 	if err = account.Validate(coract.Save); err != nil {
 		err = corerr.TickValidate(err, "E1064761", corerr.ValidationFailed, account)
 		return
@@ -163,7 +161,7 @@ func (p *BasAccountServ) TxSave(db *gorm.DB, account submodel.Account) (savedAcc
 }
 
 // Delete account, it is soft delete
-func (p *BasAccountServ) Delete(fix types.FixedNode) (account submodel.Account, err error) {
+func (p *SubAccountServ) Delete(fix types.FixedCol) (account submodel.Account, err error) {
 	if account, err = p.FindByID(fix); err != nil {
 		err = corerr.Tick(err, "E1038835", "account not found for deleting")
 		return
@@ -210,7 +208,7 @@ func (p *BasAccountServ) Delete(fix types.FixedNode) (account submodel.Account, 
 }
 
 // Excel is used for export excel file
-func (p *BasAccountServ) Excel(params param.Param) (accounts []submodel.Account, err error) {
+func (p *SubAccountServ) Excel(params param.Param) (accounts []submodel.Account, err error) {
 	params.Limit = p.Engine.Envs.ToInt(core.ExcelMaxRows)
 	params.Offset = 0
 	params.Order = fmt.Sprintf("%v.id ASC", submodel.AccountTable)
@@ -224,11 +222,11 @@ func (p *BasAccountServ) Excel(params param.Param) (accounts []submodel.Account,
 }
 
 // IsActive check the status of an account
-func (p *BasAccountServ) IsActive(fix types.FixedNode) (bool, submodel.Account, error) {
+func (p *SubAccountServ) IsActive(fix types.FixedCol) (bool, submodel.Account, error) {
 	var account submodel.Account
 	var err error
 	if account, err = p.FindByID(fix); err != nil {
-		return false, account, corerr.Tick(err, "E1059307", "account not exist", fix.ID, fix.CompanyID, fix.NodeID)
+		return false, account, corerr.Tick(err, "E1059307", "account not exist", fix.ID)
 	}
 
 	return account.Status == accountstatus.Active, account, nil
@@ -239,8 +237,6 @@ func treeChartOfAccounts(accounts []submodel.Account) (root submodel.Tree) {
 
 	for i, v := range accounts {
 		arr[i].ID = v.ID
-		arr[i].CompanyID = v.CompanyID
-		arr[i].NodeID = v.NodeID
 		arr[i].ParentID = v.ParentID
 		arr[i].Code = v.Code
 		if v.NameEn != nil {
@@ -287,7 +283,7 @@ func parseParent(pID *types.RowID) types.RowID {
 }
 
 // ChartOfAccountRefresh is a tree shape of accounts implemented in the nested app
-func (p *BasAccountServ) ChartOfAccountRefresh(params param.Param) (root submodel.Tree,
+func (p *SubAccountServ) ChartOfAccountRefresh(params param.Param) (root submodel.Tree,
 	err error) {
 
 	var accounts []submodel.Account
@@ -308,7 +304,7 @@ func (p *BasAccountServ) ChartOfAccountRefresh(params param.Param) (root submode
 }
 
 // ChartOfAccount is a tree shape of accounts implemented in the nested app
-func (p *BasAccountServ) ChartOfAccount(params param.Param) (root submodel.Tree,
+func (p *SubAccountServ) ChartOfAccount(params param.Param) (root submodel.Tree,
 	err error) {
 
 	params.Limit = consts.MaxRowsCount
@@ -326,7 +322,7 @@ func (p *BasAccountServ) ChartOfAccount(params param.Param) (root submodel.Tree,
 }
 
 // SearchLeafs is used for searching among accounts
-func (p *BasAccountServ) SearchLeafs(search string, lang dict.Lang) (accounts []submodel.Account,
+func (p *SubAccountServ) SearchLeafs(search string, lang dict.Lang) (accounts []submodel.Account,
 	err error) {
 
 	//unfilteredAccs ..

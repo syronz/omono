@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"omono/domain/base"
 	"omono/domain/base/basmodel"
-	"omono/domain/base/basrepo"
 	"omono/domain/base/message/basterm"
 	"omono/domain/service"
 	"omono/internal/core"
@@ -36,14 +35,6 @@ func (p *SettingAPI) FindByID(c *gin.Context) {
 
 	if fix, err = resp.GetFixedCol(c.Param("settingID"), "E1013513", basterm.Setting); err != nil {
 		return
-	}
-
-	accessService := service.ProvideBasAccessService(basrepo.ProvideAccessRepo(p.Engine))
-	accessResult := accessService.CheckAccess(c, base.SuperAccess)
-	if accessResult == true {
-		if !resp.CheckRange(fix.CompanyID) {
-			return
-		}
 	}
 
 	if setting, err = p.Service.FindByID(fix); err != nil {
@@ -95,10 +86,6 @@ func (p *SettingAPI) Update(c *gin.Context) {
 		return
 	}
 
-	if !resp.CheckRange(fix.CompanyID) {
-		return
-	}
-
 	if err = resp.Bind(&setting, "E1049049", base.Domain, basterm.Setting); err != nil {
 		return
 	}
@@ -109,8 +96,6 @@ func (p *SettingAPI) Update(c *gin.Context) {
 	}
 
 	setting.ID = fix.ID
-	setting.CompanyID = fix.CompanyID
-	setting.NodeID = fix.NodeID
 	if settingUpdated, err = p.Service.Update(setting); err != nil {
 		resp.Error(err).JSON()
 		return

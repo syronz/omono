@@ -31,7 +31,7 @@ func (p *CityAPI) FindByID(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
 	var city basmodel.City
-	var fix types.FixedNode
+	var fix types.FixedCol
 
 	if fix.ID, err = types.StrToRowID(c.Param("cityID")); err != nil {
 		return
@@ -84,11 +84,6 @@ func (p *CityAPI) Create(c *gin.Context) {
 		return
 	}
 
-	if city.CompanyID, city.NodeID, err = resp.GetCompanyNode("E1040771", base.Domain); err != nil {
-		resp.Error(err).JSON()
-		return
-	}
-
 	if createdCity, err = p.Service.Create(city); err != nil {
 		resp.Error(err).JSON()
 		return
@@ -106,9 +101,9 @@ func (p *CityAPI) Update(c *gin.Context) {
 	var err error
 
 	var city, cityBefore, cityUpdated basmodel.City
-	var fix types.FixedNode
+	var fix types.FixedCol
 
-	if fix, err = resp.GetFixedNode(c.Param("cityID"), "E1064608", basterm.City); err != nil {
+	if fix, err = resp.GetFixedCol(c.Param("cityID"), "E1064608", basterm.City); err != nil {
 		return
 	}
 
@@ -122,8 +117,6 @@ func (p *CityAPI) Update(c *gin.Context) {
 	}
 
 	city.ID = fix.ID
-	city.NodeID = fix.NodeID
-	city.CompanyID = fix.CompanyID
 	city.CreatedAt = cityBefore.CreatedAt
 	if cityUpdated, err = p.Service.Save(city); err != nil {
 		resp.Error(err).JSON()
@@ -141,9 +134,9 @@ func (p *CityAPI) Delete(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
 	var city basmodel.City
-	var fix types.FixedNode
+	var fix types.FixedCol
 
-	if fix, err = resp.GetFixedNode(c.Param("cityID"), "E1057845", basterm.City); err != nil {
+	if fix, err = resp.GetFixedCol(c.Param("cityID"), "E1057845", basterm.City); err != nil {
 		return
 	}
 

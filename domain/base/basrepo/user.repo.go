@@ -46,7 +46,7 @@ func (p *UserRepo) FindByID(fix types.FixedCol) (user basmodel.User, err error) 
 		Select(colsStr).
 		Joins("INNER JOIN bas_roles ON bas_roles.id = bas_users.role_id").
 		Joins("INNER JOIN bas_accounts ON bas_accounts.id = bas_users.id").
-		Where("bas_users.company_id = ? AND bas_users.node_id = ? AND bas_users.id = ? AND bas_users.deleted_at IS NULL", fix.CompanyID, fix.NodeID, fix.ID.ToUint64()).
+		Where("bas_users.id = ? AND bas_users.deleted_at IS NULL", fix.ID.ToUint64()).
 		First(&user).Error
 
 	user.ID = fix.ID

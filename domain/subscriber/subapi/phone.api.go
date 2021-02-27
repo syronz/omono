@@ -17,12 +17,12 @@ import (
 
 // PhoneAPI for injecting phone service
 type PhoneAPI struct {
-	Service service.BasPhoneServ
+	Service service.SubPhoneServ
 	Engine  *core.Engine
 }
 
 // ProvidePhoneAPI for phone is used in wire
-func ProvidePhoneAPI(c service.BasPhoneServ) PhoneAPI {
+func ProvidePhoneAPI(c service.SubPhoneServ) PhoneAPI {
 	return PhoneAPI{Service: c, Engine: c.Engine}
 }
 
@@ -31,7 +31,7 @@ func (p *PhoneAPI) FindByID(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
 	var phone submodel.Phone
-	var fix types.FixedNode
+	var fix types.FixedCol
 
 	if fix.ID, err = types.StrToRowID(c.Param("phoneID")); err != nil {
 		return
@@ -101,7 +101,7 @@ func (p *PhoneAPI) Update(c *gin.Context) {
 	var err error
 
 	var phone, phoneBefore, phoneUpdated submodel.Phone
-	var fix types.FixedNode
+	var fix types.FixedCol
 
 	if fix.ID, err = types.StrToRowID(c.Param("phoneID")); err != nil {
 		return
@@ -133,7 +133,7 @@ func (p *PhoneAPI) Delete(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
 	var phone submodel.Phone
-	var fix types.FixedNode
+	var fix types.FixedCol
 
 	if fix.ID, err = types.StrToRowID(c.Param("phoneID")); err != nil {
 		return
@@ -155,9 +155,9 @@ func (p *PhoneAPI) Separate(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
 	var aPhone submodel.AccountPhone
-	var fix types.FixedNode
+	var fix types.FixedCol
 
-	if fix, err = resp.GetFixedNode(c.Param("accountPhoneID"), "E1042479", basterm.Phone); err != nil {
+	if fix, err = resp.GetFixedCol(c.Param("accountPhoneID"), "E1042479", basterm.Phone); err != nil {
 		return
 	}
 

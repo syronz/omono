@@ -20,12 +20,12 @@ import (
 
 // AccountAPI for injecting account service
 type AccountAPI struct {
-	Service service.BasAccountServ
+	Service service.SubAccountServ
 	Engine  *core.Engine
 }
 
 // ProvideAccountAPI for account is used in wire
-func ProvideAccountAPI(c service.BasAccountServ) AccountAPI {
+func ProvideAccountAPI(c service.SubAccountServ) AccountAPI {
 	return AccountAPI{Service: c, Engine: c.Engine}
 }
 
@@ -34,13 +34,9 @@ func (p *AccountAPI) FindByID(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
 	var account submodel.Account
-	var fix types.FixedNode
+	var fix types.FixedCol
 
-	if fix, err = resp.GetFixedNode(c.Param("accountID"), "E1070061", basterm.Account); err != nil {
-		return
-	}
-
-	if !resp.CheckRange(fix.CompanyID) {
+	if fix, err = resp.GetFixedCol(c.Param("accountID"), "E1070061", basterm.Account); err != nil {
 		return
 	}
 
@@ -87,19 +83,6 @@ func (p *AccountAPI) Create(c *gin.Context) {
 	var account, createdAccount submodel.Account
 	var err error
 
-	if account.CompanyID, account.NodeID, err = resp.GetCompanyNode("E1057239", base.Domain); err != nil {
-		resp.Error(err).JSON()
-		return
-	}
-
-	if account.CompanyID, err = resp.GetCompanyID("E1085677"); err != nil {
-		return
-	}
-
-	if !resp.CheckRange(account.CompanyID) {
-		return
-	}
-
 	if err = resp.Bind(&account, "E1057541", base.Domain, basterm.Account); err != nil {
 		return
 	}
@@ -121,13 +104,9 @@ func (p *AccountAPI) Update(c *gin.Context) {
 	var err error
 
 	var account, accountBefore, accountUpdated submodel.Account
-	var fix types.FixedNode
+	var fix types.FixedCol
 
-	if fix, err = resp.GetFixedNode(c.Param("accountID"), "E1076703", basterm.Account); err != nil {
-		return
-	}
-
-	if !resp.CheckRange(fix.CompanyID) {
+	if fix, err = resp.GetFixedCol(c.Param("accountID"), "E1076703", basterm.Account); err != nil {
 		return
 	}
 
@@ -141,8 +120,6 @@ func (p *AccountAPI) Update(c *gin.Context) {
 	}
 
 	account.ID = fix.ID
-	account.CompanyID = fix.CompanyID
-	account.NodeID = fix.NodeID
 	account.CreatedAt = accountBefore.CreatedAt
 	if accountUpdated, err = p.Service.Save(account); err != nil {
 		resp.Error(err).JSON()
@@ -160,13 +137,9 @@ func (p *AccountAPI) Delete(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
 	var account submodel.Account
-	var fix types.FixedNode
+	var fix types.FixedCol
 
-	if fix, err = resp.GetFixedNode(c.Param("accountID"), "E1092196", basterm.Account); err != nil {
-		return
-	}
-
-	if !resp.CheckRange(fix.CompanyID) {
+	if fix, err = resp.GetFixedCol(c.Param("accountID"), "E1092196", basterm.Account); err != nil {
 		return
 	}
 
@@ -272,10 +245,8 @@ func (p *AccountAPI) GetCashAccount(c *gin.Context) {
 	var err error
 	var account submodel.Account
 
-	fix := types.FixedNode{
-		CompanyID: 1001,
-		NodeID:    101,
-		ID:        p.Engine.Setting[settingfields.CashAccountID].ToRowID(),
+	fix := types.FixedCol{
+		ID: p.Engine.Setting[settingfields.CashAccountID].ToRowID(),
 	}
 
 	if account, err = p.Service.FindByID(fix); err != nil {

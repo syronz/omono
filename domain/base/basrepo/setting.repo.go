@@ -34,7 +34,7 @@ func ProvideSettingRepo(engine *core.Engine) SettingRepo {
 // FindByID finds the setting via its id
 func (p *SettingRepo) FindByID(fix types.FixedCol) (setting basmodel.Setting, err error) {
 	err = p.Engine.ReadDB.Table(basmodel.SettingTable).
-		Where("company_id = ? AND node_id = ? AND id = ?", fix.CompanyID, fix.NodeID, fix.ID.ToUint64()).
+		Where("id = ?", fix.ID.ToUint64()).
 		First(&setting).Error
 
 	setting.ID = fix.ID

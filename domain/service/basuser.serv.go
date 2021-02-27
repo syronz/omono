@@ -102,9 +102,7 @@ func (p *BasUserServ) Save(user basmodel.User) (updatedUser basmodel.User, err e
 
 	var oldUser basmodel.User
 	fix := types.FixedCol{
-		ID:        user.ID,
-		CompanyID: user.CompanyID,
-		NodeID:    user.NodeID,
+		ID: user.ID,
 	}
 	oldUser, _ = p.FindByID(fix)
 

@@ -58,10 +58,6 @@ func (p *BasAuthServ) Login(auth basmodel.Auth, params param.Param) (user basmod
 			Username: auth.Username,
 			ID:       user.ID,
 			Lang:     user.Lang,
-			// CompanyID: p.Engine.Envs.ToUint64(sync.CompanyID),
-			// NodeID:    p.Engine.Envs.ToUint64(sync.NodeID),
-			CompanyID: user.CompanyID,
-			NodeID:    user.NodeID,
 			StandardClaims: jwt.StandardClaims{
 				ExpiresAt: expirationTime.Unix(),
 			},
@@ -95,9 +91,7 @@ func (p *BasAuthServ) Profile(params param.Param) (user basmodel.User, err error
 	userServ := ProvideBasUserService(basrepo.ProvideUserRepo(p.Engine))
 
 	fix := types.FixedCol{
-		CompanyID: params.CompanyID,
-		NodeID:    params.NodeID,
-		ID:        params.UserID,
+		ID: params.UserID,
 	}
 
 	if user, err = userServ.FindByID(fix); err != nil {
@@ -118,10 +112,8 @@ func (p *BasAuthServ) TemporaryToken(params param.Param) (tmpKey string, err err
 
 	expirationTime := time.Now().Add(consts.TemporaryTokenDuration * time.Second)
 	claims := &types.JWTClaims{
-		ID:        params.UserID,
-		Lang:      params.Lang,
-		CompanyID: params.CompanyID,
-		NodeID:    params.NodeID,
+		ID:   params.UserID,
+		Lang: params.Lang,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expirationTime.Unix(),
 		},

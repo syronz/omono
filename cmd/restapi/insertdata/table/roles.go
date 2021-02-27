@@ -19,9 +19,7 @@ func InsertRoles(engine *core.Engine) {
 	roles := []basmodel.Role{
 		{
 			FixedCol: types.FixedCol{
-				ID:        1,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 1,
 			},
 			Name: "Admin",
 			Resources: types.ResourceJoin([]types.Resource{
@@ -39,9 +37,7 @@ func InsertRoles(engine *core.Engine) {
 		},
 		{
 			FixedCol: types.FixedCol{
-				ID:        2,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 2,
 			},
 			Name: "Cashier",
 			Resources: types.ResourceJoin([]types.Resource{
@@ -52,9 +48,7 @@ func InsertRoles(engine *core.Engine) {
 		},
 		{
 			FixedCol: types.FixedCol{
-				ID:        3,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 3,
 			},
 			Name: "Reader",
 			Resources: types.ResourceJoin([]types.Resource{
@@ -66,9 +60,7 @@ func InsertRoles(engine *core.Engine) {
 		},
 		{
 			FixedCol: types.FixedCol{
-				ID:        4,
-				CompanyID: 1002,
-				NodeID:    101,
+				ID: 4,
 			},
 			Name: "should_be_deleted",
 			Resources: types.ResourceJoin([]types.Resource{

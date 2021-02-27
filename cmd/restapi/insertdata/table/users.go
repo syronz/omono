@@ -21,9 +21,7 @@ func InsertUsers(engine *core.Engine) {
 	users := []basmodel.User{
 		{
 			FixedCol: types.FixedCol{
-				ID:        79,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 79,
 			},
 			RoleID:   1,
 			Name:     engine.Envs[base.AdminUsername],
@@ -33,8 +31,6 @@ func InsertUsers(engine *core.Engine) {
 		},
 		// {
 		// 	FixedCol: types.FixedCol{
-		// 		CompanyID: 1001,
-		// 		NodeID:    101,
 		// 	},
 		// 	RoleID:   2,
 		// 	Name:     "cashier",
@@ -44,8 +40,6 @@ func InsertUsers(engine *core.Engine) {
 		// },
 		// {
 		// 	FixedCol: types.FixedCol{
-		// 		CompanyID: 1001,
-		// 		NodeID:    101,
 		// 	},
 		// 	RoleID:   3,
 		// 	Name:     "reader",

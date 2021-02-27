@@ -25,7 +25,7 @@ func InsertAccounts(engine *core.Engine) {
 
 	accounts := []basmodel.Account{
 		{
-			FixedNode: types.FixedNode{
+			FixedCol: types.FixedCol{
 				ID:        1,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -37,7 +37,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedNode: types.FixedNode{
+			FixedCol: types.FixedCol{
 				ID:        2,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -49,7 +49,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedNode: types.FixedNode{
+			FixedCol: types.FixedCol{
 				ID:        3,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -61,7 +61,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Inactive,
 		},
 		{
-			FixedNode: types.FixedNode{
+			FixedCol: types.FixedCol{
 				ID:        4,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -73,7 +73,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedNode: types.FixedNode{
+			FixedCol: types.FixedCol{
 				ID:        5,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -85,7 +85,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Inactive,
 		},
 		{
-			FixedNode: types.FixedNode{
+			FixedCol: types.FixedCol{
 				ID:        6,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -97,7 +97,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedNode: types.FixedNode{
+			FixedCol: types.FixedCol{
 				ID:        7,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -109,7 +109,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedNode: types.FixedNode{
+			FixedCol: types.FixedCol{
 				ID:        8,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -121,7 +121,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedNode: types.FixedNode{
+			FixedCol: types.FixedCol{
 				ID:        9,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -133,7 +133,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedNode: types.FixedNode{
+			FixedCol: types.FixedCol{
 				ID:        10,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -145,7 +145,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedNode: types.FixedNode{
+			FixedCol: types.FixedCol{
 				ID:        21,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -157,7 +157,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedNode: types.FixedNode{
+			FixedCol: types.FixedCol{
 				ID:        30,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -169,7 +169,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedNode: types.FixedNode{
+			FixedCol: types.FixedCol{
 				ID:        31,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -181,7 +181,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedNode: types.FixedNode{
+			FixedCol: types.FixedCol{
 				ID:        32,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -193,7 +193,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedNode: types.FixedNode{
+			FixedCol: types.FixedCol{
 				ID:        33,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -205,7 +205,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedNode: types.FixedNode{
+			FixedCol: types.FixedCol{
 				ID:        34,
 				CompanyID: 1001,
 				NodeID:    101,

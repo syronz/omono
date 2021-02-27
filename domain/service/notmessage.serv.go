@@ -34,7 +34,7 @@ func ProvideNotMessageService(p notrepo.MessageRepo) NotMessageServ {
 // FindByID for getting message by it's id
 func (p *NotMessageServ) FindByID(fix types.FixedCol) (message notmodel.Message, err error) {
 	if message, err = p.Repo.FindByID(fix); err != nil {
-		err = corerr.Tick(err, "E8218140", "can't fetch the message", fix.CompanyID, fix.NodeID, fix.ID)
+		err = corerr.Tick(err, "E8218140", "can't fetch the message", fix.ID)
 		return
 	}
 

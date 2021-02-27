@@ -17,9 +17,7 @@ func InsertCities(engine *core.Engine) {
 	cities := []basmodel.City{
 		{
 			FixedCol: types.FixedCol{
-				ID:        1,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 1,
 			},
 			// TODO:  <23-02-21, yourname> use city in envs //
 			City:  "Sulaimaniyah",
@@ -27,27 +25,21 @@ func InsertCities(engine *core.Engine) {
 		},
 		{
 			FixedCol: types.FixedCol{
-				ID:        2,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 2,
 			},
 			City:  "Hawler",
 			Notes: "please delete",
 		},
 		{
 			FixedCol: types.FixedCol{
-				ID:        3,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 3,
 			},
 			City:  "Kirkuk",
 			Notes: "please delete",
 		},
 		{
 			FixedCol: types.FixedCol{
-				ID:        4,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 4,
 			},
 			City:  "Duhok",
 			Notes: "please delete",

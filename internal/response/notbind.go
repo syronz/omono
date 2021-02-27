@@ -41,25 +41,8 @@ func (r *Response) GetRowID(idIn, code, part string) (id types.RowID, err error)
 	return
 }
 
-func (r *Response) GetFixIDs(idIn, code, part string) (companyID,
-	nodeID uint64, id types.RowID, err error) {
+func (r *Response) GetFixIDs(idIn, code, part string) (id types.RowID, err error) {
 	if id, err = r.GetRowID(idIn, code, part); err != nil {
-		return
-	}
-
-	if companyID, err = strconv.ParseUint(r.Context.Param("companyID"), 10, 64); err != nil {
-		err = limberr.Take(err, code).
-			Message(corerr.InvalidVForV, dict.R(corterm.ID), "company_id").
-			Custom(corerr.ValidationFailedErr).Build()
-		r.Error(err).JSON()
-		return
-	}
-
-	if nodeID, err = strconv.ParseUint(r.Context.Param("nodeID"), 10, 64); err != nil {
-		err = limberr.Take(err, code).
-			Message(corerr.InvalidVForV, dict.R(corterm.ID), "node_id").
-			Custom(corerr.ValidationFailedErr).Build()
-		r.Error(err).JSON()
 		return
 	}
 
@@ -67,12 +50,7 @@ func (r *Response) GetFixIDs(idIn, code, part string) (companyID,
 }
 
 func (r *Response) GetFixedCol(idIn, code, part string) (fixedCol types.FixedCol, err error) {
-	fixedCol.CompanyID, fixedCol.NodeID, fixedCol.ID, err = r.GetFixIDs(idIn, code, part)
-	return
-}
-
-func (r *Response) GetFixedNode(idIn, code, part string) (fixedNode types.FixedNode, err error) {
-	fixedNode.CompanyID, fixedNode.NodeID, fixedNode.ID, err = r.GetFixIDs(idIn, code, part)
+	fixedCol.ID, err = r.GetFixIDs(idIn, code, part)
 	return
 }
 

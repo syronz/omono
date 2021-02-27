@@ -32,7 +32,7 @@ func ProvideMessageRepo(engine *core.Engine) MessageRepo {
 // FindByID finds the message via its id
 func (p *MessageRepo) FindByID(fix types.FixedCol) (message notmodel.Message, err error) {
 	err = p.Engine.ReadDB.Table(notmodel.MessageTable).
-		Where("company_id = ? AND node_id = ? AND id = ?", fix.CompanyID, fix.NodeID, fix.ID.ToUint64()).
+		Where("id = ?", fix.ID.ToUint64()).
 		First(&message).Error
 
 	message.ID = fix.ID

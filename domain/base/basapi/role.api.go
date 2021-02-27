@@ -37,10 +37,6 @@ func (p *RoleAPI) FindByID(c *gin.Context) {
 		return
 	}
 
-	if !resp.CheckRange(fix.CompanyID) {
-		return
-	}
-
 	if role, err = p.Service.FindByID(fix); err != nil {
 		resp.Error(err).JSON()
 		return
@@ -84,19 +80,6 @@ func (p *RoleAPI) Create(c *gin.Context) {
 	var role, createdRole basmodel.Role
 	var err error
 
-	if role.CompanyID, role.NodeID, err = resp.GetCompanyNode("E1039319", base.Domain); err != nil {
-		resp.Error(err).JSON()
-		return
-	}
-
-	if role.CompanyID, err = resp.GetCompanyID("E1088398"); err != nil {
-		return
-	}
-
-	if !resp.CheckRange(role.CompanyID) {
-		return
-	}
-
 	if err = resp.Bind(&role, "E1088259", base.Domain, basterm.Role); err != nil {
 		return
 	}
@@ -124,10 +107,6 @@ func (p *RoleAPI) Update(c *gin.Context) {
 		return
 	}
 
-	if !resp.CheckRange(fix.CompanyID) {
-		return
-	}
-
 	if err = resp.Bind(&role, "E1076117", base.Domain, basterm.Role); err != nil {
 		return
 	}
@@ -138,8 +117,6 @@ func (p *RoleAPI) Update(c *gin.Context) {
 	}
 
 	role.ID = fix.ID
-	role.CompanyID = fix.CompanyID
-	role.NodeID = fix.NodeID
 	role.CreatedAt = roleBefore.CreatedAt
 	if roleUpdated, err = p.Service.Save(role); err != nil {
 		resp.Error(err).JSON()
@@ -160,10 +137,6 @@ func (p *RoleAPI) Delete(c *gin.Context) {
 	var fix types.FixedCol
 
 	if fix, err = resp.GetFixedCol(c.Param("roleID"), "E1088446", basterm.Role); err != nil {
-		return
-	}
-
-	if !resp.CheckRange(fix.CompanyID) {
 		return
 	}
 
