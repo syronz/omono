@@ -110,14 +110,9 @@ func (p *RoleAPI) Update(c *gin.Context) {
 		return
 	}
 
-	if roleBefore, err = p.Service.FindByID(id); err != nil {
-		resp.Error(err).JSON()
-		return
-	}
-
 	role.ID = id
 	role.CreatedAt = roleBefore.CreatedAt
-	if roleUpdated, err = p.Service.Save(role); err != nil {
+	if roleUpdated, roleBefore, err = p.Service.Save(role); err != nil {
 		resp.Error(err).JSON()
 		return
 	}

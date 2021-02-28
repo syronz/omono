@@ -144,14 +144,9 @@ func (p *UserAPI) Update(c *gin.Context) {
 		return
 	}
 
-	if userBefore, err = p.Service.FindByID(id); err != nil {
-		resp.Error(err).JSON()
-		return
-	}
-
 	user.ID = id
 	user.CreatedAt = userBefore.CreatedAt
-	if userUpdated, err = p.Service.Save(user); err != nil {
+	if userUpdated, userBefore, err = p.Service.Save(user); err != nil {
 		resp.Error(err).JSON()
 		return
 	}

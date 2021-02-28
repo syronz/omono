@@ -60,11 +60,17 @@ func (p *BasSettingServ) TxCreate(db *gorm.DB, setting basmodel.Setting) (u basm
 }
 
 // Save setting
-func (p *BasSettingServ) Save(setting basmodel.Setting) (savedSetting basmodel.Setting, err error) {
+func (p *BasSettingServ) Save(setting basmodel.Setting) (savedSetting, settingBefore basmodel.Setting, err error) {
 	if err = setting.Validate(coract.Save); err != nil {
 		err = corerr.TickValidate(err, "E1066086", "validation failed for saving setting", setting)
 		return
 	}
+
+	if settingBefore, err = p.FindByID(setting.ID); err != nil {
+		err = corerr.Tick(err, "E1031973", "can't fetch setting by id", setting.ID)
+	}
+
+	setting.CreatedAt = settingBefore.CreatedAt
 
 	if savedSetting, err = p.Repo.Save(setting); err != nil {
 		err = corerr.Tick(err, "E1036118", "error in creating user", setting)

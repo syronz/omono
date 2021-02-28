@@ -48,8 +48,14 @@ func InsertCities(engine *core.Engine) {
 	}
 
 	for _, v := range cities {
-		if _, err := cityService.Save(v); err != nil {
-			glog.Fatal("error in saving cities", err)
+		if _, err := cityService.FindByID(v.ID); err == nil {
+			if _, _, err := cityService.Save(v); err != nil {
+				glog.Fatal("error in saving cities", err)
+			}
+		} else {
+			if _, err := cityService.Create(v); err != nil {
+				glog.Fatal("error in creating cities", err)
+			}
 		}
 	}
 

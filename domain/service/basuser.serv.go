@@ -93,14 +93,13 @@ func (p *BasUserServ) Create(user basmodel.User) (createdUser basmodel.User, err
 }
 
 // Save user
-func (p *BasUserServ) Save(user basmodel.User) (updatedUser basmodel.User, err error) {
+func (p *BasUserServ) Save(user basmodel.User) (updatedUser, userBefore basmodel.User, err error) {
 	if err = user.Validate(coract.Update); err != nil {
 		err = corerr.TickValidate(err, "E1098252", corerr.ValidationFailed, user)
 		return
 	}
 
-	var oldUser basmodel.User
-	oldUser, _ = p.FindByID(user.ID)
+	userBefore, _ = p.FindByID(user.ID)
 
 	db := p.Engine.DB.Begin()
 	defer func() {
@@ -116,10 +115,11 @@ func (p *BasUserServ) Save(user basmodel.User) (updatedUser basmodel.User, err e
 			err = corerr.Tick(err, "E1057832", "error in saving user", user)
 		}
 	} else {
-		user.Password = oldUser.Password
+		user.Password = userBefore.Password
 	}
 
 	userRepo := basrepo.ProvideUserRepo(p.Engine)
+	user.CreatedAt = userBefore.CreatedAt
 
 	if updatedUser, err = userRepo.TxSave(db, user); err != nil {
 		err = corerr.Tick(err, "E1062983", "error in saving user", user)

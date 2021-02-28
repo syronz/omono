@@ -151,7 +151,7 @@ func (p *BasAuthServ) TemporaryTokenHour(hour int, lang dict.Lang) (tmpKey strin
 func (p *BasAuthServ) Register(user basmodel.User) (createdUser basmodel.User, err error) {
 	userServ := ProvideBasUserService(basrepo.ProvideUserRepo(p.Engine))
 
-	if user.RoleID, err = types.StrTouint(p.Engine.Setting[base.DefaultRegisteredRole].Value); err != nil {
+	if user.RoleID, err = types.StrToUint(p.Engine.Setting[base.DefaultRegisteredRole].Value); err != nil {
 		err = limberr.New(`default_registered_role is not a number`, "E1021908").
 			Message(baserr.DefaultRoleIDisNotValidUpdateSettings).
 			Custom(corerr.InternalServerErr).Build()

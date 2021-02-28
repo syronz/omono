@@ -73,7 +73,7 @@ func (p *BasCityServ) Create(city basmodel.City) (createdCity basmodel.City, err
 		return
 	}
 
-	if createdCity, err = p.Repo.Save(city); err != nil {
+	if createdCity, err = p.Repo.Create(city); err != nil {
 		err = corerr.Tick(err, "E1415152", "city not saved")
 		return
 	}
@@ -82,12 +82,18 @@ func (p *BasCityServ) Create(city basmodel.City) (createdCity basmodel.City, err
 }
 
 // Save a city, if it is exist update it, if not create it
-func (p *BasCityServ) Save(city basmodel.City) (savedCity basmodel.City, err error) {
-	glog.Debug(city)
+func (p *BasCityServ) Save(city basmodel.City) (savedCity, cityBefore basmodel.City, err error) {
 	if err = city.Validate(coract.Save); err != nil {
 		err = corerr.TickValidate(err, "E1023474", corerr.ValidationFailed, city)
 		return
 	}
+
+	if cityBefore, err = p.FindByID(city.ID); err != nil {
+		err = corerr.Tick(err, "E1045882", "can't fetch city by id for saving it", city.ID)
+		return
+	}
+
+	city.CreatedAt = cityBefore.CreatedAt
 
 	if savedCity, err = p.Repo.Save(city); err != nil {
 		err = corerr.Tick(err, "E1044237", "city not saved")

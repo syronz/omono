@@ -52,8 +52,14 @@ func InsertUsers(engine *core.Engine) {
 	}
 
 	for _, v := range users {
-		if _, err := userService.Save(v); err != nil {
-			glog.Fatal("error in saving users", err)
+		if _, err := userService.FindByID(v.ID); err == nil {
+			if _, _, err := userService.Save(v); err != nil {
+				glog.Fatal("error in saving users", err)
+			}
+		} else {
+			if _, err := userService.Create(v); err != nil {
+				glog.Fatal("error in creating users", err)
+			}
 		}
 	}
 

@@ -9,6 +9,6 @@ type SettingMap struct {
 
 // Touint return uint for id
 func (p SettingMap) Touint() uint {
-	n, _ := StrTouint(p.Value)
+	n, _ := StrToUint(p.Value)
 	return n
 }

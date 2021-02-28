@@ -101,8 +101,14 @@ func InsertSettings(engine *core.Engine) {
 	}
 
 	for _, v := range settings {
-		if _, err := settingService.Save(v); err != nil {
-			glog.Fatal(err)
+		if _, err := settingService.FindByID(v.ID); err == nil {
+			if _, _, err := settingService.Save(v); err != nil {
+				glog.Fatal("error in saving settings", err)
+			}
+		} else {
+			if _, _, err := settingService.Save(v); err != nil {
+				glog.Fatal("error in creating settings", err)
+			}
 		}
 	}
 

@@ -31,10 +31,16 @@ func (p *extractor) getTag(t reflect.Type) {
 
 		externalTable := field.Tag.Get("table")
 
-		// below code is for recursive
-		if field.Type.Kind() == reflect.Struct && externalTable == "" {
-			p.getTag(field.Type)
-			continue
+		if field.Type.Kind() == reflect.Struct && field.Type.Name() == "Model" {
+			p.arr = append(p.arr, p.table+"."+"created_at")
+			p.arr = append(p.arr, p.table+"."+"updated_at")
+			p.arr = append(p.arr, p.table+"."+"deleted_at")
+		} else {
+			// below code is for recursive
+			if field.Type.Kind() == reflect.Struct && externalTable == "" {
+				p.getTag(field.Type)
+				continue
+			}
 		}
 
 		column := field.Tag.Get("json")

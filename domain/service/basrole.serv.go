@@ -82,11 +82,18 @@ func (p *BasRoleServ) TxCreate(db *gorm.DB, role basmodel.Role) (createdRole bas
 }
 
 // Save a role, if it is exist update it, if not create it
-func (p *BasRoleServ) Save(role basmodel.Role) (savedRole basmodel.Role, err error) {
+func (p *BasRoleServ) Save(role basmodel.Role) (savedRole, roleBefore basmodel.Role, err error) {
 	if err = role.Validate(coract.Save); err != nil {
 		err = corerr.TickValidate(err, "E1037119", corerr.ValidationFailed, role)
 		return
 	}
+
+	if roleBefore, err = p.FindByID(role.ID); err != nil {
+		err = corerr.Tick(err, "E1067466", "can't fetch role by id", role.ID)
+		return
+	}
+
+	role.CreatedAt = roleBefore.CreatedAt
 
 	if savedRole, err = p.Repo.Save(role); err != nil {
 		err = corerr.Tick(err, "E1078742", "role not saved")
