@@ -7,8 +7,8 @@
 	"url":"_URL_/cities?filter=bas_roles2.name[eq]'admin'",
 	"url":"_URL_/cities?order_by=bas_cities.id&direction=asc&page_size=4",
 	"url":"_URL_/cities?select=bas_cities.name,bas_cities.id&lang=ku",
-	"url":"_URL_/companies/1002/cities",
-	"url":"_URL_/companies/1001/cities",
+	"url":"_URL_/cities",
+	"url":"_URL_/cities",
 	"authorization":"Bearer _TOKEN_",
 	"payload": {}
 }

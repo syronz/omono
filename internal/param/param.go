@@ -14,8 +14,6 @@ type Param struct {
 	Filter          string
 	PreCondition    string
 	UserID          uint
-	CompanyID       uint64
-	NodeID          uint64
 	Lang            dict.Lang
 	ErrPanel        string
 	ShowDeletedRows bool

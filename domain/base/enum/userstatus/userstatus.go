@@ -4,6 +4,7 @@ import (
 	"omono/internal/types"
 )
 
+// enum for users
 const (
 	Active    types.Enum = "active"
 	Inactive  types.Enum = "inactive"

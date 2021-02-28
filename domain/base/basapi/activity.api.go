@@ -67,16 +67,6 @@ func (p *ActivityAPI) ListCompany(c *gin.Context) {
 	resp, params := response.NewParam(p.Engine, c, basmodel.ActivityTable, base.Domain)
 	var err error
 
-	if params.CompanyID, err = resp.GetCompanyID("E1029386"); err != nil {
-		return
-	}
-
-	if !resp.CheckRange(params.CompanyID) {
-		return
-	}
-
-	params.PreCondition = fmt.Sprintf("(bas_activities.company_id = %v) ", params.CompanyID)
-
 	data, err := p.Service.List(params)
 	if err != nil {
 		resp.Error(err).JSON()
@@ -93,10 +83,6 @@ func (p *ActivityAPI) ListCompany(c *gin.Context) {
 func (p *ActivityAPI) ListSelf(c *gin.Context) {
 	resp, params := response.NewParam(p.Engine, c, basmodel.ActivityTable, base.Domain)
 	var err error
-
-	// if params.CompanyID, err = resp.GetCompanyID("E1027519"); err != nil {
-	// 	return
-	// }
 
 	params.PreCondition = fmt.Sprintf("bas_activities.user_id = %v", params.UserID)
 

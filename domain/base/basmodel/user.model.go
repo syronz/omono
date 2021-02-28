@@ -34,7 +34,7 @@ type User struct {
 	Resources  string      `gorm:"-" json:"resources,omitempty" table:"bas_roles.resources"`
 	Role       string      `gorm:"->" json:"role,omitempty" table:"bas_roles.name as role"`
 	Phone      string      `gorm:"-" json:"phone,omitempty" table:"-"`
-	Status     types.Enum  `gorm:"default:'active';type:enum('active','inactive')" json:"status,omitempty"`
+	Status     types.Enum  `gorm:"default:'active';type:enum('active','inactive','terminate')" json:"status,omitempty"`
 }
 
 // Validate check the type of

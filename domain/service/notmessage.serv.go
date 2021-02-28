@@ -77,10 +77,6 @@ func (p *NotMessageServ) FindByHash(hash uint64) (message notmodel.Message, err 
 func (p *NotMessageServ) List(params param.Param, scope string) (messages []notmodel.Message,
 	count int64, err error) {
 
-	// if params.CompanyID != 0 {
-	// 	params.PreCondition = fmt.Sprintf(" not_messages.company_id = '%v'  ", params.CompanyID)
-	// }
-
 	switch scope {
 	case "":
 		fallthrough

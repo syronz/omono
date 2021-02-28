@@ -32,6 +32,7 @@ func (p *extractor) getTag(t reflect.Type) {
 		externalTable := field.Tag.Get("table")
 
 		if field.Type.Kind() == reflect.Struct && field.Type.Name() == "Model" {
+			p.arr = append(p.arr, p.table+"."+"id")
 			p.arr = append(p.arr, p.table+"."+"created_at")
 			p.arr = append(p.arr, p.table+"."+"updated_at")
 			p.arr = append(p.arr, p.table+"."+"deleted_at")

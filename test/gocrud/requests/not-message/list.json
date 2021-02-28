@@ -1,10 +1,10 @@
 {
   "method":"get",
-	"url":"_URL_/companies/1001/messages?filter=mat_companies.id[gt]'7'",
-	"url":"_URL_/companies/1001/messages",
-	"url":"_URL_/companies/1001/messages?scope=new",
-	"url":"_URL_/companies/1001/messages?scope=all",
-	"url":"_URL_/companies/1001/messages?scope=sent",
+	"url":"_URL_/messages?filter=mat_companies.id[gt]'7'",
+	"url":"_URL_/messages",
+	"url":"_URL_/messages?scope=new",
+	"url":"_URL_/messages?scope=all",
+	"url":"_URL_/messages?scope=sent",
 	"authorization":"Bearer _TOKEN_",
 	"payload": {}
 }

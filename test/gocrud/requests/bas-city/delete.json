@@ -1,6 +1,6 @@
 {
   "method":"delete",
-	"url":"_URL_/companies/1001/nodes/101/cities/15",
+	"url":"_URL_/cities/15",
 	"authorization":"Bearer _TOKEN_",
 	"payload": {}
 }

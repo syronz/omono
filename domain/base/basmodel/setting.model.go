@@ -19,7 +19,7 @@ const (
 // Setting model
 type Setting struct {
 	gorm.Model
-	Property    types.Setting `gorm:"not null" json:"property,omitempty"`
+	Property    types.Setting `gorm:"not null;unique" json:"property,omitempty"`
 	Value       string        `gorm:"type:text" json:"value,omitempty"`
 	Type        string        `json:"type,omitempty"`
 	Description string        `json:"description,omitempty"`

@@ -90,14 +90,6 @@ func (p *MessageAPI) List(c *gin.Context) {
 	data := make(map[string]interface{})
 	var err error
 
-	if params.CompanyID, err = resp.GetCompanyID("E8240730"); err != nil {
-		return
-	}
-
-	if !resp.CheckRange(params.CompanyID) {
-		return
-	}
-
 	scope := c.Query("scope")
 
 	if data["list"], data["count"], err = p.Service.List(params, scope); err != nil {
@@ -194,14 +186,6 @@ func (p *MessageAPI) Excel(c *gin.Context) {
 	resp, params := response.NewParam(p.Engine, c, corterm.Messages, notification.Domain)
 	var err error
 
-	if params.CompanyID, err = resp.GetCompanyID("E8210400"); err != nil {
-		return
-	}
-
-	if !resp.CheckRange(params.CompanyID) {
-		return
-	}
-
 	messages, err := p.Service.Excel(params)
 	if err != nil {
 		resp.Error(err).JSON()
@@ -220,8 +204,8 @@ func (p *MessageAPI) Excel(c *gin.Context) {
 		Active("Summary").
 		SetColWidth("A", "D", 20).
 		Active("Messages").
-		WriteHeader("ID", "Company ID", "Node ID", "Name", "Description", "Updated At").
-		SetSheetFields("ID", "CompanyID", "NodeID", "Name", "ExDescription", "UpdatedAt").
+		WriteHeader("ID", "Name", "Description", "Updated At").
+		SetSheetFields("ID", "Name", "ExDescription", "UpdatedAt").
 		WriteData(messages).
 		AddTable()
 

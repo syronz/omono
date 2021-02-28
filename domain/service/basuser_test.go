@@ -6,9 +6,10 @@ import (
 	"omono/domain/base/basrepo"
 	"omono/internal/core"
 	"omono/internal/param"
-	"omono/internal/types"
 	"omono/test/kernel"
 	"testing"
+
+	"gorm.io/gorm"
 )
 
 func initUserTest() (engine *core.Engine, userService BasUserServ) {
@@ -32,10 +33,6 @@ func TestUserCreate(test *testing.T) {
 	}{
 		{
 			user: basmodel.User{
-				gorm.Model: gorm.Model{
-					CompanyID: 1001,
-					NodeID:    101,
-				},
 				RoleID:   2,
 				Username: "tester",
 				Password: "21312349807709",
@@ -48,10 +45,6 @@ func TestUserCreate(test *testing.T) {
 		},
 		{
 			user: basmodel.User{
-				gorm.Model: gorm.Model{
-					CompanyID: 1001,
-					NodeID:    101,
-				},
 				RoleID:   3,
 				Username: "tester",
 				Password: "21312",
@@ -64,10 +57,6 @@ func TestUserCreate(test *testing.T) {
 
 		{
 			user: basmodel.User{
-				gorm.Model: gorm.Model{
-					CompanyID: 1001,
-					NodeID:    101,
-				},
 				RoleID:   4,
 				Username: "",
 				Password: "1111111111111111",
@@ -80,10 +69,6 @@ func TestUserCreate(test *testing.T) {
 
 		{
 			user: basmodel.User{
-				gorm.Model: gorm.Model{
-					CompanyID: 1001,
-					NodeID:    101,
-				},
 				RoleID:   0,
 				Username: "tester",
 				Password: "1111111111111111",
@@ -95,10 +80,6 @@ func TestUserCreate(test *testing.T) {
 		},
 		{
 			user: basmodel.User{
-				gorm.Model: gorm.Model{
-					CompanyID: 1001,
-					NodeID:    101,
-				},
 				RoleID:   2,
 				Username: "tester",
 				Password: "1111111111111111",
@@ -111,10 +92,6 @@ func TestUserCreate(test *testing.T) {
 		/*
 			{
 				user: basmodel.User{
-					gorm.Model: gorm.Model{
-						CompanyID: 1001,
-						NodeID:    101,
-					},
 					RoleID:   2,
 					Username: "tester",
 					Password: "1111111111111111",
@@ -148,9 +125,7 @@ func TestUserUpdate(test *testing.T) {
 		{
 			user: basmodel.User{
 				gorm.Model: gorm.Model{
-					ID:        11,
-					CompanyID: 1001,
-					NodeID:    101,
+					ID: 11,
 				},
 				RoleID:   1,
 				Username: "updated",
@@ -164,9 +139,7 @@ func TestUserUpdate(test *testing.T) {
 		{
 			user: basmodel.User{
 				gorm.Model: gorm.Model{
-					ID:        11,
-					CompanyID: 1001,
-					NodeID:    101,
+					ID: 11,
 				},
 				RoleID:   3,
 				Username: "updated ",
@@ -200,17 +173,13 @@ func TestUserDelete(test *testing.T) {
 	}{
 		{
 			user: gorm.Model{
-				ID:        12,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 12,
 			},
 			err: nil,
 		},
 		{
 			user: gorm.Model{
-				ID:        2525252,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 2525252,
 			},
 			err: errors.New("Record was not found for deletion"),
 		},
@@ -288,17 +257,13 @@ func TestUserFindByID(test *testing.T) {
 	}{
 		{
 			user: gorm.Model{
-				ID:        2,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 2,
 			},
 			err: nil,
 		},
 		{
 			user: gorm.Model{
-				ID:        32131312,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 32131312,
 			},
 			err: errors.New("User was not found"),
 		},
@@ -324,18 +289,14 @@ func TestUserFindByUsername(test *testing.T) {
 	}{
 		{
 			id: gorm.Model{
-				ID:        11,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 11,
 			},
 			username: "admin",
 			err:      nil,
 		},
 		{
 			id: gorm.Model{
-				ID:        0,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 0,
 			},
 			username: "unknownUser",
 			err:      nil,

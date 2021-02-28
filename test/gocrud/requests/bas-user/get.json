@@ -1,7 +1,7 @@
 {
   "method":"get",
-	"url":"_URL_/companies/1001/nodes/101/users/10000",
-	"url":"_URL_/companies/1001/nodes/101/users/80",
+	"url":"_URL_/users/10000",
+	"url":"_URL_/users/80",
 	"authorization":"Bearer _TOKEN_",
 	"payload": {}
 }

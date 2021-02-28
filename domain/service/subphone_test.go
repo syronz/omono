@@ -42,10 +42,6 @@ func TestPhoneCreate(test *testing.T) {
 	}{
 		{
 			phone: basmodel.Phone{
-				gorm.Model: gorm.Model{
-					CompanyID: 1001,
-					NodeID:    101,
-				},
 				Phone:     "077022222",
 				Notes:     "This phone number has been created",
 				AccountID: 1,
@@ -54,10 +50,6 @@ func TestPhoneCreate(test *testing.T) {
 		},
 		{
 			phone: basmodel.Phone{
-				gorm.Model: gorm.Model{
-					CompanyID: 1001,
-					NodeID:    101,
-				},
 				Phone:     "07702232133123213213",
 				Notes:     "This phone number has been created",
 				AccountID: 1,
@@ -67,10 +59,6 @@ func TestPhoneCreate(test *testing.T) {
 
 		{
 			phone: basmodel.Phone{
-				gorm.Model: gorm.Model{
-					CompanyID: 1001,
-					NodeID:    101,
-				},
 				Phone:     "077",
 				Notes:     "this phone  number has been created",
 				AccountID: 1,
@@ -80,10 +68,6 @@ func TestPhoneCreate(test *testing.T) {
 
 		{
 			phone: basmodel.Phone{
-				gorm.Model: gorm.Model{
-					CompanyID: 1001,
-					NodeID:    101,
-				},
 				Phone: "321332131",
 				Notes: "This phone has been created, This phone has been created, This phone has been created, This phone has been created,This phone has been created, This phone has been created, This phone has been created, This phone has been created, This phone has been created,",
 			},
@@ -113,9 +97,7 @@ func TestPhoneSave(test *testing.T) {
 			phone: basmodel.Phone{
 
 				gorm.Model: gorm.Model{
-					ID:        1,
-					CompanyID: 1001,
-					NodeID:    101,
+					ID: 1,
 				},
 				Phone: "23134142",
 				Notes: "phone has been updated",
@@ -125,9 +107,7 @@ func TestPhoneSave(test *testing.T) {
 		{
 			phone: basmodel.Phone{
 				gorm.Model: gorm.Model{
-					ID:        1314421,
-					CompanyID: 1001,
-					NodeID:    101,
+					ID: 1314421,
 				},
 				Phone: "3131233",
 				Notes: "phone has been updated",
@@ -137,9 +117,7 @@ func TestPhoneSave(test *testing.T) {
 		{
 			phone: basmodel.Phone{
 				gorm.Model: gorm.Model{
-					ID:        1,
-					CompanyID: 1001,
-					NodeID:    101,
+					ID: 1,
 				},
 				Notes: "phone has been updated",
 			},
@@ -173,8 +151,6 @@ func TestPhoneUpdate(test *testing.T) {
 			phone: basmodel.Phone{
 
 				ID:        1,
-				CompanyID: 1001,
-				NodeID:    101,
 				Phone:     "23134142",
 				Notes:     "phone has been updated",
 			},
@@ -183,8 +159,6 @@ func TestPhoneUpdate(test *testing.T) {
 		{
 			phone: basmodel.Phone{
 				ID:        1314421,
-				CompanyID: 1001,
-				NodeID:    101,
 				Phone:     "3131233",
 				Notes:     "phone has been updated",
 			},
@@ -193,8 +167,6 @@ func TestPhoneUpdate(test *testing.T) {
 		{
 			phone: basmodel.Phone{
 				ID:        1,
-				CompanyID: 1001,
-				NodeID:    101,
 				Notes:     "phone has been updated",
 			},
 			err: errors.New("Phone is required"),
@@ -226,16 +198,12 @@ func TestPhoneDelete(t *testing.T) {
 		{
 			phone: basmodel.Phone{
 				ID:        1,
-				CompanyID: 1001,
-				NodeID:    101,
 			},
 			err: nil,
 		},
 		{
 			phone: basmodel.Phone{
 				ID:        1111111,
-				CompanyID: 1001,
-				NodeID:    101,
 			},
 			err: errors.New("phone was not found to be deleted"),
 		},
@@ -265,16 +233,12 @@ func TestPhoneFindByID(t *testing.T) {
 		{
 			phone: basmodel.Phone{
 				ID:        1,
-				CompanyID: 1001,
-				NodeID:    101,
 			},
 			err: nil,
 		},
 		{
 			phone: basmodel.Phone{
 				ID:        1324231,
-				CompanyID: 1001,
-				NodeID:    101},
 			err: errors.New("there is no phone record"),
 		},
 	}

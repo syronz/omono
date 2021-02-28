@@ -6,6 +6,7 @@ import (
 	"omono/domain/base/basrepo"
 	"omono/domain/base/enum/userstatus"
 	"omono/domain/service"
+	"omono/internal/consts"
 	"omono/internal/core"
 	"omono/pkg/glog"
 
@@ -22,7 +23,7 @@ func InsertUsers(engine *core.Engine) {
 	users := []basmodel.User{
 		{
 			Model: gorm.Model{
-				ID: 79,
+				ID: consts.UserSuperAdminID,
 			},
 			RoleID:   1,
 			Name:     engine.Envs[base.AdminUsername],

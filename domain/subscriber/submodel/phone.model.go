@@ -19,12 +19,10 @@ const (
 // Phone model
 type Phone struct {
 	gorm.Model
-	Phone string `gorm:"not null;unique" json:"phone,omitempty"`
-	Notes string `json:"notes"`
-	// CompanyID uint64      `gorm:"-" json:"company_id" table:"-"`
-	// NodeID    uint64      `gorm:"-" json:"node_id" table:"-"`
-	AccountID uint `gorm:"-" json:"account_id" table:"-"`
-	Default   byte `gorm:"-" json:"default" table:"-"`
+	Phone     string `gorm:"not null;unique" json:"phone,omitempty"`
+	Notes     string `json:"notes"`
+	AccountID uint   `gorm:"-" json:"account_id" table:"-"`
+	Default   byte   `gorm:"-" json:"default" table:"-"`
 }
 
 // Validate check the type of fields

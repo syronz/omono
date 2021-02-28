@@ -3,7 +3,6 @@ package response
 import (
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
-	"omono/internal/types"
 	"strconv"
 
 	"github.com/syronz/dict"
@@ -29,41 +28,13 @@ func (r *Response) Bind(st interface{}, code, domain, part string) (err error) {
 	return
 }
 
-// Getuint convert string to the rowID and if not converted print a proper message
-func (r *Response) Getuint(idIn, code, part string) (id uint, err error) {
-	if id, err = types.StrToUint(idIn); err != nil {
-		err = limberr.Take(err, code).
-			Message(corerr.InvalidVForV, dict.R(corterm.ID), dict.R(part)).
-			Custom(corerr.ValidationFailedErr).Build()
-		r.Error(err).JSON()
-		return
-	}
-
-	return
-}
-
-// func (r *Response) GetFixIDs(idIn, code, part string) (id uint, err error) {
-// 	if id, err = r.Getuint(idIn, code, part); err != nil {
-// 		return
-// 	}
-
-// 	return
-// }
-
+// GetID returns the ID
 func (r *Response) GetID(idIn, code, part string) (id uint, err error) {
 	tmpID, err := strconv.ParseUint(idIn, 10, 32)
+	err = limberr.Take(err, code).
+		Message(corerr.InvalidVForV, dict.R(corterm.ID), dict.R(part)).
+		Custom(corerr.ValidationFailedErr).Build()
+	r.Error(err).JSON()
 	id = uint(tmpID)
-	return
-}
-
-func (r *Response) GetCompanyID(code string) (companyID uint64, err error) {
-	if companyID, err = strconv.ParseUint(r.Context.Param("companyID"), 10, 64); err != nil {
-		err = limberr.Take(err, code).
-			Message(corerr.InvalidVForV, dict.R(corterm.ID), "company_id").
-			Custom(corerr.ValidationFailedErr).Build()
-		r.Error(err).JSON()
-		return
-	}
-
 	return
 }

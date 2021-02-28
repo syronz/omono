@@ -1,6 +1,6 @@
 {
   "method":"get",
-	"url":"_URL_/companies/1001/cash/account",
+	"url":"_URL_/cash/account",
 	"authorization":"Bearer _TOKEN_",
 	"payload": {}
 }

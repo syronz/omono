@@ -3,37 +3,38 @@ package service
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/syronz/dict"
-	"omono/domain/base/basmodel"
-	"omono/domain/base/basrepo"
-	"omono/domain/base/enum/accountstatus"
-	"omono/domain/base/enum/accounttype"
+	"omono/domain/subscriber/enum/accountstatus"
+	"omono/domain/subscriber/enum/accounttype"
+	"omono/domain/subscriber/submodel"
+	"omono/domain/subscriber/subrepo"
 	"omono/internal/core"
 	"omono/internal/param"
-	"omono/internal/types"
 	"omono/pkg/helper"
 	"omono/test/kernel"
 	"testing"
+
+	"github.com/syronz/dict"
+	"gorm.io/gorm"
 )
 
 func initAccountTest() (engine *core.Engine, accountServ SubAccountServ) {
 	logQuery, debugLevel := initServiceTest()
 	engine = kernel.StartMotor(logQuery, debugLevel)
 
-	phoneServ := ProvideBasPhoneService(basrepo.ProvidePhoneRepo(engine))
-	accountServ = ProvideSubAccountService(basrepo.ProvideAccountRepo(engine), phoneServ)
+	phoneServ := ProvideSubPhoneService(subrepo.ProvidePhoneRepo(engine))
+	accountServ = ProvideSubAccountService(subrepo.ProvideAccountRepo(engine), phoneServ)
 
 	return
 }
 func TestTreeChartOfAccounts(t *testing.T) {
-	accounts := []basmodel.Account{
+	accounts := []submodel.Account{
 		{
 			gorm.Model: gorm.Model{
 				ID: 1,
 			},
 			Code:   "1",
-			NameEn: helper.StrPointer("Asset"),
-			Type:   accounttype.Asset,
+			NameEn: "regular",
+			Type:   accounttype.VIP,
 		},
 		{
 			gorm.Model: gorm.Model{
@@ -41,8 +42,8 @@ func TestTreeChartOfAccounts(t *testing.T) {
 			},
 			ParentID: uintPointer(1),
 			Code:     "11",
-			NameEn:   helper.StrPointer("Cash USD"),
-			Type:     accounttype.Cash,
+			NameEn:   "Regular USD",
+			Type:     accounttype.Regular,
 		},
 		{
 			gorm.Model: gorm.Model{
@@ -50,16 +51,16 @@ func TestTreeChartOfAccounts(t *testing.T) {
 			},
 			ParentID: uintPointer(1),
 			Code:     "12",
-			NameEn:   helper.StrPointer("Cash IQD"),
-			Type:     accounttype.Cash,
+			NameEn:   "Regular IQD",
+			Type:     accounttype.Regular,
 		},
 		{
 			gorm.Model: gorm.Model{
 				ID: 4,
 			},
 			Code:   "3",
-			NameEn: helper.StrPointer("Expense"),
-			Type:   accounttype.Expense,
+			NameEn: "Business",
+			Type:   accounttype.Business,
 		},
 		{
 			gorm.Model: gorm.Model{
@@ -67,8 +68,8 @@ func TestTreeChartOfAccounts(t *testing.T) {
 			},
 			ParentID: uintPointer(4),
 			Code:     "31",
-			NameEn:   helper.StrPointer("Building"),
-			Type:     accounttype.Expense,
+			NameEn:   "Building",
+			Type:     accounttype.Business,
 		},
 		{
 			gorm.Model: gorm.Model{
@@ -76,8 +77,8 @@ func TestTreeChartOfAccounts(t *testing.T) {
 			},
 			ParentID: uintPointer(1),
 			Code:     "311",
-			NameEn:   helper.StrPointer("HQ"),
-			Type:     accounttype.Expense,
+			NameEn:   "HQ",
+			Type:     accounttype.Business,
 		},
 	}
 
@@ -101,19 +102,15 @@ func TestAccountCreate(t *testing.T) {
 	_, accountServ := initAccountTest()
 
 	samples := []struct {
-		in  basmodel.Account
+		in  submodel.Account
 		err error
 	}{
 		{
-			in: basmodel.Account{
-				gorm.Model: gorm.Model{
-					CompanyID: 1001,
-					NodeID:    101,
-				},
+			in: submodel.Account{
 				Code:     "12135",
-				NameEn:   helper.StrPointer("child 1 of asset "),
+				NameEn:   "child 1 of asset ",
 				NameKu:   helper.StrPointer("3"),
-				Type:     accounttype.Asset,
+				Type:     accounttype.VIP,
 				Status:   accountstatus.Active,
 				ParentID: uintPointer(1),
 			},
@@ -132,9 +129,7 @@ func TestAccountDelete(t *testing.T) {
 	_, testAccountServ := initAccountTest()
 
 	sample := gorm.Model{
-		ID:        21,
-		CompanyID: 1001,
-		NodeID:    101,
+		ID: 21,
 	}
 
 	if _, err := testAccountServ.Delete(sample); err != nil {
@@ -146,7 +141,7 @@ func TestAccountList(t *testing.T) {
 	_, testAccountServ := initAccountTest()
 
 	regularParam := getRegularParam("bas_accounts.id")
-	regularParam.Filter = "name_en[like]'Asset'"
+	regularParam.Filter = "name_en[like]'regular'"
 
 	collection := []struct {
 		params param.Param
@@ -179,19 +174,16 @@ func TestAccountUpdate(t *testing.T) {
 
 	_, accountServ := initAccountTest()
 	samples := []struct {
-		in  basmodel.Account
+		in  submodel.Account
 		err error
 	}{
 		{
-			in: basmodel.Account{
+			in: submodel.Account{
 				gorm.Model: gorm.Model{
-					CompanyID: 1001,
-					NodeID:    101,
-					ID:        31,
+					ID: 31,
 				},
 				Code:    "1231",
-				NameEn:  helper.StrPointer("updated Partner Account"),
-				NameAr:  helper.StrPointer("بە سەرکەوتوی ئەپدەیت کرا"),
+				NameEn:  "updated Partner Account",
 				Type:    accounttype.Partner,
 				Balance: 500000,
 			},
@@ -236,11 +228,9 @@ func TestChartOfAccounts(t *testing.T) {
 
 	params.PreCondition = fmt.Sprintf("bas_accounts.type != '%v'", accounttype.Customer)
 
-	params.CompanyID = 1001
-
 	//data := make(map[string]interface{})
 
-	var root basmodel.Tree
+	var root submodel.Tree
 	root, err = testAccountServ.ChartOfAccount(params)
 
 	if err != nil {

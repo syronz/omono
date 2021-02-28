@@ -6,9 +6,10 @@ import (
 	"omono/domain/base/basrepo"
 	"omono/internal/core"
 	"omono/internal/param"
-	"omono/internal/types"
 	"omono/test/kernel"
 	"testing"
+
+	"gorm.io/gorm"
 )
 
 func initSettingTest() (engine *core.Engine, settingServ BasSettingServ) {
@@ -29,9 +30,7 @@ func TestUpdateSetting(t *testing.T) {
 		{
 			in: basmodel.Setting{
 				gorm.Model: gorm.Model{
-					ID:        20,
-					CompanyID: 1001,
-					NodeID:    101,
+					ID: 20,
 				},
 				Property:    "num 1 updated",
 				Value:       "num 1 updated",
@@ -43,9 +42,7 @@ func TestUpdateSetting(t *testing.T) {
 		{
 			in: basmodel.Setting{
 				gorm.Model: gorm.Model{
-					ID:        21,
-					CompanyID: 1001,
-					NodeID:    101,
+					ID: 21,
 				},
 				Value:       "num 2 updated",
 				Type:        "num 2 updated",

@@ -1,8 +1,8 @@
 {
   "method":"get",
-	"url":"_URL_/companies/1001/accounts/leafs?search=ڕاکێشان",
-	"url":"_URL_/companies/1001/accounts/leafs?search=as&lang=en",
-	"url":"_URL_/companies/1001/accounts/leafs?search=51",
+	"url":"_URL_/accounts/leafs?search=ڕاکێشان",
+	"url":"_URL_/accounts/leafs?search=as&lang=en",
+	"url":"_URL_/accounts/leafs?search=51",
 	"authorization":"Bearer _TOKEN_",
 	"payload": {}
 }

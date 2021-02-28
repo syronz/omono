@@ -18,7 +18,7 @@ const (
 // Role model
 type Role struct {
 	gorm.Model
-	Name        string `gorm:"not null" json:"name,omitempty"`
+	Name        string `gorm:"not null;unique" json:"name,omitempty"`
 	Resources   string `gorm:"type:text" json:"resources,omitempty"`
 	Description string `json:"description,omitempty"`
 }

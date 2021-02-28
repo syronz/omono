@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"omono/domain/base"
 	"omono/domain/base/basmodel"
-	"omono/domain/base/basrepo"
 	"omono/domain/base/message/basterm"
 	"omono/domain/service"
 	"omono/internal/core"
@@ -81,18 +80,6 @@ func (p *UserAPI) List(c *gin.Context) {
 
 	data := make(map[string]interface{})
 	var err error
-
-	if params.CompanyID, err = resp.GetCompanyID("E1019954"); err != nil {
-		return
-	}
-
-	accessService := service.ProvideBasAccessService(basrepo.ProvideAccessRepo(p.Engine))
-	accessResult := accessService.CheckAccess(c, base.SuperAccess)
-	if accessResult == true {
-		if !resp.CheckRange(params.CompanyID) {
-			return
-		}
-	}
 
 	if data["list"], data["count"], err = p.Service.List(params); err != nil {
 		resp.Error(err).JSON()
@@ -183,14 +170,6 @@ func (p *UserAPI) Delete(c *gin.Context) {
 func (p *UserAPI) Excel(c *gin.Context) {
 	resp, params := response.NewParam(p.Engine, c, basterm.Users, base.Domain)
 	var err error
-
-	if params.CompanyID, err = resp.GetCompanyID("E1066535"); err != nil {
-		return
-	}
-
-	if !resp.CheckRange(params.CompanyID) {
-		return
-	}
 
 	users, err := p.Service.Excel(params)
 	if err != nil {

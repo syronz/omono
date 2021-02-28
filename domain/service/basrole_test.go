@@ -7,9 +7,10 @@ import (
 	"omono/domain/base/basrepo"
 	"omono/internal/core"
 	"omono/internal/param"
-	"omono/internal/types"
 	"omono/test/kernel"
 	"testing"
+
+	"gorm.io/gorm"
 )
 
 func initRoleTest() (engine *core.Engine, roleServ BasRoleServ) {
@@ -29,10 +30,6 @@ func TestRoleCreate(t *testing.T) {
 	}{
 		{
 			in: basmodel.Role{
-				gorm.Model: gorm.Model{
-					CompanyID: 1001,
-					NodeID:    101,
-				},
 				Name:        "created 1",
 				Resources:   string(base.SuperAccess),
 				Description: "created 1",
@@ -41,10 +38,6 @@ func TestRoleCreate(t *testing.T) {
 		},
 		{
 			in: basmodel.Role{
-				gorm.Model: gorm.Model{
-					CompanyID: 1001,
-					NodeID:    101,
-				},
 				Name:        "created 1",
 				Resources:   string(base.SuperAccess),
 				Description: "created 2",
@@ -53,10 +46,6 @@ func TestRoleCreate(t *testing.T) {
 		},
 		{
 			in: basmodel.Role{
-				gorm.Model: gorm.Model{
-					CompanyID: 1001,
-					NodeID:    101,
-				},
 				Name:      "minimum fields",
 				Resources: string(base.SuperAccess),
 			},
@@ -98,9 +87,7 @@ func TestRoleUpdate(t *testing.T) {
 		{
 			in: basmodel.Role{
 				gorm.Model: gorm.Model{
-					ID:        5,
-					CompanyID: 1001,
-					NodeID:    101,
+					ID: 5,
 				},
 				Name:        "num 1 update",
 				Resources:   string(base.SuperAccess),
@@ -111,9 +98,7 @@ func TestRoleUpdate(t *testing.T) {
 		{
 			in: basmodel.Role{
 				gorm.Model: gorm.Model{
-					ID:        6,
-					CompanyID: 1001,
-					NodeID:    101,
+					ID: 6,
 				},
 				Name:        "num 2 update",
 				Description: "num 2 update",
@@ -140,17 +125,13 @@ func TestRoleDelete(t *testing.T) {
 	}{
 		{
 			id: gorm.Model{
-				ID:        7,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 7,
 			},
 			err: nil,
 		},
 		{
 			id: gorm.Model{
-				ID:        99999999,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 99999999,
 			},
 			err: errors.New("record not found"),
 		},

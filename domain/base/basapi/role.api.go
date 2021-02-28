@@ -54,14 +54,6 @@ func (p *RoleAPI) List(c *gin.Context) {
 	data := make(map[string]interface{})
 	var err error
 
-	if params.CompanyID, err = resp.GetCompanyID("E1097829"); err != nil {
-		return
-	}
-
-	if !resp.CheckRange(params.CompanyID) {
-		return
-	}
-
 	if data["list"], data["count"], err = p.Service.List(params); err != nil {
 		resp.Error(err).JSON()
 		return
@@ -150,14 +142,6 @@ func (p *RoleAPI) Excel(c *gin.Context) {
 	resp, params := response.NewParam(p.Engine, c, basterm.Roles, base.Domain)
 	var err error
 
-	if params.CompanyID, err = resp.GetCompanyID("E1013408"); err != nil {
-		return
-	}
-
-	if !resp.CheckRange(params.CompanyID) {
-		return
-	}
-
 	roles, err := p.Service.Excel(params)
 	if err != nil {
 		resp.Error(err).JSON()
@@ -177,8 +161,8 @@ func (p *RoleAPI) Excel(c *gin.Context) {
 		Active("Summary").
 		SetColWidth("A", "D", 20).
 		Active("Roles").
-		WriteHeader("ID", "Company ID", "Node ID", "Name", "Resources", "Description", "Updated At").
-		SetSheetFields("ID", "CompanyID", "NodeID", "Name", "Resources", "Description", "UpdatedAt").
+		WriteHeader("ID", "Name", "Resources", "Description", "Updated At").
+		SetSheetFields("ID", "Name", "Resources", "Description", "UpdatedAt").
 		WriteData(roles).
 		AddTable()
 

@@ -2,38 +2,23 @@ package table
 
 import (
 	"omono/domain/base/basmodel"
-	"omono/domain/base/basrepo"
 	"omono/domain/service"
+	"omono/domain/subscriber/subrepo"
 	"omono/internal/core"
-	"omono/internal/types"
 	"omono/pkg/glog"
+
+	"gorm.io/gorm"
 )
 
 // InsertPhones for add required users
 func InsertPhones(engine *core.Engine) {
-	phoneRepo := basrepo.ProvidePhoneRepo(engine)
-	phoneService := service.ProvideBasPhoneService(phoneRepo)
+	phoneRepo := subrepo.ProvidePhoneRepo(engine)
+	phoneService := service.ProvideSubPhoneService(phoneRepo)
 
 	phones := []basmodel.Phone{
-
-		/*
-			gorm.Model: gorm.Model{
-				ID:        11,
-				CompanyID: 1001,
-				NodeID:    101,
-			},
-			RoleID:   1,
-			Name:     engine.Envs[base.AdminUsername],
-			Username: engine.Envs[base.AdminUsername],
-			Password: engine.Envs[base.AdminPassword],
-			Lang:     dict.Ku,
-		*/
-
 		{
 			gorm.Model: gorm.Model{
-				ID:        1,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 1,
 			},
 			//Default:   []byte("default"),
 			AccountID: 1,
@@ -43,9 +28,7 @@ func InsertPhones(engine *core.Engine) {
 
 		{
 			gorm.Model: gorm.Model{
-				ID:        2,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 2,
 			},
 			//Default:   []byte("default"),
 			AccountID: 2,
@@ -54,9 +37,7 @@ func InsertPhones(engine *core.Engine) {
 		},
 		{
 			gorm.Model: gorm.Model{
-				ID:        3,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 3,
 			},
 			//Default:   []byte("default"),
 			AccountID: 3,
@@ -65,9 +46,7 @@ func InsertPhones(engine *core.Engine) {
 		},
 		{
 			gorm.Model: gorm.Model{
-				ID:        4,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 4,
 			},
 			//Default:   []byte("default"),
 			AccountID: 4,

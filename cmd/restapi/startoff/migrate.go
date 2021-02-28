@@ -12,10 +12,8 @@ func Migrate(engine *core.Engine) {
 
 	// Base Domain
 	engine.DB.Table(basmodel.SettingTable).AutoMigrate(&basmodel.Setting{})
-	engine.DB.Exec("ALTER TABLE `bas_settings` ADD UNIQUE `idx_bas_settings_companyID_property`(`company_id`, property(50))")
 
 	engine.DB.Table(basmodel.RoleTable).AutoMigrate(&basmodel.Role{})
-	engine.DB.Exec("ALTER TABLE `bas_roles` ADD UNIQUE `idx_bas_roles_company_id_name`(`company_id`, name(40))")
 
 	engine.DB.Table(basmodel.UserTable).AutoMigrate(&basmodel.User{})
 	engine.DB.Exec("ALTER TABLE bas_users ADD CONSTRAINT `fk_bas_users_bas_roles` FOREIGN KEY (role_id) REFERENCES bas_roles(id) ON DELETE RESTRICT ON UPDATE RESTRICT;")
@@ -23,7 +21,6 @@ func Migrate(engine *core.Engine) {
 	engine.ActivityDB.Table(basmodel.ActivityTable).AutoMigrate(&basmodel.Activity{})
 
 	engine.DB.Table(basmodel.CityTable).AutoMigrate(&basmodel.City{})
-	engine.DB.Exec("ALTER TABLE `bas_cities` ADD UNIQUE `idx_bas_cities_company_id_name`(`company_id`, name(20))")
 
 	// Subscriber Domain
 	engine.DB.Table(submodel.AccountTable).AutoMigrate(&submodel.Account{})

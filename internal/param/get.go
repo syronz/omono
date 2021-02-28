@@ -27,18 +27,6 @@ func Get(c *gin.Context, engine *core.Engine, part string) (param Param) {
 		param.UserID = userID.(uint)
 	}
 
-	companyID, ok := c.Get("COMPANY_ID")
-	if ok {
-		glog.CheckInfo(err, "Company ID is not exist")
-		param.CompanyID = companyID.(uint64)
-	}
-
-	nodeID, ok := c.Get("NODE_ID")
-	if ok {
-		glog.CheckInfo(err, "Node ID is not exist")
-		param.NodeID = nodeID.(uint64)
-	}
-
 	if c.Query("deleted") == "true" {
 		param.ShowDeletedRows = true
 	}

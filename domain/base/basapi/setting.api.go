@@ -54,14 +54,6 @@ func (p *SettingAPI) List(c *gin.Context) {
 	data := make(map[string]interface{})
 	var err error
 
-	if params.CompanyID, err = resp.GetCompanyID("E1078032"); err != nil {
-		return
-	}
-
-	if !resp.CheckRange(params.CompanyID) {
-		return
-	}
-
 	if data["list"], data["count"], err = p.Service.List(params); err != nil {
 		resp.Error(err).JSON()
 		return
@@ -111,14 +103,6 @@ func (p *SettingAPI) Excel(c *gin.Context) {
 	resp, params := response.NewParam(p.Engine, c, basterm.Setting, base.Domain)
 	var err error
 
-	if params.CompanyID, err = resp.GetCompanyID("E1072378"); err != nil {
-		return
-	}
-
-	if !resp.CheckRange(params.CompanyID) {
-		return
-	}
-
 	settings, err := p.Service.Excel(params)
 	if err != nil {
 		resp.Error(err).JSON()
@@ -139,8 +123,8 @@ func (p *SettingAPI) Excel(c *gin.Context) {
 		SetColWidth("N", "O", 20).
 		Active("Summary").
 		Active("Settings").
-		WriteHeader("ID", "Company ID", "Node ID", "Property", "Value", "Type", "Description", "Created At", "Updated At").
-		SetSheetFields("ID", "CompanyID", "NodeID", "Property", "Value", "Type", "Description", "CreatedAt", "UpdatedAt").
+		WriteHeader("ID", "Property", "Value", "Type", "Description", "Created At", "Updated At").
+		SetSheetFields("ID", "Property", "Value", "Type", "Description", "CreatedAt", "UpdatedAt").
 		WriteData(settings).
 		AddTable()
 

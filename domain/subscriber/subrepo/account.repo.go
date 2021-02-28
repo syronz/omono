@@ -84,8 +84,7 @@ func (p *AccountRepo) List(params param.Param) (accounts []submodel.Account, err
 
 //GetAllAccounts will fetch all accounts with specified companyID
 func (p *AccountRepo) GetAllAccounts(params param.Param) (account []submodel.Account, err error) {
-	err = p.Engine.ReadDB.Table(submodel.AccountTable).
-		Where("company_id = ?", params.CompanyID).Find(&account).Error
+	err = p.Engine.ReadDB.Table(submodel.AccountTable).Find(&account).Error
 
 	err = p.dbError(err, "E1011232", submodel.Account{}, corterm.List)
 

@@ -1,6 +1,6 @@
 {
   "method":"put",
-  "url":"_URL_/companies/1001/nodes/101/accounts/14",
+  "url":"_URL_/accounts/14",
   "authorization":"Bearer _TOKEN_",
   "payload": {
     "name": "updated",

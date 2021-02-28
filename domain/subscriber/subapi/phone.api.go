@@ -55,14 +55,6 @@ func (p *PhoneAPI) List(c *gin.Context) {
 	data := make(map[string]interface{})
 	var err error
 
-	if params.CompanyID, err = resp.GetCompanyID("E1062683"); err != nil {
-		return
-	}
-
-	if !resp.CheckRange(params.CompanyID) {
-		return
-	}
-
 	if data["list"], data["count"], err = p.Service.List(params); err != nil {
 		resp.Error(err).JSON()
 		return
@@ -177,14 +169,6 @@ func (p *PhoneAPI) Excel(c *gin.Context) {
 	resp, params := response.NewParam(p.Engine, c, basterm.Phones, base.Domain)
 	var err error
 
-	if params.CompanyID, err = resp.GetCompanyID("E1075215"); err != nil {
-		return
-	}
-
-	if !resp.CheckRange(params.CompanyID) {
-		return
-	}
-
 	phones, err := p.Service.Excel(params)
 	if err != nil {
 		resp.Error(err).JSON()
@@ -203,8 +187,8 @@ func (p *PhoneAPI) Excel(c *gin.Context) {
 		Active("Summary").
 		SetColWidth("A", "D", 20).
 		Active("Phones").
-		WriteHeader("ID", "Company ID", "Node ID", "Name", "Code", "Type", "Status", "Updated At").
-		SetSheetFields("ID", "CompanyID", "NodeID", "Name", "Code", "Type", "Status", "UpdatedAt").
+		WriteHeader("ID", "Name", "Code", "Type", "Status", "Updated At").
+		SetSheetFields("ID", "Name", "Code", "Type", "Status", "UpdatedAt").
 		WriteData(phones).
 		AddTable()
 

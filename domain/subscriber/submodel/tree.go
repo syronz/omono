@@ -8,8 +8,6 @@ import (
 // Tree is used for creating chart of accoutns
 type Tree struct {
 	ID          uint       `json:"id"`
-	CompanyID   uint64     `json:"company_id"`
-	NodeID      uint64     `json:"node_id"`
 	ParentID    *uint      `json:"parent_id"`
 	Code        string     `json:"code"`
 	Name        string     `json:"name"`

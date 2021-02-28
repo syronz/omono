@@ -1,14 +1,15 @@
 package table
 
 import (
-	"github.com/syronz/dict"
 	"omono/domain/base"
 	"omono/domain/base/basmodel"
 	"omono/domain/base/basrepo"
 	"omono/domain/service"
 	"omono/internal/core"
-	"omono/internal/types"
 	"omono/pkg/glog"
+
+	"github.com/syronz/dict"
+	"gorm.io/gorm"
 )
 
 // InsertUsers for add required users
@@ -19,9 +20,7 @@ func InsertUsers(engine *core.Engine) {
 	users := []basmodel.User{
 		{
 			gorm.Model: gorm.Model{
-				ID:        11,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 11,
 			},
 			RoleID:   1,
 			Code:     "12001",
@@ -32,9 +31,7 @@ func InsertUsers(engine *core.Engine) {
 		},
 		{
 			gorm.Model: gorm.Model{
-				ID:        12,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 12,
 			},
 			RoleID:   2,
 			Code:     "12002",
@@ -45,9 +42,7 @@ func InsertUsers(engine *core.Engine) {
 		},
 		{
 			gorm.Model: gorm.Model{
-				ID:        13,
-				CompanyID: 1001,
-				NodeID:    101,
+				ID: 13,
 			},
 			RoleID:   3,
 			Code:     "12003",

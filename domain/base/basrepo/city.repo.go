@@ -8,6 +8,7 @@ import (
 	"omono/internal/core/corterm"
 	"omono/internal/core/validator"
 	"omono/internal/param"
+	"omono/pkg/glog"
 	"omono/pkg/helper"
 	"reflect"
 
@@ -54,6 +55,7 @@ func (p *CityRepo) FindByCity(cityNumber string) (city basmodel.City, err error)
 // List returns an array of cities
 func (p *CityRepo) List(params param.Param) (cities []basmodel.City, err error) {
 	var colsStr string
+	glog.Debug(p.Cols)
 	if colsStr, err = validator.CheckColumns(p.Cols, params.Select); err != nil {
 		err = limberr.Take(err, "E1091738").Build()
 		return

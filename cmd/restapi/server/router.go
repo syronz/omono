@@ -43,109 +43,105 @@ func Route(rg gin.RouterGroup, engine *core.Engine) {
 	// Base Domain
 	rg.GET("/temporary/token", basAuthAPI.TemporaryToken)
 
-	rg.GET("/companies/:companyID/settings",
+	rg.GET("/settings",
 		access.Check(base.SettingRead), basSettingAPI.List)
-	rg.GET("/companies/:companyID/nodes/:nodeID/settings/:settingID",
+	rg.GET("/settings/:settingID",
 		access.Check(base.SettingRead), basSettingAPI.FindByID)
-	rg.PUT("/companies/:companyID/nodes/:nodeID/settings/:settingID",
+	rg.PUT("/settings/:settingID",
 		access.Check(base.SettingWrite), basSettingAPI.Update)
-	rg.GET("/excel/companies/:companyID/settings",
+	rg.GET("/excel/settings",
 		access.Check(base.SettingExcel), basSettingAPI.Excel)
 
-	rg.GET("/companies/:companyID/roles",
+	rg.GET("/roles",
 		access.Check(base.RoleRead), basRoleAPI.List)
-	rg.GET("/companies/:companyID/nodes/:nodeID/roles/:roleID",
+	rg.GET("/roles/:roleID",
 		access.Check(base.RoleRead), basRoleAPI.FindByID)
-	rg.POST("/companies/:companyID/roles",
+	rg.POST("/roles",
 		access.Check(base.RoleWrite), basRoleAPI.Create)
-	rg.PUT("/companies/:companyID/nodes/:nodeID/roles/:roleID",
+	rg.PUT("/roles/:roleID",
 		access.Check(base.RoleWrite), basRoleAPI.Update)
-	rg.DELETE("companies/:companyID/nodes/:nodeID/roles/:roleID",
+	rg.DELETE("roles/:roleID",
 		access.Check(base.RoleWrite), basRoleAPI.Delete)
-	rg.GET("/excel/companies/:companyID/roles",
+	rg.GET("/excel/roles",
 		access.Check(base.RoleExcel), basRoleAPI.Excel)
 
 	rg.GET("/username/:username",
 		access.Check(base.UserRead), basUserAPI.FindByUsername)
-	rg.GET("/companies/:companyID/users",
+	rg.GET("/users",
 		access.Check(base.UserRead), basUserAPI.List)
-	rg.GET("/companies/:companyID/nodes/:nodeID/users/:userID",
+	rg.GET("/users/:userID",
 		access.Check(base.UserRead), basUserAPI.FindByID)
-	rg.POST("/companies/:companyID/users",
+	rg.POST("/users",
 		access.Check(base.UserWrite), basUserAPI.Create)
-	rg.PUT("/companies/:companyID/nodes/:nodeID/users/:userID",
+	rg.PUT("/users/:userID",
 		access.Check(base.UserWrite), basUserAPI.Update)
-	rg.DELETE("/companies/:companyID/nodes/:nodeID/users/:userID",
+	rg.DELETE("/users/:userID",
 		access.Check(base.UserWrite), basUserAPI.Delete)
-	rg.GET("/excel/companies/:companyID/users",
+	rg.GET("/excel/users",
 		access.Check(base.UserExcel), basUserAPI.Excel)
 
 	rg.GET("/activities",
 		access.Check(base.SuperAccess), basActivityAPI.ListAll)
-	rg.GET("/activities/companies/:companyID",
-		access.Check(base.ActivityCompany), basActivityAPI.ListCompany)
 	rg.GET("/activities/self",
 		access.Check(base.ActivitySelf), basActivityAPI.ListSelf)
 
-	rg.GET("/companies/:companyID/cities",
+	rg.GET("/cities",
 		access.Check(base.CityRead), basCityAPI.List)
-	rg.GET("/companies/:companyID/nodes/:nodeID/cities/:cityID",
+	rg.GET("/cities/:cityID",
 		access.Check(base.CityRead), basCityAPI.FindByID)
-	rg.POST("/companies/:companyID/cities",
+	rg.POST("/cities",
 		access.Check(base.CityWrite), basCityAPI.Create)
-	rg.PUT("/companies/:companyID/nodes/:nodeID/cities/:cityID",
+	rg.PUT("/cities/:cityID",
 		access.Check(base.CityWrite), basCityAPI.Update)
-	rg.DELETE("companies/:companyID/nodes/:nodeID/cities/:cityID",
+	rg.DELETE("/cities/:cityID",
 		access.Check(base.CityWrite), basCityAPI.Delete)
-	rg.GET("/excel/companies/:companyID/cities",
+	rg.GET("/excel/cities",
 		access.Check(base.CityExcel), basCityAPI.Excel)
 
 	// Notification Domain
-	rg.GET("/companies/:companyID/messages",
+	rg.GET("/messages",
 		notMessageAPI.List)
-	rg.GET("/companies/:companyID/messages/:hash", notMessageAPI.ViewByHash)
-	rg.GET("/companies/:companyID/nodes/:nodeID/messages/:cityID",
+	rg.GET("/messages/:cityID",
 		access.Check(notification.MessageRead), notMessageAPI.FindByID)
-	rg.POST("/companies/:companyID/messages",
+	rg.GET("/hash/messages/:hash", notMessageAPI.ViewByHash)
+	rg.POST("/messages",
 		access.Check(notification.MessageWrite), notMessageAPI.Create)
-	rg.PUT("/companies/:companyID/nodes/:nodeID/messages/:cityID",
+	rg.PUT("/messages/:cityID",
 		access.Check(notification.MessageWrite), notMessageAPI.Update)
-	rg.DELETE("companies/:companyID/nodes/:nodeID/messages/:cityID",
+	rg.DELETE("messages/:cityID",
 		access.Check(notification.MessageWrite), notMessageAPI.Delete)
-	rg.GET("/excel/companies/:companyID/messages",
+	rg.GET("/excel/messages",
 		access.Check(notification.MessageExcel), notMessageAPI.Excel)
 
 	// Subscriber Domain
-	rg.GET("/companies/:companyID/accounts",
+	rg.GET("/accounts",
 		access.Check(base.AccountRead), basAccountAPI.List)
-	rg.GET("/companies/:companyID/nodes/:nodeID/accounts/:accountID",
+	rg.GET("/accounts/:accountID",
 		access.Check(base.AccountRead), basAccountAPI.FindByID)
-	rg.POST("/companies/:companyID/accounts",
+	rg.POST("/accounts",
 		access.Check(base.AccountWrite), basAccountAPI.Create)
-	rg.PUT("/companies/:companyID/nodes/:nodeID/accounts/:accountID",
+	rg.PUT("/accounts/:accountID",
 		access.Check(base.AccountWrite), basAccountAPI.Update)
-	rg.DELETE("/companies/:companyID/nodes/:nodeID/accounts/:accountID",
+	rg.DELETE("/accounts/:accountID",
 		access.Check(base.AccountWrite), basAccountAPI.Delete)
-	rg.GET("/excel/companies/:companyID/accounts",
+	rg.GET("/excel/accounts",
 		access.Check(base.AccountExcel), basAccountAPI.Excel)
-	rg.GET("/companies/:companyID/charts/accounts",
+	rg.GET("/charts/accounts",
 		access.Check(base.AccountRead), basAccountAPI.ChartOfAccount)
-	rg.GET("/companies/:companyID/accounts/leafs",
-		access.Check(base.AccountRead), basAccountAPI.SearchLeafs)
 
 	rg.GET("/phones",
 		access.Check(base.SuperAccess), basPhoneAPI.List)
 	rg.GET("/phones/:phoneID",
 		access.Check(base.PhoneRead), basPhoneAPI.FindByID)
-	rg.POST("/companies/:companyID/phones",
+	rg.POST("/phones",
 		access.Check(base.PhoneWrite), basPhoneAPI.Create)
 	rg.PUT("/phones/:phoneID",
 		access.Check(base.SuperAccess), basPhoneAPI.Update)
 	rg.DELETE("/phones/:phoneID",
 		access.Check(base.PhoneWrite), basPhoneAPI.Delete)
-	rg.GET("/excel/companies/:companyID/phones",
+	rg.GET("/excel/phones",
 		access.Check(base.PhoneExcel), basPhoneAPI.Excel)
-	rg.DELETE("/companies/:companyID/nodes/:nodeID/separate/:accountPhoneID",
+	rg.DELETE("/separate/:accountPhoneID",
 		access.Check(base.PhoneWrite), basPhoneAPI.Separate)
 
 }
