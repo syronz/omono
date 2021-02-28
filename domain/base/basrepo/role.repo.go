@@ -2,7 +2,7 @@ package basrepo
 
 import (
 	"omono/domain/base/basmodel"
-	"omono/domain/base/message/basterm"
+	"omono/domain/base/basterm"
 	"omono/internal/core"
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"

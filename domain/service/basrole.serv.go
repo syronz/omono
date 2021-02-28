@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"omono/domain/base/basmodel"
 	"omono/domain/base/basrepo"
-	"omono/domain/base/message/basterm"
+	"omono/domain/base/basterm"
 	"omono/internal/core"
 	"omono/internal/core/coract"
 	"omono/internal/core/corerr"

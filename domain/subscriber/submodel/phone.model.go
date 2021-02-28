@@ -1,7 +1,7 @@
 package submodel
 
 import (
-	"omono/domain/base/message/basterm"
+	"omono/domain/base/basterm"
 	"omono/internal/core/coract"
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"

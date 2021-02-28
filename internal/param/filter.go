@@ -1,8 +1,6 @@
 package param
 
-import (
-	"omono/pkg/filter"
-)
+import "omono/pkg/helper/sqluri"
 
 // parseFilter call parser for convert urlQuery to SQL query
 func (p *Param) parseFilter(cols []string) (result string, err error) {
@@ -10,7 +8,7 @@ func (p *Param) parseFilter(cols []string) (result string, err error) {
 		return
 	}
 
-	if result, err = filter.Parser(p.Filter, cols); err != nil {
+	if result, err = sqluri.Parser(p.Filter, cols); err != nil {
 		return
 	}
 

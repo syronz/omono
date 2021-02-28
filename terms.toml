@@ -345,8 +345,7 @@ en = '%v info'
 ku = 'maloomati %v'
 ar = '%v info'
 
-
-# base/message/baserr/terms.err.go ------------------------------------------------------
+# base/message/basterm/terms.msg.go -----------------------------------------------------
 ["username or password is wrong"]
 en = 'username or password is wrong'
 ku = 'username yan passwordakat halaya'
@@ -357,7 +356,6 @@ en = 'default role_id is not valid, update settings'
 ku = 'role_id xazn kraw la setting halaya, abe raqam be'
 ar = 'default role_id is not valid, update settings'
 
-# base/message/basterm/terms.msg.go -----------------------------------------------------
 [user]
 en = 'user'
 ku = 'bakar-henar'

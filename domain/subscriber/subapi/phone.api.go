@@ -2,15 +2,15 @@ package subapi
 
 import (
 	"net/http"
-	"omono/domain/base"
-	"omono/domain/base/message/basterm"
+	"omono/domain/base/basterm"
 	"omono/domain/service"
+	"omono/domain/subscriber"
 	"omono/domain/subscriber/submodel"
 	"omono/internal/core"
 	"omono/internal/core/corterm"
 	"omono/internal/response"
 	"omono/internal/types"
-	"omono/pkg/excel"
+	"omono/pkg/helper/excel"
 
 	"github.com/gin-gonic/gin"
 )
@@ -28,7 +28,7 @@ func ProvidePhoneAPI(c service.SubPhoneServ) PhoneAPI {
 
 // FindByID is used for fetch a phone by it's id
 func (p *PhoneAPI) FindByID(c *gin.Context) {
-	resp := response.New(p.Engine, c, base.Domain)
+	resp := response.New(p.Engine, c, subscriber.Domain)
 	var err error
 	var phone submodel.Phone
 	var id uint
@@ -42,7 +42,7 @@ func (p *PhoneAPI) FindByID(c *gin.Context) {
 		return
 	}
 
-	resp.Record(base.ViewPhone)
+	resp.Record(subscriber.ViewPhone)
 	resp.Status(http.StatusOK).
 		MessageT(corterm.VInfo, basterm.Phone).
 		JSON(phone)
@@ -50,7 +50,7 @@ func (p *PhoneAPI) FindByID(c *gin.Context) {
 
 // List of phones
 func (p *PhoneAPI) List(c *gin.Context) {
-	resp, params := response.NewParam(p.Engine, c, submodel.PhoneTable, base.Domain)
+	resp, params := response.NewParam(p.Engine, c, submodel.PhoneTable, subscriber.Domain)
 
 	data := make(map[string]interface{})
 	var err error
@@ -60,7 +60,7 @@ func (p *PhoneAPI) List(c *gin.Context) {
 		return
 	}
 
-	resp.Record(base.ListPhone)
+	resp.Record(subscriber.ListPhone)
 	resp.Status(http.StatusOK).
 		MessageT(corterm.ListOfV, basterm.Phones).
 		JSON(data)
@@ -68,11 +68,11 @@ func (p *PhoneAPI) List(c *gin.Context) {
 
 // Create phone
 func (p *PhoneAPI) Create(c *gin.Context) {
-	resp := response.New(p.Engine, c, base.Domain)
+	resp := response.New(p.Engine, c, subscriber.Domain)
 	var phone, createdPhone submodel.Phone
 	var err error
 
-	if err = resp.Bind(&phone, "E1053717", base.Domain, basterm.Phone); err != nil {
+	if err = resp.Bind(&phone, "E1053717", subscriber.Domain, basterm.Phone); err != nil {
 		return
 	}
 
@@ -81,7 +81,7 @@ func (p *PhoneAPI) Create(c *gin.Context) {
 		return
 	}
 
-	resp.RecordCreate(base.CreatePhone, phone)
+	resp.RecordCreate(subscriber.CreatePhone, phone)
 	resp.Status(http.StatusOK).
 		MessageT(corterm.VCreatedSuccessfully, basterm.Phone).
 		JSON(createdPhone)
@@ -89,7 +89,7 @@ func (p *PhoneAPI) Create(c *gin.Context) {
 
 // Update phone
 func (p *PhoneAPI) Update(c *gin.Context) {
-	resp := response.New(p.Engine, c, base.Domain)
+	resp := response.New(p.Engine, c, subscriber.Domain)
 	var err error
 
 	var phone, phoneBefore, phoneUpdated submodel.Phone
@@ -99,7 +99,7 @@ func (p *PhoneAPI) Update(c *gin.Context) {
 		return
 	}
 
-	if err = resp.Bind(&phone, "E1073908", base.Domain, basterm.Phone); err != nil {
+	if err = resp.Bind(&phone, "E1073908", subscriber.Domain, basterm.Phone); err != nil {
 		return
 	}
 
@@ -114,7 +114,7 @@ func (p *PhoneAPI) Update(c *gin.Context) {
 		return
 	}
 
-	resp.Record(base.UpdatePhone, phoneBefore, phone)
+	resp.Record(subscriber.UpdatePhone, phoneBefore, phone)
 	resp.Status(http.StatusOK).
 		MessageT(corterm.VUpdatedSuccessfully, basterm.Phone).
 		JSON(phoneUpdated)
@@ -122,7 +122,7 @@ func (p *PhoneAPI) Update(c *gin.Context) {
 
 // Delete phone
 func (p *PhoneAPI) Delete(c *gin.Context) {
-	resp := response.New(p.Engine, c, base.Domain)
+	resp := response.New(p.Engine, c, subscriber.Domain)
 	var err error
 	var phone submodel.Phone
 	var id uint
@@ -136,7 +136,7 @@ func (p *PhoneAPI) Delete(c *gin.Context) {
 		return
 	}
 
-	resp.Record(base.DeletePhone, phone)
+	resp.Record(subscriber.DeletePhone, phone)
 	resp.Status(http.StatusOK).
 		MessageT(corterm.VDeletedSuccessfully, basterm.Phone).
 		JSON()
@@ -144,7 +144,7 @@ func (p *PhoneAPI) Delete(c *gin.Context) {
 
 // Separate phone
 func (p *PhoneAPI) Separate(c *gin.Context) {
-	resp := response.New(p.Engine, c, base.Domain)
+	resp := response.New(p.Engine, c, subscriber.Domain)
 	var err error
 	var aPhone submodel.AccountPhone
 	var id uint
@@ -158,7 +158,7 @@ func (p *PhoneAPI) Separate(c *gin.Context) {
 		return
 	}
 
-	resp.Record(base.DeletePhone, aPhone)
+	resp.Record(subscriber.DeletePhone, aPhone)
 	resp.Status(http.StatusOK).
 		MessageT(corterm.VDeletedSuccessfully, basterm.Phone).
 		JSON()
@@ -166,7 +166,7 @@ func (p *PhoneAPI) Separate(c *gin.Context) {
 
 // Excel generate excel files based on search
 func (p *PhoneAPI) Excel(c *gin.Context) {
-	resp, params := response.NewParam(p.Engine, c, basterm.Phones, base.Domain)
+	resp, params := response.NewParam(p.Engine, c, basterm.Phones, subscriber.Domain)
 	var err error
 
 	phones, err := p.Service.Excel(params)
@@ -198,7 +198,7 @@ func (p *PhoneAPI) Excel(c *gin.Context) {
 		return
 	}
 
-	resp.Record(base.ExcelPhone)
+	resp.Record(subscriber.ExcelPhone)
 
 	c.Header("Content-Description", "File Transfer")
 	c.Header("Content-Disposition", "attachment; filename="+downloadName)

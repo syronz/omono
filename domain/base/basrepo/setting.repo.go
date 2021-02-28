@@ -3,7 +3,7 @@ package basrepo
 import (
 	"log"
 	"omono/domain/base/basmodel"
-	"omono/domain/base/message/basterm"
+	"omono/domain/base/basterm"
 	"omono/internal/core"
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
@@ -149,18 +149,6 @@ func (p *SettingRepo) dbError(err error, code string, setting basmodel.Setting, 
 
 	case corerr.NotFoundErr:
 		err = corerr.RecordNotFoundHelper(err, code, corterm.ID, setting.ID, basterm.Settings)
-
-	// case corerr.ForeignErr:
-	// 	err = limberr.Take(err, code).
-	// 		Message(corerr.SomeVRelatedToThisVSoItIsNotV, dict.R(basterm.Users),
-	// 			dict.R(basterm.Setting), dict.R(action)).
-	// 		Custom(corerr.ForeignErr).Build()
-
-	// case corerr.DuplicateErr:
-	// 	err = limberr.Take(err, code).
-	// 		Message(corerr.VWithValueVAlreadyExist, dict.R(basterm.Setting), setting.Name).
-	// 		Custom(corerr.DuplicateErr).Build()
-	// 	err = limberr.AddInvalidParam(err, "name", corerr.VisAlreadyExist, setting.Name)
 
 	case corerr.ValidationFailedErr:
 		err = corerr.ValidationFailedHelper(err, code)

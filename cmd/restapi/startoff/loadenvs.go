@@ -51,7 +51,6 @@ func LoadEnvs() *core.Engine {
 	envs[base.ActivityTickTimer] = os.Getenv("OMONO_BASE_ACTIVITY_TICK_TIMER")
 	envs[base.AdminUsername] = os.Getenv("OMONO_BASE_ADMIN_USERNAME")
 	envs[base.AdminPassword] = os.Getenv("OMONO_BASE_ADMIN_PASSWORD")
-	envs[base.DefaultUsersParentID] = os.Getenv("OMONO_BASE_DEFAULT_USER_PARENT_ID")
 
 	envs[notification.AppURL] = os.Getenv("OMONO_NOTIFICATION_APP_URL")
 

@@ -1,17 +1,16 @@
 package subapi
 
 import (
+	"github.com/gin-gonic/gin"
 	"net/http"
-	"omono/domain/base"
-	"omono/domain/base/message/basterm"
+	"omono/domain/base/basterm"
 	"omono/domain/service"
+	"omono/domain/subscriber"
 	"omono/domain/subscriber/submodel"
 	"omono/internal/core"
 	"omono/internal/core/corterm"
 	"omono/internal/response"
-	"omono/pkg/excel"
-
-	"github.com/gin-gonic/gin"
+	"omono/pkg/helper/excel"
 )
 
 // AccountAPI for injecting account service
@@ -27,7 +26,7 @@ func ProvideAccountAPI(c service.SubAccountServ) AccountAPI {
 
 // FindByID is used for fetch a account by it's id
 func (p *AccountAPI) FindByID(c *gin.Context) {
-	resp := response.New(p.Engine, c, base.Domain)
+	resp := response.New(p.Engine, c, subscriber.Domain)
 	var err error
 	var account submodel.Account
 	var id uint
@@ -41,7 +40,7 @@ func (p *AccountAPI) FindByID(c *gin.Context) {
 		return
 	}
 
-	resp.Record(base.ViewAccount)
+	resp.Record(subscriber.ViewAccount)
 	resp.Status(http.StatusOK).
 		MessageT(corterm.VInfo, basterm.Account).
 		JSON(account)
@@ -49,7 +48,7 @@ func (p *AccountAPI) FindByID(c *gin.Context) {
 
 // List of accounts
 func (p *AccountAPI) List(c *gin.Context) {
-	resp, params := response.NewParam(p.Engine, c, submodel.AccountTable, base.Domain)
+	resp, params := response.NewParam(p.Engine, c, submodel.AccountTable, subscriber.Domain)
 
 	data := make(map[string]interface{})
 	var err error
@@ -59,7 +58,7 @@ func (p *AccountAPI) List(c *gin.Context) {
 		return
 	}
 
-	resp.Record(base.ListAccount)
+	resp.Record(subscriber.ListAccount)
 	resp.Status(http.StatusOK).
 		MessageT(corterm.ListOfV, basterm.Accounts).
 		JSON(data)
@@ -67,11 +66,11 @@ func (p *AccountAPI) List(c *gin.Context) {
 
 // Create account
 func (p *AccountAPI) Create(c *gin.Context) {
-	resp := response.New(p.Engine, c, base.Domain)
+	resp := response.New(p.Engine, c, subscriber.Domain)
 	var account, createdAccount submodel.Account
 	var err error
 
-	if err = resp.Bind(&account, "E1057541", base.Domain, basterm.Account); err != nil {
+	if err = resp.Bind(&account, "E1057541", subscriber.Domain, basterm.Account); err != nil {
 		return
 	}
 
@@ -80,7 +79,7 @@ func (p *AccountAPI) Create(c *gin.Context) {
 		return
 	}
 
-	// resp.RecordCreate(base.CreateAccount, account)
+	// resp.RecordCreate(subscriber.CreateAccount, account)
 	resp.Status(http.StatusOK).
 		MessageT(corterm.VCreatedSuccessfully, basterm.Account).
 		JSON(createdAccount)
@@ -88,7 +87,7 @@ func (p *AccountAPI) Create(c *gin.Context) {
 
 // Update account
 func (p *AccountAPI) Update(c *gin.Context) {
-	resp := response.New(p.Engine, c, base.Domain)
+	resp := response.New(p.Engine, c, subscriber.Domain)
 	var err error
 
 	var account, accountBefore, accountUpdated submodel.Account
@@ -98,7 +97,7 @@ func (p *AccountAPI) Update(c *gin.Context) {
 		return
 	}
 
-	if err = resp.Bind(&account, "E1086162", base.Domain, basterm.Account); err != nil {
+	if err = resp.Bind(&account, "E1086162", subscriber.Domain, basterm.Account); err != nil {
 		return
 	}
 
@@ -114,7 +113,7 @@ func (p *AccountAPI) Update(c *gin.Context) {
 		return
 	}
 
-	resp.Record(base.UpdateAccount, accountBefore, account)
+	resp.Record(subscriber.UpdateAccount, accountBefore, account)
 	resp.Status(http.StatusOK).
 		MessageT(corterm.VUpdatedSuccessfully, basterm.Account).
 		JSON(accountUpdated)
@@ -122,7 +121,7 @@ func (p *AccountAPI) Update(c *gin.Context) {
 
 // Delete account
 func (p *AccountAPI) Delete(c *gin.Context) {
-	resp := response.New(p.Engine, c, base.Domain)
+	resp := response.New(p.Engine, c, subscriber.Domain)
 	var err error
 	var account submodel.Account
 	var id uint
@@ -136,7 +135,7 @@ func (p *AccountAPI) Delete(c *gin.Context) {
 		return
 	}
 
-	resp.Record(base.DeleteAccount, account)
+	resp.Record(subscriber.DeleteAccount, account)
 	resp.Status(http.StatusOK).
 		MessageT(corterm.VDeletedSuccessfully, basterm.Account).
 		JSON()
@@ -144,7 +143,7 @@ func (p *AccountAPI) Delete(c *gin.Context) {
 
 // Excel generate excel files based on search
 func (p *AccountAPI) Excel(c *gin.Context) {
-	resp, params := response.NewParam(p.Engine, c, basterm.Accounts, base.Domain)
+	resp, params := response.NewParam(p.Engine, c, basterm.Accounts, subscriber.Domain)
 	var err error
 
 	accounts, err := p.Service.Excel(params)
@@ -176,7 +175,7 @@ func (p *AccountAPI) Excel(c *gin.Context) {
 		return
 	}
 
-	resp.Record(base.ExcelAccount)
+	resp.Record(subscriber.ExcelAccount)
 
 	c.Header("Content-Description", "File Transfer")
 	c.Header("Content-Disposition", "attachment; filename="+downloadName)
@@ -186,7 +185,7 @@ func (p *AccountAPI) Excel(c *gin.Context) {
 
 // ChartOfAccount is used cached chart of account for getting the last status of chart of accounts
 func (p *AccountAPI) ChartOfAccount(c *gin.Context) {
-	resp, params := response.NewParam(p.Engine, c, submodel.AccountTable, base.Domain)
+	resp, params := response.NewParam(p.Engine, c, submodel.AccountTable, subscriber.Domain)
 
 	data := make(map[string]interface{})
 	var err error
@@ -213,7 +212,7 @@ func (p *AccountAPI) ChartOfAccount(c *gin.Context) {
 
 // SearchLeafs is used for finding the accounts ready for transactions
 func (p *AccountAPI) SearchLeafs(c *gin.Context) {
-	resp := response.New(p.Engine, c, base.Domain)
+	resp := response.New(p.Engine, c, subscriber.Domain)
 	var err error
 	var accounts []submodel.Account
 

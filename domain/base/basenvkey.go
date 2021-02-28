@@ -14,6 +14,4 @@ const (
 	AdminUsername         types.Envkey = "ADMIN_USERNAME"
 	AdminPassword         types.Envkey = "ADMIN_PASSWORD"
 	MaxHourTemporaryToken types.Envkey = "MAX_HOUR_TEMPORARY_TOKEN"
-	PublicAddress         types.Envkey = "PUBLIC_ADDRESS"
-	DefaultUsersParentID  types.Envkey = "DEFAULT_USER_PARENT_ID"
 )

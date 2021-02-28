@@ -5,6 +5,7 @@ import (
 	"omono/domain/base"
 	"omono/domain/base/basmid"
 	"omono/domain/notification"
+	"omono/domain/subscriber"
 	"omono/internal/core"
 
 	"github.com/gin-gonic/gin"
@@ -117,33 +118,33 @@ func Route(rg gin.RouterGroup, engine *core.Engine) {
 
 	// Subscriber Domain
 	rg.GET("/accounts",
-		access.Check(base.AccountRead), basAccountAPI.List)
+		access.Check(subscriber.AccountRead), basAccountAPI.List)
 	rg.GET("/accounts/:accountID",
-		access.Check(base.AccountRead), basAccountAPI.FindByID)
+		access.Check(subscriber.AccountRead), basAccountAPI.FindByID)
 	rg.POST("/accounts",
-		access.Check(base.AccountWrite), basAccountAPI.Create)
+		access.Check(subscriber.AccountWrite), basAccountAPI.Create)
 	rg.PUT("/accounts/:accountID",
-		access.Check(base.AccountWrite), basAccountAPI.Update)
+		access.Check(subscriber.AccountWrite), basAccountAPI.Update)
 	rg.DELETE("/accounts/:accountID",
-		access.Check(base.AccountWrite), basAccountAPI.Delete)
+		access.Check(subscriber.AccountWrite), basAccountAPI.Delete)
 	rg.GET("/excel/accounts",
-		access.Check(base.AccountExcel), basAccountAPI.Excel)
+		access.Check(subscriber.AccountExcel), basAccountAPI.Excel)
 	rg.GET("/charts/accounts",
-		access.Check(base.AccountRead), basAccountAPI.ChartOfAccount)
+		access.Check(subscriber.AccountRead), basAccountAPI.ChartOfAccount)
 
 	rg.GET("/phones",
 		access.Check(base.SuperAccess), basPhoneAPI.List)
 	rg.GET("/phones/:phoneID",
-		access.Check(base.PhoneRead), basPhoneAPI.FindByID)
+		access.Check(subscriber.PhoneRead), basPhoneAPI.FindByID)
 	rg.POST("/phones",
-		access.Check(base.PhoneWrite), basPhoneAPI.Create)
+		access.Check(subscriber.PhoneWrite), basPhoneAPI.Create)
 	rg.PUT("/phones/:phoneID",
 		access.Check(base.SuperAccess), basPhoneAPI.Update)
 	rg.DELETE("/phones/:phoneID",
-		access.Check(base.PhoneWrite), basPhoneAPI.Delete)
+		access.Check(subscriber.PhoneWrite), basPhoneAPI.Delete)
 	rg.GET("/excel/phones",
-		access.Check(base.PhoneExcel), basPhoneAPI.Excel)
+		access.Check(subscriber.PhoneExcel), basPhoneAPI.Excel)
 	rg.DELETE("/separate/:accountPhoneID",
-		access.Check(base.PhoneWrite), basPhoneAPI.Separate)
+		access.Check(subscriber.PhoneWrite), basPhoneAPI.Separate)
 
 }

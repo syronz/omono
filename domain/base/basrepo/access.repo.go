@@ -1,6 +1,7 @@
 package basrepo
 
 import (
+	"omono/domain/base/basmodel"
 	"omono/internal/core"
 )
 
@@ -20,7 +21,7 @@ func (p *AccessRepo) GetUserResources(userID uint) (result string, err error) {
 		Resources string
 	}{}
 
-	err = p.Engine.ReadDB.Table("bas_users").Select("bas_roles.resources").
+	err = p.Engine.ReadDB.Table(basmodel.UserTable).Select("bas_roles.resources").
 		Joins("INNER JOIN bas_roles ON bas_users.role_id = bas_roles.id").
 		Where("bas_users.id = ?", userID).Scan(&resources).Error
 

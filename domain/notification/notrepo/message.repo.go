@@ -1,7 +1,7 @@
 package notrepo
 
 import (
-	"omono/domain/base/message/basterm"
+	"omono/domain/base/basterm"
 	"omono/domain/notification/notmodel"
 	"omono/internal/core"
 	"omono/internal/core/corerr"

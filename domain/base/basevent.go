@@ -18,14 +18,6 @@ const (
 	ViewRole   types.Event = "role-view"
 	ExcelRole  types.Event = "role-excel"
 
-	CreateAccount  types.Event = "account-create"
-	UpdateAccount  types.Event = "account-update"
-	DeleteAccount  types.Event = "account-delete"
-	ListAccount    types.Event = "account-list"
-	ChartOfAccount types.Event = "chart-of-accounts"
-	ViewAccount    types.Event = "account-view"
-	ExcelAccount   types.Event = "account-excel"
-
 	CreateSetting types.Event = "setting-create"
 	UpdateSetting types.Event = "setting-update"
 	DeleteSetting types.Event = "setting-delete"
@@ -40,13 +32,6 @@ const (
 	LoginFailed types.Event = "login-failed"
 	Register    types.Event = "register"
 	ViewProfile types.Event = "profile-view"
-
-	CreatePhone types.Event = "phone-create"
-	UpdatePhone types.Event = "phone-update"
-	DeletePhone types.Event = "phone-delete"
-	ListPhone   types.Event = "phone-list"
-	ViewPhone   types.Event = "phone-view"
-	ExcelPhone  types.Event = "phone-excel"
 
 	CreateCity types.Event = "city-create"
 	UpdateCity types.Event = "city-update"

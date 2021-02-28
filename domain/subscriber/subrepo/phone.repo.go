@@ -1,7 +1,7 @@
 package subrepo
 
 import (
-	"omono/domain/base/message/basterm"
+	"omono/domain/base/basterm"
 	"omono/domain/subscriber/submodel"
 	"omono/internal/core"
 	"omono/internal/core/corerr"

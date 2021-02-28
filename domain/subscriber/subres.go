@@ -1,4 +1,4 @@
-package subscribe
+package subscriber
 
 import "omono/internal/types"
 

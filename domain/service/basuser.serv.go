@@ -10,7 +10,7 @@ import (
 	"omono/internal/core/corerr"
 	"omono/internal/param"
 	"omono/pkg/glog"
-	"omono/pkg/password"
+	"omono/pkg/helper/password"
 
 	"github.com/syronz/limberr"
 )

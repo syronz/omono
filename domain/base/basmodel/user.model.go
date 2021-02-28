@@ -1,7 +1,7 @@
 package basmodel
 
 import (
-	"omono/domain/base/message/basterm"
+	"omono/domain/base/basterm"
 	"omono/internal/consts"
 	"omono/internal/core/coract"
 	"omono/internal/core/corerr"

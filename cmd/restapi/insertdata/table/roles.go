@@ -6,6 +6,7 @@ import (
 	"omono/domain/base/basrepo"
 	"omono/domain/notification"
 	"omono/domain/service"
+	"omono/domain/subscriber"
 	"omono/internal/core"
 	"omono/internal/types"
 	"omono/pkg/glog"
@@ -30,10 +31,10 @@ func InsertRoles(engine *core.Engine) {
 				base.UserWrite, base.UserRead, base.UserExcel,
 				base.ActivitySelf,
 				base.RoleRead, base.RoleWrite, base.RoleExcel,
-				base.AccountRead, base.AccountWrite, base.AccountExcel,
-				base.PhoneRead, base.PhoneWrite, base.PhoneExcel,
 				base.CityRead, base.CityWrite, base.CityExcel,
 				notification.MessageWrite, notification.MessageExcel,
+				subscriber.AccountRead, subscriber.AccountWrite, subscriber.AccountExcel,
+				subscriber.PhoneRead, subscriber.PhoneWrite, subscriber.PhoneExcel,
 			}),
 			Description: "admin has all privileges - do not edit",
 		},
@@ -41,30 +42,7 @@ func InsertRoles(engine *core.Engine) {
 			Model: gorm.Model{
 				ID: 2,
 			},
-			Name: "Cashier",
-			Resources: types.ResourceJoin([]types.Resource{
-				base.ActivitySelf,
-				base.AccountRead, base.AccountWrite, base.AccountExcel,
-			}),
-			Description: "cashier has privileges for adding transactions - after migration reset",
-		},
-		{
-			Model: gorm.Model{
-				ID: 3,
-			},
 			Name: "Reader",
-			Resources: types.ResourceJoin([]types.Resource{
-				base.SettingRead, base.SettingExcel,
-				base.UserRead, base.UserExcel,
-				base.RoleRead, base.RoleExcel,
-			}),
-			Description: "Reader can see all part without changes",
-		},
-		{
-			Model: gorm.Model{
-				ID: 4,
-			},
-			Name: "should_be_deleted",
 			Resources: types.ResourceJoin([]types.Resource{
 				base.SettingRead, base.SettingExcel,
 				base.UserRead, base.UserExcel,

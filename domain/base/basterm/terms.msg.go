@@ -2,6 +2,9 @@ package basterm
 
 // List of messages and errors for base domain
 const (
+	UsernameOrPasswordIsWrong             = "username or password is wrong"
+	DefaultRoleIDisNotValidUpdateSettings = "default role_id is not valid, update settings"
+
 	Role       = "role"
 	Roles      = "roles"
 	User       = "user"

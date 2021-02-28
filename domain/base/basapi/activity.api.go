@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"omono/domain/base"
 	"omono/domain/base/basmodel"
-	"omono/domain/base/message/basterm"
+	"omono/domain/base/basterm"
 	"omono/domain/service"
 	"omono/internal/core"
 	"omono/internal/core/corterm"

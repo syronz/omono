@@ -4,7 +4,7 @@ import (
 	"omono/domain/base"
 	"omono/domain/base/basmodel"
 	"omono/domain/base/basrepo"
-	"omono/domain/base/message/baserr"
+	"omono/domain/base/basterm"
 	"omono/internal/consts"
 	"omono/internal/core"
 	"omono/internal/core/coract"
@@ -12,7 +12,7 @@ import (
 	"omono/internal/param"
 	"omono/internal/types"
 	"omono/pkg/glog"
-	"omono/pkg/password"
+	"omono/pkg/helper/password"
 	"time"
 
 	"github.com/syronz/dict"
@@ -46,7 +46,7 @@ func (p *BasAuthServ) Login(auth basmodel.Auth, params param.Param) (user basmod
 	userServ := ProvideBasUserService(basrepo.ProvideUserRepo(p.Engine))
 	if user, err = userServ.FindByUsername(auth.Username); err != nil {
 		err = limberr.Take(err).Custom(corerr.UnauthorizedErr).
-			Message(baserr.UsernameOrPasswordIsWrong).Build()
+			Message(basterm.UsernameOrPasswordIsWrong).Build()
 		return
 	}
 
@@ -80,7 +80,7 @@ func (p *BasAuthServ) Login(auth basmodel.Auth, params param.Param) (user basmod
 		BasAccessDeleteFromCache(user.ID)
 
 	} else {
-		err = limberr.New("wrong password").Message(baserr.UsernameOrPasswordIsWrong).Build()
+		err = limberr.New("wrong password").Message(basterm.UsernameOrPasswordIsWrong).Build()
 		err = corerr.TickCustom(err, corerr.UnauthorizedErr, "E1043108", "wrong password")
 	}
 
@@ -153,7 +153,7 @@ func (p *BasAuthServ) Register(user basmodel.User) (createdUser basmodel.User, e
 
 	if user.RoleID, err = types.StrToUint(p.Engine.Setting[base.DefaultRegisteredRole].Value); err != nil {
 		err = limberr.New(`default_registered_role is not a number`, "E1021908").
-			Message(baserr.DefaultRoleIDisNotValidUpdateSettings).
+			Message(basterm.DefaultRoleIDisNotValidUpdateSettings).
 			Custom(corerr.InternalServerErr).Build()
 		glog.LogError(err, "update settings and put number for default_registered_role")
 
