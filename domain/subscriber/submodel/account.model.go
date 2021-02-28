@@ -21,16 +21,12 @@ const (
 // Account model
 type Account struct {
 	gorm.Model
-	ParentID  *uint      `json:"parent_id"`
-	Code      string     `gorm:"unique" json:"code"`
-	NameEn    string     `gorm:"unique" json:"name_en,omitempty"`
-	NameKu    *string    `gorm:"unique" json:"name_ku,omitempty" `
-	Type      types.Enum `json:"type,omitempty"`
-	Status    types.Enum `gorm:"default:'active';type:enum('active','inactive')" json:"status,omitempty"`
-	Balance   float64    `json:"balance"`
-	ReadOnly  bool       `gorm:"not null;default:0" json:"read_only"`
-	Phones    []Phone    `gorm:"-" json:"phones" table:"-"`
-	Childrens []Account  `gorm:"-" json:"childrens" table:"-"`
+	NameEn string     `gorm:"unique" json:"name_en,omitempty"`
+	NameKu *string    `gorm:"unique" json:"name_ku,omitempty" `
+	Type   types.Enum `json:"type,omitempty"`
+	Status types.Enum `gorm:"default:'active';type:enum('active','inactive')" json:"status,omitempty"`
+	Credit float64    `json:"credit,omitempty"`
+	Phones []Phone    `gorm:"-" json:"phones" table:"-"`
 }
 
 // Validate check the type of fields
@@ -50,18 +46,6 @@ func (p *Account) Validate(act coract.Action) (err error) {
 	// 			corerr.MaximumAcceptedCharacterForVisV,
 	// 			dict.R(corterm.Name), 255)
 	// 	}
-
-	if p.Code == "" {
-		err = limberr.AddInvalidParam(err, "code",
-			corerr.VisRequired, dict.R(corterm.Code))
-	}
-
-	// 	if len(p.Description) > 255 {
-	// 		err = limberr.AddInvalidParam(err, "description",
-	// 			corerr.MaximumAcceptedCharacterForVisV,
-	// 			dict.R(corterm.Description), 255)
-	// 	}
-	// }
 
 	// TODO: it should be checked after API has been created
 	if ok, _ := helper.Includes(accounttype.List, p.Type); !ok {

@@ -101,14 +101,9 @@ func (p *AccountAPI) Update(c *gin.Context) {
 		return
 	}
 
-	if accountBefore, err = p.Service.FindByID(id); err != nil {
-		resp.Error(err).JSON()
-		return
-	}
-
 	account.ID = id
 	account.CreatedAt = accountBefore.CreatedAt
-	if accountUpdated, err = p.Service.Save(account); err != nil {
+	if accountUpdated, accountBefore, err = p.Service.Save(account); err != nil {
 		resp.Error(err).JSON()
 		return
 	}
@@ -181,51 +176,4 @@ func (p *AccountAPI) Excel(c *gin.Context) {
 	c.Header("Content-Disposition", "attachment; filename="+downloadName)
 	c.Data(http.StatusOK, "application/octet-stream", buffer.Bytes())
 
-}
-
-// ChartOfAccount is used cached chart of account for getting the last status of chart of accounts
-func (p *AccountAPI) ChartOfAccount(c *gin.Context) {
-	resp, params := response.NewParam(p.Engine, c, submodel.AccountTable, subscriber.Domain)
-
-	data := make(map[string]interface{})
-	var err error
-
-	params.Select = "bas_accounts.id,bas_accounts.parent_id,bas_accounts.code,bas_accounts.name_ar,bas_accounts.name_en,bas_accounts.name_ku,bas_accounts.type"
-
-	refresh := c.Query("refresh")
-	if refresh == "true" {
-		if data["list"], err = p.Service.ChartOfAccountRefresh(params); err != nil {
-			resp.Error(err).JSON()
-			return
-		}
-	} else {
-		if data["list"], err = p.Service.ChartOfAccount(params); err != nil {
-			resp.Error(err).JSON()
-			return
-		}
-	}
-
-	resp.Status(http.StatusOK).
-		MessageT(corterm.ListOfV, basterm.Accounts).
-		JSON(data)
-}
-
-// SearchLeafs is used for finding the accounts ready for transactions
-func (p *AccountAPI) SearchLeafs(c *gin.Context) {
-	resp := response.New(p.Engine, c, subscriber.Domain)
-	var err error
-	var accounts []submodel.Account
-
-	search := c.Query("search")
-
-	lang := core.GetLang(c, p.Engine)
-
-	if accounts, err = p.Service.SearchLeafs(search, lang); err != nil {
-		resp.Error(err).JSON()
-		return
-	}
-
-	resp.Status(http.StatusOK).
-		MessageT(corterm.VInfo, basterm.Account).
-		JSON(accounts)
 }

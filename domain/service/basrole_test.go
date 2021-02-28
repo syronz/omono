@@ -86,7 +86,7 @@ func TestRoleUpdate(t *testing.T) {
 	}{
 		{
 			in: basmodel.Role{
-				gorm.Model: gorm.Model{
+				Model: gorm.Model{
 					ID: 5,
 				},
 				Name:        "num 1 update",
@@ -97,7 +97,7 @@ func TestRoleUpdate(t *testing.T) {
 		},
 		{
 			in: basmodel.Role{
-				gorm.Model: gorm.Model{
+				Model: gorm.Model{
 					ID: 6,
 				},
 				Name:        "num 2 update",
@@ -108,7 +108,7 @@ func TestRoleUpdate(t *testing.T) {
 	}
 
 	for _, v := range samples {
-		_, err := roleServ.Save(v.in)
+		_, _, err := roleServ.Save(v.in)
 		if (v.err == nil && err != nil) || (v.err != nil && err == nil) {
 			t.Errorf("ERROR FOR ::::%+v::: \nRETURNS :::%+v:::, \nIT SHOULD BE :::%+v:::", v.in, err, v.err)
 		}
@@ -124,15 +124,11 @@ func TestRoleDelete(t *testing.T) {
 		err error
 	}{
 		{
-			id: gorm.Model{
-				ID: 7,
-			},
+			id:  7,
 			err: nil,
 		},
 		{
-			id: gorm.Model{
-				ID: 99999999,
-			},
+			id:  99999999,
 			err: errors.New("record not found"),
 		},
 	}

@@ -1,8 +1,8 @@
 package table
 
 import (
-	"omono/domain/base/basmodel"
 	"omono/domain/service"
+	"omono/domain/subscriber/submodel"
 	"omono/domain/subscriber/subrepo"
 	"omono/internal/core"
 	"omono/pkg/glog"
@@ -15,9 +15,9 @@ func InsertPhones(engine *core.Engine) {
 	phoneRepo := subrepo.ProvidePhoneRepo(engine)
 	phoneService := service.ProvideSubPhoneService(phoneRepo)
 
-	phones := []basmodel.Phone{
+	phones := []submodel.Phone{
 		{
-			gorm.Model: gorm.Model{
+			Model: gorm.Model{
 				ID: 1,
 			},
 			//Default:   []byte("default"),
@@ -27,7 +27,7 @@ func InsertPhones(engine *core.Engine) {
 		},
 
 		{
-			gorm.Model: gorm.Model{
+			Model: gorm.Model{
 				ID: 2,
 			},
 			//Default:   []byte("default"),
@@ -36,7 +36,7 @@ func InsertPhones(engine *core.Engine) {
 			Notes:     "original",
 		},
 		{
-			gorm.Model: gorm.Model{
+			Model: gorm.Model{
 				ID: 3,
 			},
 			//Default:   []byte("default"),
@@ -45,7 +45,7 @@ func InsertPhones(engine *core.Engine) {
 			Notes:     "original",
 		},
 		{
-			gorm.Model: gorm.Model{
+			Model: gorm.Model{
 				ID: 4,
 			},
 			//Default:   []byte("default"),
@@ -56,7 +56,7 @@ func InsertPhones(engine *core.Engine) {
 	}
 
 	for _, v := range phones {
-		if _, err := phoneService.Save(v); err != nil {
+		if _, err := phoneService.Create(v); err != nil {
 			glog.Fatal(err)
 		}
 	}

@@ -5,17 +5,11 @@ import (
 	"omono/domain/subscriber/enum/accountstatus"
 	"omono/domain/subscriber/submodel"
 	"omono/domain/subscriber/subrepo"
-	"omono/internal/consts"
 	"omono/internal/core"
 	"omono/internal/core/coract"
 	"omono/internal/core/corerr"
 	"omono/internal/param"
 	"omono/pkg/glog"
-	"strconv"
-	"time"
-
-	"github.com/syronz/dict"
-	"github.com/syronz/limberr"
 
 	"gorm.io/gorm"
 )
@@ -79,18 +73,6 @@ func (p *SubAccountServ) List(params param.Param) (accounts []submodel.Account,
 	return
 }
 
-// GetAllAccounts will fetch all of the accounts. Currently used for balancesheet
-func (p *SubAccountServ) GetAllAccounts(params param.Param) (accounts []submodel.Account,
-	count int64, err error) {
-
-	if accounts, err = p.Repo.GetAllAccounts(params); err != nil {
-		glog.CheckError(err, "error in fetching all accounts")
-		return
-	}
-
-	return
-}
-
 // Create a account
 func (p *SubAccountServ) Create(account submodel.Account) (createdAccount submodel.Account, err error) {
 	db := p.Engine.DB.Begin()
@@ -140,8 +122,16 @@ func (p *SubAccountServ) TxCreate(db *gorm.DB, account submodel.Account) (create
 }
 
 // Save a account, if it is exist update it, if not create it
-func (p *SubAccountServ) Save(account submodel.Account) (savedAccount submodel.Account, err error) {
-	return p.TxSave(p.Engine.DB, account)
+func (p *SubAccountServ) Save(account submodel.Account) (savedAccount, accountBefore submodel.Account, err error) {
+	if accountBefore, err = p.FindByID(account.ID); err != nil {
+		err = corerr.Tick(err, "E1073641", "account not exist")
+		return
+	}
+
+	account.CreatedAt = accountBefore.CreatedAt
+
+	savedAccount, err = p.TxSave(p.Engine.DB, account)
+	return
 }
 
 // TxSave a account, if it is exist update it, if not create it
@@ -165,33 +155,6 @@ func (p *SubAccountServ) Delete(id uint) (account submodel.Account, err error) {
 		err = corerr.Tick(err, "E1038835", "account not found for deleting")
 		return
 	}
-
-	//check if account is only read-only
-	if account.ReadOnly {
-		err = limberr.New("account has a child", "E1082665").
-			Message(corerr.VHasChildThereforeNotDeleted, account.NameEn).
-			Custom(corerr.ForeignErr).Build()
-		return
-	}
-	// check child accounts
-	// params := param.NewForDelete("bas_accounts", "parent_id", id)
-
-	// var accounts []submodel.Account
-	// if accounts, err = p.Repo.List(params); err != nil {
-	// 	err = corerr.Tick(err, "E1036442", "accounts not fetch for delete an account")
-	// 	return
-	// }
-
-	// if len(accounts) > 0 {
-	// 	var tmp string
-	// 	if account.NameEn != nil {
-	// 		tmp = *account.NameEn
-	// 	}
-	// 	err = limberr.New("account has a child", "E1082665").
-	// 		Message(corerr.VHasChildThereforeNotDeleted, tmp).
-	// 		Custom(corerr.ForeignErr).Build()
-	// 	return
-	// }
 
 	if err = p.Repo.Delete(account); err != nil {
 		err = corerr.Tick(err, "E1045410", "account not deleted")
@@ -224,125 +187,4 @@ func (p *SubAccountServ) IsActive(id uint) (bool, submodel.Account, error) {
 	}
 
 	return account.Status == accountstatus.Active, account, nil
-}
-
-func treeChartOfAccounts(accounts []submodel.Account) (root submodel.Tree) {
-	arr := make([]submodel.Tree, len(accounts))
-
-	for i, v := range accounts {
-		arr[i].ID = v.ID
-		arr[i].ParentID = v.ParentID
-		arr[i].Code = v.Code
-		arr[i].Name = v.NameEn
-		arr[i].Type = v.Type
-	}
-
-	pMap := make(map[uint]*submodel.Tree, 1)
-
-	pMap[0] = &root
-
-	exceed := submodel.Tree{
-		Name: "exceed",
-	}
-
-	for i, v := range arr {
-		pMap[v.ID] = &arr[i]
-	}
-
-	for i, v := range arr {
-		pID := parseParent(v.ParentID)
-
-		pMap[pID].Counter++
-		if pMap[pID].Counter < consts.MaxChildrenForChartOfAccounts {
-			pMap[pID].Children = append(pMap[pID].Children, &arr[i])
-		} else {
-			if pMap[pID].Counter == consts.MaxChildrenForChartOfAccounts {
-				exceed.ParentID = v.ParentID
-				pMap[pID].Children = append(pMap[pID].Children, &exceed)
-			}
-		}
-
-	}
-
-	return
-}
-
-func parseParent(pID *uint) uint {
-	if pID == nil {
-		return 0
-	}
-	return *pID
-}
-
-// ChartOfAccountRefresh is a tree shape of accounts implemented in the nested app
-func (p *SubAccountServ) ChartOfAccountRefresh(params param.Param) (root submodel.Tree,
-	err error) {
-
-	var accounts []submodel.Account
-	params.Limit = consts.MaxRowsCount
-	params.Order = "bas_accounts.code ASC"
-
-	if accounts, err = p.Repo.List(params); err != nil {
-		glog.CheckError(err, "error in accounts list")
-		return
-	}
-
-	root = treeChartOfAccounts(accounts)
-	now := time.Now()
-	root.LastRefresh = &now
-	cacheChartOffAccount = &root
-
-	return
-}
-
-// ChartOfAccount is a tree shape of accounts implemented in the nested app
-func (p *SubAccountServ) ChartOfAccount(params param.Param) (root submodel.Tree,
-	err error) {
-
-	params.Limit = consts.MaxRowsCount
-	params.Order = "bas_accounts.code ASC"
-
-	if cacheChartOffAccount == nil {
-		if root, err = p.ChartOfAccountRefresh(params); err != nil {
-			glog.CheckError(err, "error in accounts list")
-			return
-		}
-		return
-	}
-
-	return *cacheChartOffAccount, nil
-}
-
-// SearchLeafs is used for searching among accounts
-func (p *SubAccountServ) SearchLeafs(search string, lang dict.Lang) (accounts []submodel.Account,
-	err error) {
-
-	//unfilteredAccs ..
-	var unfilteredAcc []submodel.Account
-
-	params := param.New()
-	params.PreCondition = "bas_accounts.status = 'active' AND bas_accounts.read_only = 0 AND "
-	code, errConvert := strconv.Atoi(search)
-	if errConvert != nil {
-		params.PreCondition += fmt.Sprintf("bas_accounts.name_%v LIKE '%v%%'", lang, search)
-	} else {
-		params.PreCondition += fmt.Sprintf("bas_accounts.code LIKE '%v%%'", code)
-	}
-
-	params.Order = "bas_accounts.code ASC"
-
-	if unfilteredAcc, err = p.Repo.List(params); err != nil {
-		glog.CheckError(err, "error in accounts list")
-		return
-	}
-
-	//using a loop to filter the inactice accounts
-	for _, v := range unfilteredAcc {
-		if v.Status == accountstatus.Inactive {
-			continue
-		}
-		accounts = append(accounts, v)
-	}
-
-	return
 }

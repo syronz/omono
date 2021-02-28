@@ -29,7 +29,7 @@ func TestUpdateSetting(t *testing.T) {
 	}{
 		{
 			in: basmodel.Setting{
-				gorm.Model: gorm.Model{
+				Model: gorm.Model{
 					ID: 20,
 				},
 				Property:    "num 1 updated",
@@ -41,7 +41,7 @@ func TestUpdateSetting(t *testing.T) {
 		},
 		{
 			in: basmodel.Setting{
-				gorm.Model: gorm.Model{
+				Model: gorm.Model{
 					ID: 21,
 				},
 				Value:       "num 2 updated",
@@ -53,7 +53,7 @@ func TestUpdateSetting(t *testing.T) {
 	}
 
 	for _, v := range samples {
-		_, err := settingServ.Save(v.in)
+		_, _, err := settingServ.Save(v.in)
 		if (v.err == nil && err != nil) || (v.err != nil && err == nil) {
 			t.Errorf("ERROR FOR ::::%+v::: \nRETURNS :::%+v:::, \nIT SHOULD BE :::%+v:::", v.in, err, v.err)
 		}

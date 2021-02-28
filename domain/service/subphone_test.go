@@ -2,21 +2,22 @@ package service
 
 import (
 	"errors"
-	"omono/domain/base/basmodel"
-	"omono/domain/base/basrepo"
+	"omono/domain/subscriber/submodel"
+	"omono/domain/subscriber/subrepo"
 	"omono/internal/core"
 	"omono/internal/param"
-	"omono/internal/types"
 	"omono/test/kernel"
 	"testing"
+
+	"gorm.io/gorm"
 )
 
-func initPhoneTest() (engine *core.Engine, phoneService BasPhoneServ) {
+func initPhoneTest() (engine *core.Engine, phoneService SubPhoneServ) {
 	queryLog, debugLevel := initServiceTest()
 
 	engine = kernel.StartMotor(queryLog, debugLevel)
 
-	phoneService = ProvideBasPhoneService(basrepo.ProvidePhoneRepo(engine))
+	phoneService = ProvideSubPhoneService(subrepo.ProvidePhoneRepo(engine))
 
 	return
 
@@ -37,11 +38,11 @@ func TestPhoneCreate(test *testing.T) {
 	//3rd test: ERROR: b/c input for phone is less than 5
 	//4th test: ERROR: input for Notes is greater than 255 characters
 	testCollector := []struct {
-		phone basmodel.Phone
+		phone submodel.Phone
 		err   error
 	}{
 		{
-			phone: basmodel.Phone{
+			phone: submodel.Phone{
 				Phone:     "077022222",
 				Notes:     "This phone number has been created",
 				AccountID: 1,
@@ -49,7 +50,7 @@ func TestPhoneCreate(test *testing.T) {
 			err: nil,
 		},
 		{
-			phone: basmodel.Phone{
+			phone: submodel.Phone{
 				Phone:     "07702232133123213213",
 				Notes:     "This phone number has been created",
 				AccountID: 1,
@@ -58,7 +59,7 @@ func TestPhoneCreate(test *testing.T) {
 		},
 
 		{
-			phone: basmodel.Phone{
+			phone: submodel.Phone{
 				Phone:     "077",
 				Notes:     "this phone  number has been created",
 				AccountID: 1,
@@ -67,7 +68,7 @@ func TestPhoneCreate(test *testing.T) {
 		},
 
 		{
-			phone: basmodel.Phone{
+			phone: submodel.Phone{
 				Phone: "321332131",
 				Notes: "This phone has been created, This phone has been created, This phone has been created, This phone has been created,This phone has been created, This phone has been created, This phone has been created, This phone has been created, This phone has been created,",
 			},
@@ -90,13 +91,12 @@ func TestPhoneSave(test *testing.T) {
 
 	type err error
 	collector := []struct {
-		phone basmodel.Phone
+		phone submodel.Phone
 		err   error
 	}{
 		{
-			phone: basmodel.Phone{
-
-				gorm.Model: gorm.Model{
+			phone: submodel.Phone{
+				Model: gorm.Model{
 					ID: 1,
 				},
 				Phone: "23134142",
@@ -105,8 +105,8 @@ func TestPhoneSave(test *testing.T) {
 			err: nil,
 		},
 		{
-			phone: basmodel.Phone{
-				gorm.Model: gorm.Model{
+			phone: submodel.Phone{
+				Model: gorm.Model{
 					ID: 1314421,
 				},
 				Phone: "3131233",
@@ -115,8 +115,8 @@ func TestPhoneSave(test *testing.T) {
 			err: errors.New("Phone doesn't exist"),
 		},
 		{
-			phone: basmodel.Phone{
-				gorm.Model: gorm.Model{
+			phone: submodel.Phone{
+				Model: gorm.Model{
 					ID: 1,
 				},
 				Notes: "phone has been updated",
@@ -144,11 +144,11 @@ func TestPhoneUpdate(test *testing.T) {
 
 	type err error
 	collector := []struct {
-		phone basmodel.Phone
+		phone submodel.Phone
 		err   error
 	}{
 		{
-			phone: basmodel.Phone{
+			phone: submodel.Phone{
 
 				ID:        1,
 				Phone:     "23134142",
@@ -157,7 +157,7 @@ func TestPhoneUpdate(test *testing.T) {
 			err: nil,
 		},
 		{
-			phone: basmodel.Phone{
+			phone: submodel.Phone{
 				ID:        1314421,
 				Phone:     "3131233",
 				Notes:     "phone has been updated",
@@ -165,7 +165,7 @@ func TestPhoneUpdate(test *testing.T) {
 			err: errors.New("Phone doesn't exist"),
 		},
 		{
-			phone: basmodel.Phone{
+			phone: submodel.Phone{
 				ID:        1,
 				Notes:     "phone has been updated",
 			},
@@ -192,17 +192,17 @@ func TestPhoneDelete(t *testing.T) {
 	_, phoneService := initPhoneTest()
 
 	testCollector := []struct {
-		phone basmodel.Phone
+		phone submodel.Phone
 		err   error
 	}{
 		{
-			phone: basmodel.Phone{
+			phone: submodel.Phone{
 				ID:        1,
 			},
 			err: nil,
 		},
 		{
-			phone: basmodel.Phone{
+			phone: submodel.Phone{
 				ID:        1111111,
 			},
 			err: errors.New("phone was not found to be deleted"),
@@ -227,17 +227,17 @@ func TestPhoneFindByID(t *testing.T) {
 	_, phoneService := initPhoneTest()
 
 	testCollector := []struct {
-		phone basmodel.Phone
+		phone submodel.Phone
 		err   error
 	}{
 		{
-			phone: basmodel.Phone{
+			phone: submodel.Phone{
 				ID:        1,
 			},
 			err: nil,
 		},
 		{
-			phone: basmodel.Phone{
+			phone: submodel.Phone{
 				ID:        1324231,
 			err: errors.New("there is no phone record"),
 		},
@@ -256,17 +256,17 @@ func TestPhoneFindByPhone(t *testing.T) {
 	_, phoneService := initPhoneTest()
 
 	testCollector := []struct {
-		phone basmodel.Phone
+		phone submodel.Phone
 		err   error
 	}{
 		{
-			phone: basmodel.Phone{
+			phone: submodel.Phone{
 				Phone: "07701001111",
 			},
 			err: nil,
 		},
 		{
-			phone: basmodel.Phone{
+			phone: submodel.Phone{
 				Phone: "12345678",
 			},
 			err: errors.New("there is no phone record"),

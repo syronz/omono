@@ -15,7 +15,7 @@ import (
 
 // InsertAccounts for add required accounts
 func InsertAccounts(engine *core.Engine) {
-	engine.DB.Exec("UPDATE bas_accounts SET deleted_at = null WHERE id IN (1,2,3,4,5)")
+	engine.DB.Exec("UPDATE bas_accounts SET deleted_at = null WHERE id IN (1)")
 	phoneServ := service.ProvideSubPhoneService(subrepo.ProvidePhoneRepo(engine))
 	accountRepo := subrepo.ProvideAccountRepo(engine)
 	accountService := service.ProvideSubAccountService(accountRepo, phoneServ)
@@ -26,16 +26,20 @@ func InsertAccounts(engine *core.Engine) {
 			},
 			NameEn: "Test Customer",
 			NameKu: helper.StrPointer("test customer"),
-			Code:   "1",
 			Type:   accounttype.VIP,
 			Status: accountstatus.Active,
 		},
 	}
 
 	for _, v := range accounts {
-		// fmt.Println("created account type:", v.Type)
-		if _, err := accountService.Save(v); err != nil {
-			glog.Error("error in saving accounts", err)
+		if _, err := accountService.FindByID(v.ID); err == nil {
+			if _, _, err := accountService.Save(v); err != nil {
+				glog.Fatal("error in saving accounts", err)
+			}
+		} else {
+			if _, err := accountService.Create(v); err != nil {
+				glog.Fatal("error in creating accounts", err)
+			}
 		}
 	}
 

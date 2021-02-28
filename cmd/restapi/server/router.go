@@ -129,8 +129,6 @@ func Route(rg gin.RouterGroup, engine *core.Engine) {
 		access.Check(subscriber.AccountWrite), basAccountAPI.Delete)
 	rg.GET("/excel/accounts",
 		access.Check(subscriber.AccountExcel), basAccountAPI.Excel)
-	rg.GET("/charts/accounts",
-		access.Check(subscriber.AccountRead), basAccountAPI.ChartOfAccount)
 
 	rg.GET("/phones",
 		access.Check(base.SuperAccess), basPhoneAPI.List)

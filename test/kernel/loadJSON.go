@@ -103,7 +103,6 @@ func LoadTestEnv() *core.Engine {
 	envs[base.JWTExpiration] = testEnvs.Base.JWTExpiration
 	envs[base.AdminUsername] = testEnvs.Base.AdminUsername
 	envs[base.AdminPassword] = testEnvs.Base.AdminPassword
-	envs[base.DefaultUsersParentID] = testEnvs.Base.DefaultUsersParentID
 
 	engine.Envs = envs
 

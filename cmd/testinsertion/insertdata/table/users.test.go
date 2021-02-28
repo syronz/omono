@@ -19,33 +19,30 @@ func InsertUsers(engine *core.Engine) {
 
 	users := []basmodel.User{
 		{
-			gorm.Model: gorm.Model{
+			Model: gorm.Model{
 				ID: 11,
 			},
 			RoleID:   1,
-			Code:     "12001",
 			Name:     engine.Envs[base.AdminUsername],
 			Username: engine.Envs[base.AdminUsername],
 			Password: engine.Envs[base.AdminPassword],
 			Lang:     dict.Ku,
 		},
 		{
-			gorm.Model: gorm.Model{
+			Model: gorm.Model{
 				ID: 12,
 			},
 			RoleID:   2,
-			Code:     "12002",
 			Name:     "cashier",
 			Username: "cashier",
 			Password: "cashier2020",
 			Lang:     dict.En,
 		},
 		{
-			gorm.Model: gorm.Model{
+			Model: gorm.Model{
 				ID: 13,
 			},
 			RoleID:   3,
-			Code:     "12003",
 			Name:     "reader",
 			Username: "reader",
 			Password: "reader2020",
@@ -54,8 +51,8 @@ func InsertUsers(engine *core.Engine) {
 	}
 
 	for _, v := range users {
-		if _, err := userService.Save(v); err != nil {
-			glog.Error(err)
+		if _, err := userService.Create(v); err != nil {
+			glog.Fatal("error in creating users", err)
 		}
 	}
 

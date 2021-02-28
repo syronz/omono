@@ -124,7 +124,7 @@ func TestUserUpdate(test *testing.T) {
 	}{
 		{
 			user: basmodel.User{
-				gorm.Model: gorm.Model{
+				Model: gorm.Model{
 					ID: 11,
 				},
 				RoleID:   1,
@@ -138,7 +138,7 @@ func TestUserUpdate(test *testing.T) {
 		},
 		{
 			user: basmodel.User{
-				gorm.Model: gorm.Model{
+				Model: gorm.Model{
 					ID: 11,
 				},
 				RoleID:   3,
@@ -153,7 +153,7 @@ func TestUserUpdate(test *testing.T) {
 
 	for _, value := range collector {
 
-		_, err := userService.Save(value.user)
+		_, _, err := userService.Save(value.user)
 		if (value.err == nil && err != nil) || (value.err != nil && err == nil) {
 			test.Errorf("\nERROR FOR :::%+v::: \nRETURNS :::%+v:::, \nIT SHOULD BE :::%+v:::", value.user, err, value.err)
 		}
@@ -168,26 +168,22 @@ func TestUserDelete(test *testing.T) {
 	_, userService := initUserTest()
 	type err error
 	collector := []struct {
-		user gorm.Model
-		err  error
+		id  uint
+		err error
 	}{
 		{
-			user: gorm.Model{
-				ID: 12,
-			},
+			id:  12,
 			err: nil,
 		},
 		{
-			user: gorm.Model{
-				ID: 2525252,
-			},
+			id:  2525252,
 			err: errors.New("Record was not found for deletion"),
 		},
 	}
 
 	for _, value := range collector {
-		_, err := userService.Delete(value.user)
-		test.Errorf("\nERROR FOR :::%+v::: \nRETURNS :::%+v:::, \nIT SHOULD BE :::%+v:::", value.user.ID, err, value.err)
+		_, err := userService.Delete(value.id)
+		test.Errorf("\nERROR FOR :::%+v::: \nRETURNS :::%+v:::, \nIT SHOULD BE :::%+v:::", value.id, err, value.err)
 
 	}
 }
@@ -252,27 +248,23 @@ func TestUserFindByID(test *testing.T) {
 	_, userService := initUserTest()
 	type err error
 	collector := []struct {
-		user gorm.Model
-		err  error
+		id  uint
+		err error
 	}{
 		{
-			user: gorm.Model{
-				ID: 2,
-			},
+			id:  2,
 			err: nil,
 		},
 		{
-			user: gorm.Model{
-				ID: 32131312,
-			},
+			id:  32131312,
 			err: errors.New("User was not found"),
 		},
 	}
 
 	for _, value := range collector {
-		user, err := userService.FindByID(value.user)
+		user, err := userService.FindByID(value.id)
 		if value.err == nil && err != nil {
-			test.Errorf("\nERROR FOR :::%+v::: \nRETURNS :::%+v:::, \nIT SHOULD BE :::%+v:::", value.user, user.ID, value.user.ID)
+			test.Errorf("\nERROR FOR :::%+v::: \nRETURNS :::%+v:::, \nIT SHOULD BE :::%+v:::", value.id, user.ID, value.err)
 		}
 
 	}

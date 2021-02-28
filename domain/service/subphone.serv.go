@@ -80,8 +80,8 @@ func (p *SubPhoneServ) List(params param.Param) (phones []submodel.Phone,
 
 // Create a phone
 func (p *SubPhoneServ) Create(phone submodel.Phone) (createdPhone submodel.Phone, err error) {
-	return p.TxCreate(p.Repo.Engine.DB, phone)
 
+	return p.TxCreate(p.Repo.Engine.DB, phone)
 }
 
 // TxCreate used in case of transaction activated

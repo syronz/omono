@@ -62,7 +62,6 @@ func InsertRoles(engine *core.Engine) {
 				glog.Fatal("error in creating roles", err)
 			}
 		}
-
 	}
 
 }

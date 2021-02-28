@@ -77,6 +77,8 @@ func (p *BasSettingServ) Save(setting basmodel.Setting) (savedSetting, settingBe
 		return
 	}
 
+	corstartoff.LoadSetting(p.Engine)
+
 	return
 }
 

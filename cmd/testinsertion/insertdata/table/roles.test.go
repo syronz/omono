@@ -20,41 +20,42 @@ func InsertRoles(engine *core.Engine) {
 	// reset the tables: roles, slots, transactions, accounts and users
 	roleRepo.Engine.DB.Exec("SET FOREIGN_KEY_CHECKS = 0;")
 	roleRepo.Engine.DB.Exec("TRUNCATE TABLE bas_users;")
-	roleRepo.Engine.DB.Exec("TRUNCATE TABLE bas_accounts;")
-	roleRepo.Engine.DB.Exec("TRUNCATE TABLE bas_account_phones;")
-	roleRepo.Engine.DB.Exec("TRUNCATE TABLE bas_phones;")
+	roleRepo.Engine.DB.Exec("TRUNCATE TABLE sub_accounts;")
+	roleRepo.Engine.DB.Exec("TRUNCATE TABLE sub_settings;")
+	roleRepo.Engine.DB.Exec("TRUNCATE TABLE sub_account_phones;")
+	roleRepo.Engine.DB.Exec("TRUNCATE TABLE sub_phones;")
 	roleRepo.Engine.DB.Exec("TRUNCATE TABLE bas_roles;")
 	roleRepo.Engine.DB.Exec("SET FOREIGN_KEY_CHECKS = 1;")
 
 	roles := []basmodel.Role{
 		{
-			gorm.Model: gorm.Model{
+			Model: gorm.Model{
 				ID: 1,
 			},
 			Name: "Super-Admin",
 			Resources: types.ResourceJoin([]types.Resource{
 				base.SettingRead, base.SettingWrite, base.SettingExcel,
 				base.UserWrite, base.UserRead, base.UserExcel,
-				base.ActivitySelf, base.ActivityCompany,
+				base.ActivitySelf,
 				base.RoleRead, base.RoleWrite, base.RoleExcel,
 			}),
 			Description: "super-admin has all privileges - do not edit",
 		},
 		{
-			gorm.Model: gorm.Model{
+			Model: gorm.Model{
 				ID: 2,
 			},
 			Name: "Admin",
 			Resources: types.ResourceJoin([]types.Resource{
 				base.SettingRead, base.SettingWrite, base.SettingExcel,
 				base.UserWrite, base.UserRead, base.UserExcel,
-				base.ActivitySelf, base.ActivityCompany,
+				base.ActivitySelf,
 				base.RoleRead, base.RoleWrite, base.RoleExcel,
 			}),
 			Description: "admin has all privileges - do not edit",
 		},
 		{
-			gorm.Model: gorm.Model{
+			Model: gorm.Model{
 				ID: 3,
 			},
 			Name:        "Cashier",
@@ -62,7 +63,7 @@ func InsertRoles(engine *core.Engine) {
 			Description: "cashier has all privileges - after migration reset",
 		},
 		{
-			gorm.Model: gorm.Model{
+			Model: gorm.Model{
 				ID: 4,
 			},
 			Name:        "for foreign 1",
@@ -70,7 +71,7 @@ func InsertRoles(engine *core.Engine) {
 			Description: "for foreign 1",
 		},
 		{
-			gorm.Model: gorm.Model{
+			Model: gorm.Model{
 				ID: 5,
 			},
 			Name:        "for update 1",
@@ -78,7 +79,7 @@ func InsertRoles(engine *core.Engine) {
 			Description: "for update 1",
 		},
 		{
-			gorm.Model: gorm.Model{
+			Model: gorm.Model{
 				ID: 6,
 			},
 			Name:        "for update 2",
@@ -86,7 +87,7 @@ func InsertRoles(engine *core.Engine) {
 			Description: "for update 2",
 		},
 		{
-			gorm.Model: gorm.Model{
+			Model: gorm.Model{
 				ID: 7,
 			},
 			Name:        "for delete 1",
@@ -94,7 +95,7 @@ func InsertRoles(engine *core.Engine) {
 			Description: "for delete 1",
 		},
 		{
-			gorm.Model: gorm.Model{
+			Model: gorm.Model{
 				ID: 8,
 			},
 			Name:        "for search 1",
@@ -102,7 +103,7 @@ func InsertRoles(engine *core.Engine) {
 			Description: "searchTerm1",
 		},
 		{
-			gorm.Model: gorm.Model{
+			Model: gorm.Model{
 				ID: 9,
 			},
 			Name:        "for search 2",
@@ -110,7 +111,7 @@ func InsertRoles(engine *core.Engine) {
 			Description: "searchTerm1",
 		},
 		{
-			gorm.Model: gorm.Model{
+			Model: gorm.Model{
 				ID: 10,
 			},
 			Name:        "for search 3",
@@ -118,7 +119,7 @@ func InsertRoles(engine *core.Engine) {
 			Description: "searchTerm1",
 		},
 		{
-			gorm.Model: gorm.Model{
+			Model: gorm.Model{
 				ID: 11,
 			},
 			Name:        "for delete 2",
@@ -128,8 +129,8 @@ func InsertRoles(engine *core.Engine) {
 	}
 
 	for _, v := range roles {
-		if _, err := roleService.Save(v); err != nil {
-			glog.Fatal(err)
+		if _, err := roleService.Create(v); err != nil {
+			glog.Fatal("error in creating roles", err)
 		}
 	}
 

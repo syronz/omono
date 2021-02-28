@@ -13,9 +13,6 @@ func Insert(engine *core.Engine) {
 		table.InsertRoles(engine)
 		table.InsertAccounts(engine)
 		table.InsertUsers(engine)
-		table.InsertCurrencies(engine)
-		// table.InsertTransactions(engine)
-		table.InsertJournals(engine)
 		table.InsertPhones(engine)
 	}
 
