@@ -8,6 +8,7 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-gonic/gin v1.6.3
+	github.com/google/wire v0.5.0
 	github.com/sirupsen/logrus v1.8.0
 	github.com/syronz/dict v1.1.0
 	github.com/syronz/goAES v0.3.0

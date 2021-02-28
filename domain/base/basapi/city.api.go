@@ -103,11 +103,6 @@ func (p *CityAPI) Update(c *gin.Context) {
 		return
 	}
 
-	// if cityBefore, err = p.Service.FindByID(id); err != nil {
-	// 	resp.Error(err).JSON()
-	// 	return
-	// }
-
 	city.ID = id
 	city.CreatedAt = cityBefore.CreatedAt
 	if cityUpdated, cityBefore, err = p.Service.Save(city); err != nil {

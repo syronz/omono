@@ -13,7 +13,7 @@ func LoadEnvs() *core.Engine {
 	var engine core.Engine
 	var envs types.Envs
 
-	envs = make(types.Envs, 29)
+	envs = make(types.Envs, 36)
 
 	envs[core.Port] = os.Getenv("OMONO_CORE_PORT")
 	envs[core.Addr] = os.Getenv("OMONO_CORE_ADDR")

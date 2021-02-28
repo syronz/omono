@@ -8,6 +8,8 @@ import (
 	"omono/domain/notification/notapi"
 	"omono/domain/notification/notrepo"
 	"omono/domain/service"
+	"omono/domain/subscriber/subapi"
+	"omono/domain/subscriber/subrepo"
 
 	"omono/internal/core"
 
@@ -42,18 +44,6 @@ func initActivityAPI(engine *core.Engine) basapi.ActivityAPI {
 	return basapi.ActivityAPI{}
 }
 
-func initAccountAPI(e *core.Engine, phoneServ service.BasPhoneServ) basapi.AccountAPI {
-	wire.Build(basrepo.ProvideAccountRepo, service.ProvideSubAccountService,
-		basapi.ProvideAccountAPI)
-	return basapi.AccountAPI{}
-}
-
-func initBasPhoneAPI(e *core.Engine) basapi.PhoneAPI {
-	wire.Build(basrepo.ProvidePhoneRepo, service.ProvideBasPhoneService,
-		basapi.ProvidePhoneAPI)
-	return basapi.PhoneAPI{}
-}
-
 func initBasCityAPI(e *core.Engine) basapi.CityAPI {
 	wire.Build(basrepo.ProvideCityRepo, service.ProvideBasCityService,
 		basapi.ProvideCityAPI)
@@ -65,4 +55,17 @@ func initNotMessageAPI(e *core.Engine) notapi.MessageAPI {
 	wire.Build(notrepo.ProvideMessageRepo, service.ProvideNotMessageService,
 		notapi.ProvideMessageAPI)
 	return notapi.MessageAPI{}
+}
+
+// Subscriber Domain
+func initSubAccountAPI(e *core.Engine, phoneServ service.SubPhoneServ) subapi.AccountAPI {
+	wire.Build(subrepo.ProvideAccountRepo, service.ProvideSubAccountService,
+		subapi.ProvideAccountAPI)
+	return subapi.AccountAPI{}
+}
+
+func initSubPhoneAPI(e *core.Engine) subapi.PhoneAPI {
+	wire.Build(subrepo.ProvidePhoneRepo, service.ProvideSubPhoneService,
+		subapi.ProvidePhoneAPI)
+	return subapi.PhoneAPI{}
 }

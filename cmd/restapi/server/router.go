@@ -19,12 +19,14 @@ func Route(rg gin.RouterGroup, engine *core.Engine) {
 	basRoleAPI := initRoleAPI(engine)
 	basSettingAPI := initSettingAPI(engine)
 	basActivityAPI := initActivityAPI(engine)
-	basPhoneAPI := initBasPhoneAPI(engine)
-	basAccountAPI := initAccountAPI(engine, basPhoneAPI.Service)
 	basCityAPI := initBasCityAPI(engine)
 
 	// Notification Domain
 	notMessageAPI := initNotMessageAPI(engine)
+
+	// Subscriber Domain
+	basPhoneAPI := initSubPhoneAPI(engine)
+	basAccountAPI := initSubAccountAPI(engine, basPhoneAPI.Service)
 
 	// Html Domain
 	rg.StaticFS("/public", http.Dir("public"))

@@ -53,20 +53,6 @@ func initActivityAPI(engine *core.Engine) basapi.ActivityAPI {
 	return activityAPI
 }
 
-func initAccountAPI(e *core.Engine, phoneServ service.SubPhoneServ) subapi.AccountAPI {
-	accountRepo := subrepo.ProvideAccountRepo(e)
-	subAccountServ := service.ProvideSubAccountService(accountRepo, phoneServ)
-	accountAPI := subapi.ProvideAccountAPI(subAccountServ)
-	return accountAPI
-}
-
-func initBasPhoneAPI(e *core.Engine) subapi.PhoneAPI {
-	phoneRepo := subrepo.ProvidePhoneRepo(e)
-	subPhoneServ := service.ProvideSubPhoneService(phoneRepo)
-	phoneAPI := subapi.ProvidePhoneAPI(subPhoneServ)
-	return phoneAPI
-}
-
 func initBasCityAPI(e *core.Engine) basapi.CityAPI {
 	cityRepo := basrepo.ProvideCityRepo(e)
 	basCityServ := service.ProvideBasCityService(cityRepo)
@@ -80,4 +66,19 @@ func initNotMessageAPI(e *core.Engine) notapi.MessageAPI {
 	notMessageServ := service.ProvideNotMessageService(messageRepo)
 	messageAPI := notapi.ProvideMessageAPI(notMessageServ)
 	return messageAPI
+}
+
+// Subscriber Domain
+func initSubAccountAPI(e *core.Engine, phoneServ service.SubPhoneServ) subapi.AccountAPI {
+	accountRepo := subrepo.ProvideAccountRepo(e)
+	subAccountServ := service.ProvideSubAccountService(accountRepo, phoneServ)
+	accountAPI := subapi.ProvideAccountAPI(subAccountServ)
+	return accountAPI
+}
+
+func initSubPhoneAPI(e *core.Engine) subapi.PhoneAPI {
+	phoneRepo := subrepo.ProvidePhoneRepo(e)
+	subPhoneServ := service.ProvideSubPhoneService(phoneRepo)
+	phoneAPI := subapi.ProvidePhoneAPI(subPhoneServ)
+	return phoneAPI
 }

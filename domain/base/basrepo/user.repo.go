@@ -8,7 +8,6 @@ import (
 	"omono/internal/core/corterm"
 	"omono/internal/core/validator"
 	"omono/internal/param"
-	"omono/pkg/glog"
 	"omono/pkg/helper"
 	"reflect"
 
@@ -39,8 +38,6 @@ func (p *UserRepo) FindByID(id uint) (user basmodel.User, err error) {
 		err = limberr.Take(err, "E1084438").Build()
 		return
 	}
-
-	glog.Debug(colsStr)
 
 	err = p.Engine.ReadDB.Table(basmodel.UserTable).
 		Select(colsStr).

@@ -62,23 +62,6 @@ func (p *ActivityAPI) ListAll(c *gin.Context) {
 		JSON(data)
 }
 
-// ListCompany of all activities among all companies
-func (p *ActivityAPI) ListCompany(c *gin.Context) {
-	resp, params := response.NewParam(p.Engine, c, basmodel.ActivityTable, base.Domain)
-	var err error
-
-	data, err := p.Service.List(params)
-	if err != nil {
-		resp.Error(err).JSON()
-		return
-	}
-
-	resp.Record(base.AllActivity)
-	resp.Status(http.StatusOK).
-		MessageT(corterm.ListOfV, basterm.Activities).
-		JSON(data)
-}
-
 // ListSelf of all activities among all companies
 func (p *ActivityAPI) ListSelf(c *gin.Context) {
 	resp, params := response.NewParam(p.Engine, c, basmodel.ActivityTable, base.Domain)
