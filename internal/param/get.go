@@ -2,7 +2,6 @@ package param
 
 import (
 	"omono/internal/core"
-	"omono/internal/types"
 	"omono/pkg/glog"
 	"strconv"
 	"strings"
@@ -25,7 +24,7 @@ func Get(c *gin.Context, engine *core.Engine, part string) (param Param) {
 	userID, ok := c.Get("USER_ID")
 	if ok {
 		glog.CheckInfo(err, "User ID is not exist")
-		param.UserID = userID.(types.RowID)
+		param.UserID = userID.(uint)
 	}
 
 	companyID, ok := c.Get("COMPANY_ID")

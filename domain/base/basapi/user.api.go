@@ -2,7 +2,6 @@ package basapi
 
 import (
 	"fmt"
-	"github.com/syronz/dict"
 	"net/http"
 	"omono/domain/base"
 	"omono/domain/base/basmodel"
@@ -12,9 +11,10 @@ import (
 	"omono/internal/core"
 	"omono/internal/core/corterm"
 	"omono/internal/response"
-	"omono/internal/types"
 	"omono/pkg/excel"
 	"omono/pkg/glog"
+
+	"github.com/syronz/dict"
 
 	"github.com/gin-gonic/gin"
 )
@@ -35,13 +35,13 @@ func (p *UserAPI) FindByID(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
 	var user basmodel.User
-	var fix types.FixedCol
+	var id uint
 
-	if fix, err = resp.GetFixedCol(c.Param("userID"), "E1090173", basterm.User); err != nil {
+	if id, err = resp.GetID(c.Param("userID"), "E1090173", basterm.User); err != nil {
 		return
 	}
 
-	if user, err = p.Service.FindByID(fix); err != nil {
+	if user, err = p.Service.FindByID(id); err != nil {
 		resp.Error(err).JSON()
 		return
 	}
@@ -134,9 +134,9 @@ func (p *UserAPI) Update(c *gin.Context) {
 	var err error
 
 	var user, userBefore, userUpdated basmodel.User
-	var fix types.FixedCol
+	var id uint
 
-	if fix, err = resp.GetFixedCol(c.Param("userID"), "E1097541", basterm.User); err != nil {
+	if id, err = resp.GetID(c.Param("userID"), "E1097541", basterm.User); err != nil {
 		return
 	}
 
@@ -144,12 +144,12 @@ func (p *UserAPI) Update(c *gin.Context) {
 		return
 	}
 
-	if userBefore, err = p.Service.FindByID(fix); err != nil {
+	if userBefore, err = p.Service.FindByID(id); err != nil {
 		resp.Error(err).JSON()
 		return
 	}
 
-	user.ID = fix.ID
+	user.ID = id
 	user.CreatedAt = userBefore.CreatedAt
 	if userUpdated, err = p.Service.Save(user); err != nil {
 		resp.Error(err).JSON()
@@ -167,13 +167,13 @@ func (p *UserAPI) Delete(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
 	var user basmodel.User
-	var fix types.FixedCol
+	var id uint
 
-	if fix, err = resp.GetFixedCol(c.Param("userID"), "E1046157", basterm.User); err != nil {
+	if id, err = resp.GetID(c.Param("userID"), "E1046157", basterm.User); err != nil {
 		return
 	}
 
-	if user, err = p.Service.Delete(fix); err != nil {
+	if user, err = p.Service.Delete(id); err != nil {
 		resp.Error(err).JSON()
 		return
 	}

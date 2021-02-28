@@ -2,7 +2,6 @@ package subapi
 
 import (
 	"net/http"
-	"omono/cmd/restapi/enum/settingfields"
 	"omono/domain/base"
 	"omono/domain/base/message/basterm"
 	"omono/domain/service"
@@ -10,7 +9,6 @@ import (
 	"omono/internal/core"
 	"omono/internal/core/corterm"
 	"omono/internal/response"
-	"omono/internal/types"
 	"omono/pkg/excel"
 
 	"github.com/gin-gonic/gin"
@@ -32,13 +30,13 @@ func (p *AccountAPI) FindByID(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
 	var account submodel.Account
-	var fix types.FixedCol
+	var id uint
 
-	if fix, err = resp.GetFixedCol(c.Param("accountID"), "E1070061", basterm.Account); err != nil {
+	if id, err = resp.GetID(c.Param("accountID"), "E1070061", basterm.Account); err != nil {
 		return
 	}
 
-	if account, err = p.Service.FindByID(fix); err != nil {
+	if account, err = p.Service.FindByID(id); err != nil {
 		resp.Error(err).JSON()
 		return
 	}
@@ -102,9 +100,9 @@ func (p *AccountAPI) Update(c *gin.Context) {
 	var err error
 
 	var account, accountBefore, accountUpdated submodel.Account
-	var fix types.FixedCol
+	var id uint
 
-	if fix, err = resp.GetFixedCol(c.Param("accountID"), "E1076703", basterm.Account); err != nil {
+	if id, err = resp.GetID(c.Param("accountID"), "E1076703", basterm.Account); err != nil {
 		return
 	}
 
@@ -112,12 +110,12 @@ func (p *AccountAPI) Update(c *gin.Context) {
 		return
 	}
 
-	if accountBefore, err = p.Service.FindByID(fix); err != nil {
+	if accountBefore, err = p.Service.FindByID(id); err != nil {
 		resp.Error(err).JSON()
 		return
 	}
 
-	account.ID = fix.ID
+	account.ID = id
 	account.CreatedAt = accountBefore.CreatedAt
 	if accountUpdated, err = p.Service.Save(account); err != nil {
 		resp.Error(err).JSON()
@@ -135,13 +133,13 @@ func (p *AccountAPI) Delete(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
 	var account submodel.Account
-	var fix types.FixedCol
+	var id uint
 
-	if fix, err = resp.GetFixedCol(c.Param("accountID"), "E1092196", basterm.Account); err != nil {
+	if id, err = resp.GetID(c.Param("accountID"), "E1092196", basterm.Account); err != nil {
 		return
 	}
 
-	if account, err = p.Service.Delete(fix); err != nil {
+	if account, err = p.Service.Delete(id); err != nil {
 		resp.Error(err).JSON()
 		return
 	}
@@ -234,26 +232,6 @@ func (p *AccountAPI) ChartOfAccount(c *gin.Context) {
 	resp.Status(http.StatusOK).
 		MessageT(corterm.ListOfV, basterm.Accounts).
 		JSON(data)
-}
-
-// GetCashAccount is used for returning the id of default cash account
-func (p *AccountAPI) GetCashAccount(c *gin.Context) {
-	resp := response.New(p.Engine, c, base.Domain)
-	var err error
-	var account submodel.Account
-
-	fix := types.FixedCol{
-		ID: p.Engine.Setting[settingfields.CashAccountID].ToRowID(),
-	}
-
-	if account, err = p.Service.FindByID(fix); err != nil {
-		resp.Error(err).JSON()
-		return
-	}
-
-	resp.Status(http.StatusOK).
-		MessageT(corterm.VInfo, basterm.Account).
-		JSON(account)
 }
 
 // SearchLeafs is used for finding the accounts ready for transactions

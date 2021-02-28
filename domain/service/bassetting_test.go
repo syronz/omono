@@ -28,7 +28,7 @@ func TestUpdateSetting(t *testing.T) {
 	}{
 		{
 			in: basmodel.Setting{
-				FixedCol: types.FixedCol{
+				gorm.Model: gorm.Model{
 					ID:        20,
 					CompanyID: 1001,
 					NodeID:    101,
@@ -42,7 +42,7 @@ func TestUpdateSetting(t *testing.T) {
 		},
 		{
 			in: basmodel.Setting{
-				FixedCol: types.FixedCol{
+				gorm.Model: gorm.Model{
 					ID:        21,
 					CompanyID: 1001,
 					NodeID:    101,

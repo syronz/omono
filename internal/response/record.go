@@ -33,7 +33,7 @@ func (r *Response) RecordCreate(ev types.Event, newData interface{}) {
 func (r *Response) initiateRecordCh(ev types.Event, data ...interface{}) {
 	activityServ := service.ProvideBasActivityService(basrepo.ProvideActivityRepo(r.Engine))
 
-	var userID types.RowID
+	var userID uint
 	var username string
 
 	recordType := activityServ.FindRecordType(data...)
@@ -51,7 +51,7 @@ func (r *Response) initiateRecordCh(ev types.Event, data ...interface{}) {
 		return
 	}
 	if userIDtmp, ok := r.Context.Get("USER_ID"); ok {
-		userID = userIDtmp.(types.RowID)
+		userID = userIDtmp.(uint)
 	}
 	if usernameTmp, ok := r.Context.Get("USERNAME"); ok {
 		username = usernameTmp.(string)

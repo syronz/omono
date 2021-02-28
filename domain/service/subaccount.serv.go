@@ -10,7 +10,6 @@ import (
 	"omono/internal/core/coract"
 	"omono/internal/core/corerr"
 	"omono/internal/param"
-	"omono/internal/types"
 	"omono/pkg/glog"
 	"strconv"
 	"time"
@@ -40,14 +39,14 @@ func ProvideSubAccountService(p subrepo.AccountRepo, phoneServ SubPhoneServ) Sub
 }
 
 // FindByID for getting account by it's id
-func (p *SubAccountServ) FindByID(fix types.FixedCol) (account submodel.Account, err error) {
-	if account, err = p.Repo.FindByID(fix); err != nil {
-		err = corerr.Tick(err, "E1049049", "can't fetch the account", fix.ID)
+func (p *SubAccountServ) FindByID(id uint) (account submodel.Account, err error) {
+	if account, err = p.Repo.FindByID(id); err != nil {
+		err = corerr.Tick(err, "E1049049", "can't fetch the account", id)
 		return
 	}
 
-	if account.Phones, err = p.PhoneServ.AccountsPhones(fix); err != nil {
-		err = corerr.Tick(err, "E1017084", "can't fetch the account's phones", fix.ID)
+	if account.Phones, err = p.PhoneServ.AccountsPhones(id); err != nil {
+		err = corerr.Tick(err, "E1017084", "can't fetch the account's phones", id)
 		return
 	}
 
@@ -55,9 +54,9 @@ func (p *SubAccountServ) FindByID(fix types.FixedCol) (account submodel.Account,
 }
 
 // TxFindAccountStatus will return the status of an account
-func (p *SubAccountServ) TxFindAccountStatus(db *gorm.DB, fix types.FixedCol) (account submodel.Account, err error) {
-	if account, err = p.Repo.TxFindAccountStatus(db, fix); err != nil {
-		err = corerr.Tick(err, "E1048403", "can't fetch the account's status", fix.ID)
+func (p *SubAccountServ) TxFindAccountStatus(db *gorm.DB, id uint) (account submodel.Account, err error) {
+	if account, err = p.Repo.TxFindAccountStatus(db, id); err != nil {
+		err = corerr.Tick(err, "E1048403", "can't fetch the account's status", id)
 		return
 	}
 
@@ -161,8 +160,8 @@ func (p *SubAccountServ) TxSave(db *gorm.DB, account submodel.Account) (savedAcc
 }
 
 // Delete account, it is soft delete
-func (p *SubAccountServ) Delete(fix types.FixedCol) (account submodel.Account, err error) {
-	if account, err = p.FindByID(fix); err != nil {
+func (p *SubAccountServ) Delete(id uint) (account submodel.Account, err error) {
+	if account, err = p.FindByID(id); err != nil {
 		err = corerr.Tick(err, "E1038835", "account not found for deleting")
 		return
 	}
@@ -175,7 +174,7 @@ func (p *SubAccountServ) Delete(fix types.FixedCol) (account submodel.Account, e
 		return
 	}
 	// check child accounts
-	// params := param.NewForDelete("bas_accounts", "parent_id", fix.ID)
+	// params := param.NewForDelete("bas_accounts", "parent_id", id)
 
 	// var accounts []submodel.Account
 	// if accounts, err = p.Repo.List(params); err != nil {
@@ -217,11 +216,11 @@ func (p *SubAccountServ) Excel(params param.Param) (accounts []submodel.Account,
 }
 
 // IsActive check the status of an account
-func (p *SubAccountServ) IsActive(fix types.FixedCol) (bool, submodel.Account, error) {
+func (p *SubAccountServ) IsActive(id uint) (bool, submodel.Account, error) {
 	var account submodel.Account
 	var err error
-	if account, err = p.FindByID(fix); err != nil {
-		return false, account, corerr.Tick(err, "E1059307", "account not exist", fix.ID)
+	if account, err = p.FindByID(id); err != nil {
+		return false, account, corerr.Tick(err, "E1059307", "account not exist", id)
 	}
 
 	return account.Status == accountstatus.Active, account, nil
@@ -238,7 +237,7 @@ func treeChartOfAccounts(accounts []submodel.Account) (root submodel.Tree) {
 		arr[i].Type = v.Type
 	}
 
-	pMap := make(map[types.RowID]*submodel.Tree, 1)
+	pMap := make(map[uint]*submodel.Tree, 1)
 
 	pMap[0] = &root
 
@@ -268,7 +267,7 @@ func treeChartOfAccounts(accounts []submodel.Account) (root submodel.Tree) {
 	return
 }
 
-func parseParent(pID *types.RowID) types.RowID {
+func parseParent(pID *uint) uint {
 	if pID == nil {
 		return 0
 	}

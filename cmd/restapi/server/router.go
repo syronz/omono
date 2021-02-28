@@ -130,8 +130,6 @@ func Route(rg gin.RouterGroup, engine *core.Engine) {
 		access.Check(base.AccountExcel), basAccountAPI.Excel)
 	rg.GET("/companies/:companyID/charts/accounts",
 		access.Check(base.AccountRead), basAccountAPI.ChartOfAccount)
-	rg.GET("/companies/:companyID/cash/account",
-		access.Check(base.AccountRead), basAccountAPI.GetCashAccount)
 	rg.GET("/companies/:companyID/accounts/leafs",
 		access.Check(base.AccountRead), basAccountAPI.SearchLeafs)
 

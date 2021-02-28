@@ -18,7 +18,7 @@ func InsertUsers(engine *core.Engine) {
 
 	users := []basmodel.User{
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        11,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -31,7 +31,7 @@ func InsertUsers(engine *core.Engine) {
 			Lang:     dict.Ku,
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        12,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -44,7 +44,7 @@ func InsertUsers(engine *core.Engine) {
 			Lang:     dict.En,
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        13,
 				CompanyID: 1001,
 				NodeID:    101,

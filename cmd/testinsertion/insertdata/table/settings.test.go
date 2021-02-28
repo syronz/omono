@@ -20,7 +20,7 @@ func InsertSettings(engine *core.Engine) {
 
 	settings := []basmodel.Setting{
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        1,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -31,7 +31,7 @@ func InsertSettings(engine *core.Engine) {
 			Description: "company's name in the header of invoices",
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        2,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -42,7 +42,7 @@ func InsertSettings(engine *core.Engine) {
 			Description: "in case of user JWT not specified this value has been used",
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        3,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -53,7 +53,7 @@ func InsertSettings(engine *core.Engine) {
 			Description: "searchTerm1, logo for showed on the application and not invoices",
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        4,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -64,7 +64,7 @@ func InsertSettings(engine *core.Engine) {
 			Description: "path of logo, if branch logo won’t defined use this logo for invoices, searchTerm1",
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        5,
 				CompanyID: 1001,
 				NodeID:    101,

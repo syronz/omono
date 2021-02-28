@@ -9,7 +9,6 @@ import (
 	"omono/internal/core/coract"
 	"omono/internal/core/corerr"
 	"omono/internal/param"
-	"omono/internal/types"
 	"omono/pkg/glog"
 	"omono/pkg/password"
 
@@ -31,8 +30,8 @@ func ProvideBasUserService(p basrepo.UserRepo) BasUserServ {
 }
 
 // FindByID for getting user by it's id
-func (p *BasUserServ) FindByID(fix types.FixedCol) (user basmodel.User, err error) {
-	if user, err = p.Repo.FindByID(fix); err != nil {
+func (p *BasUserServ) FindByID(id uint) (user basmodel.User, err error) {
+	if user, err = p.Repo.FindByID(id); err != nil {
 		err = limberr.AddCode(err, "E1066324")
 		return
 	}
@@ -101,10 +100,7 @@ func (p *BasUserServ) Save(user basmodel.User) (updatedUser basmodel.User, err e
 	}
 
 	var oldUser basmodel.User
-	fix := types.FixedCol{
-		ID: user.ID,
-	}
-	oldUser, _ = p.FindByID(fix)
+	oldUser, _ = p.FindByID(user.ID)
 
 	db := p.Engine.DB.Begin()
 	defer func() {
@@ -141,8 +137,8 @@ func (p *BasUserServ) Save(user basmodel.User) (updatedUser basmodel.User, err e
 }
 
 // Delete user, it is hard delete, by deleting account related to the user
-func (p *BasUserServ) Delete(fix types.FixedCol) (user basmodel.User, err error) {
-	if user, err = p.FindByID(fix); err != nil {
+func (p *BasUserServ) Delete(id uint) (user basmodel.User, err error) {
+	if user, err = p.FindByID(id); err != nil {
 		err = corerr.Tick(err, "E1031839", "user not found for deleting")
 		return
 	}

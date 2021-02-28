@@ -9,6 +9,8 @@ import (
 	"omono/internal/core"
 	"omono/internal/types"
 	"omono/pkg/glog"
+
+	"gorm.io/gorm"
 )
 
 // InsertRoles for add required roles
@@ -18,7 +20,7 @@ func InsertRoles(engine *core.Engine) {
 	roleService := service.ProvideBasRoleService(roleRepo)
 	roles := []basmodel.Role{
 		{
-			FixedCol: types.FixedCol{
+			Model: gorm.Model{
 				ID: 1,
 			},
 			Name: "Admin",
@@ -36,7 +38,7 @@ func InsertRoles(engine *core.Engine) {
 			Description: "admin has all privileges - do not edit",
 		},
 		{
-			FixedCol: types.FixedCol{
+			Model: gorm.Model{
 				ID: 2,
 			},
 			Name: "Cashier",
@@ -47,7 +49,7 @@ func InsertRoles(engine *core.Engine) {
 			Description: "cashier has privileges for adding transactions - after migration reset",
 		},
 		{
-			FixedCol: types.FixedCol{
+			Model: gorm.Model{
 				ID: 3,
 			},
 			Name: "Reader",
@@ -59,7 +61,7 @@ func InsertRoles(engine *core.Engine) {
 			Description: "Reader can see all part without changes",
 		},
 		{
-			FixedCol: types.FixedCol{
+			Model: gorm.Model{
 				ID: 4,
 			},
 			Name: "should_be_deleted",

@@ -1,8 +1,6 @@
 package service
 
 import (
-	"github.com/syronz/dict"
-	"github.com/syronz/limberr"
 	"omono/domain/base"
 	"omono/domain/base/basmodel"
 	"omono/domain/base/basrepo"
@@ -16,6 +14,9 @@ import (
 	"omono/pkg/glog"
 	"omono/pkg/password"
 	"time"
+
+	"github.com/syronz/dict"
+	"github.com/syronz/limberr"
 
 	"github.com/dgrijalva/jwt-go"
 )
@@ -90,11 +91,7 @@ func (p *BasAuthServ) Login(auth basmodel.Auth, params param.Param) (user basmod
 func (p *BasAuthServ) Profile(params param.Param) (user basmodel.User, err error) {
 	userServ := ProvideBasUserService(basrepo.ProvideUserRepo(p.Engine))
 
-	fix := types.FixedCol{
-		ID: params.UserID,
-	}
-
-	if user, err = userServ.FindByID(fix); err != nil {
+	if user, err = userServ.FindByID(params.UserID); err != nil {
 		return
 	}
 
@@ -154,7 +151,7 @@ func (p *BasAuthServ) TemporaryTokenHour(hour int, lang dict.Lang) (tmpKey strin
 func (p *BasAuthServ) Register(user basmodel.User) (createdUser basmodel.User, err error) {
 	userServ := ProvideBasUserService(basrepo.ProvideUserRepo(p.Engine))
 
-	if user.RoleID, err = types.StrToRowID(p.Engine.Setting[base.DefaultRegisteredRole].Value); err != nil {
+	if user.RoleID, err = types.StrTouint(p.Engine.Setting[base.DefaultRegisteredRole].Value); err != nil {
 		err = limberr.New(`default_registered_role is not a number`, "E1021908").
 			Message(baserr.DefaultRoleIDisNotValidUpdateSettings).
 			Custom(corerr.InternalServerErr).Build()

@@ -2,13 +2,13 @@ package response
 
 import (
 	"fmt"
-	"github.com/syronz/dict"
-	"github.com/syronz/limberr"
 	"omono/domain/service"
 	"omono/internal/consts"
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
-	"omono/internal/types"
+
+	"github.com/syronz/dict"
+	"github.com/syronz/limberr"
 )
 
 // CheckRange will checks the range for companyID and nodeID
@@ -27,7 +27,7 @@ func (r *Response) CheckRange(companyID uint64) bool {
 		return false
 	}
 
-	if service.IsSuperAdmin(intUserID.(types.RowID)) {
+	if service.IsSuperAdmin(intUserID.(uint)) {
 		return true
 	}
 

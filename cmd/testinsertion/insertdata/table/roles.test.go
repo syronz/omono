@@ -28,7 +28,7 @@ func InsertRoles(engine *core.Engine) {
 
 	roles := []basmodel.Role{
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        1,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -43,7 +43,7 @@ func InsertRoles(engine *core.Engine) {
 			Description: "super-admin has all privileges - do not edit",
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        2,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -58,7 +58,7 @@ func InsertRoles(engine *core.Engine) {
 			Description: "admin has all privileges - do not edit",
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        3,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -68,7 +68,7 @@ func InsertRoles(engine *core.Engine) {
 			Description: "cashier has all privileges - after migration reset",
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        4,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -78,7 +78,7 @@ func InsertRoles(engine *core.Engine) {
 			Description: "for foreign 1",
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        5,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -88,7 +88,7 @@ func InsertRoles(engine *core.Engine) {
 			Description: "for update 1",
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        6,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -98,7 +98,7 @@ func InsertRoles(engine *core.Engine) {
 			Description: "for update 2",
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        7,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -108,7 +108,7 @@ func InsertRoles(engine *core.Engine) {
 			Description: "for delete 1",
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        8,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -118,7 +118,7 @@ func InsertRoles(engine *core.Engine) {
 			Description: "searchTerm1",
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        9,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -128,7 +128,7 @@ func InsertRoles(engine *core.Engine) {
 			Description: "searchTerm1",
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        10,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -138,7 +138,7 @@ func InsertRoles(engine *core.Engine) {
 			Description: "searchTerm1",
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        11,
 				CompanyID: 1001,
 				NodeID:    101,

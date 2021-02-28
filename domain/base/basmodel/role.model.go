@@ -1,12 +1,13 @@
 package basmodel
 
 import (
-	"github.com/syronz/dict"
-	"github.com/syronz/limberr"
 	"omono/internal/core/coract"
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
-	"omono/internal/types"
+
+	"github.com/syronz/dict"
+	"github.com/syronz/limberr"
+	"gorm.io/gorm"
 )
 
 // RoleTable is a global instance for working with role
@@ -16,7 +17,7 @@ const (
 
 // Role model
 type Role struct {
-	types.FixedCol
+	gorm.Model
 	Name        string `gorm:"not null" json:"name,omitempty"`
 	Resources   string `gorm:"type:text" json:"resources,omitempty"`
 	Description string `json:"description,omitempty"`

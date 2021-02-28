@@ -1,12 +1,14 @@
 package basmodel
 
 import (
-	"github.com/syronz/dict"
-	"github.com/syronz/limberr"
 	"omono/internal/core/coract"
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
 	"omono/internal/types"
+
+	"github.com/syronz/dict"
+	"github.com/syronz/limberr"
+	"gorm.io/gorm"
 )
 
 // SettingTable is used inside the repo layer for specify the table name
@@ -16,7 +18,7 @@ const (
 
 // Setting model
 type Setting struct {
-	types.FixedCol
+	gorm.Model
 	Property    types.Setting `gorm:"not null" json:"property,omitempty"`
 	Value       string        `gorm:"type:text" json:"value,omitempty"`
 	Type        string        `json:"type,omitempty"`

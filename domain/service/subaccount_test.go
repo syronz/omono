@@ -28,7 +28,7 @@ func initAccountTest() (engine *core.Engine, accountServ SubAccountServ) {
 func TestTreeChartOfAccounts(t *testing.T) {
 	accounts := []basmodel.Account{
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID: 1,
 			},
 			Code:   "1",
@@ -36,25 +36,25 @@ func TestTreeChartOfAccounts(t *testing.T) {
 			Type:   accounttype.Asset,
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID: 2,
 			},
-			ParentID: types.RowIDPointer(1),
+			ParentID: uintPointer(1),
 			Code:     "11",
 			NameEn:   helper.StrPointer("Cash USD"),
 			Type:     accounttype.Cash,
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID: 3,
 			},
-			ParentID: types.RowIDPointer(1),
+			ParentID: uintPointer(1),
 			Code:     "12",
 			NameEn:   helper.StrPointer("Cash IQD"),
 			Type:     accounttype.Cash,
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID: 4,
 			},
 			Code:   "3",
@@ -62,19 +62,19 @@ func TestTreeChartOfAccounts(t *testing.T) {
 			Type:   accounttype.Expense,
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID: 5,
 			},
-			ParentID: types.RowIDPointer(4),
+			ParentID: uintPointer(4),
 			Code:     "31",
 			NameEn:   helper.StrPointer("Building"),
 			Type:     accounttype.Expense,
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID: 6,
 			},
-			ParentID: types.RowIDPointer(1),
+			ParentID: uintPointer(1),
 			Code:     "311",
 			NameEn:   helper.StrPointer("HQ"),
 			Type:     accounttype.Expense,
@@ -106,7 +106,7 @@ func TestAccountCreate(t *testing.T) {
 	}{
 		{
 			in: basmodel.Account{
-				FixedCol: types.FixedCol{
+				gorm.Model: gorm.Model{
 					CompanyID: 1001,
 					NodeID:    101,
 				},
@@ -115,7 +115,7 @@ func TestAccountCreate(t *testing.T) {
 				NameKu:   helper.StrPointer("3"),
 				Type:     accounttype.Asset,
 				Status:   accountstatus.Active,
-				ParentID: types.RowIDPointer(1),
+				ParentID: uintPointer(1),
 			},
 			err: nil,
 		},
@@ -131,7 +131,7 @@ func TestAccountCreate(t *testing.T) {
 func TestAccountDelete(t *testing.T) {
 	_, testAccountServ := initAccountTest()
 
-	sample := types.FixedCol{
+	sample := gorm.Model{
 		ID:        21,
 		CompanyID: 1001,
 		NodeID:    101,
@@ -184,7 +184,7 @@ func TestAccountUpdate(t *testing.T) {
 	}{
 		{
 			in: basmodel.Account{
-				FixedCol: types.FixedCol{
+				gorm.Model: gorm.Model{
 					CompanyID: 1001,
 					NodeID:    101,
 					ID:        31,

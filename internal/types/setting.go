@@ -7,8 +7,8 @@ type SettingMap struct {
 	Type  string
 }
 
-// ToRowID return RowID for id
-func (p SettingMap) ToRowID() RowID {
-	n, _ := StrToRowID(p.Value)
+// Touint return uint for id
+func (p SettingMap) Touint() uint {
+	n, _ := StrTouint(p.Value)
 	return n
 }

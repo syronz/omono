@@ -25,7 +25,7 @@ func InsertAccounts(engine *core.Engine) {
 
 	accounts := []basmodel.Account{
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        1,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -37,7 +37,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        2,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -49,7 +49,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        3,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -61,7 +61,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Inactive,
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        4,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -73,7 +73,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        5,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -85,7 +85,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Inactive,
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        6,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -97,7 +97,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        7,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -109,7 +109,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        8,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -121,7 +121,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        9,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -133,7 +133,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        10,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -145,7 +145,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        21,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -157,7 +157,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        30,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -169,7 +169,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        31,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -181,7 +181,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        32,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -193,7 +193,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        33,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -205,7 +205,7 @@ func InsertAccounts(engine *core.Engine) {
 			Status: accountstatus.Active,
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        34,
 				CompanyID: 1001,
 				NodeID:    101,

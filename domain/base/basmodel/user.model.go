@@ -1,8 +1,6 @@
 package basmodel
 
 import (
-	"github.com/syronz/dict"
-	"github.com/syronz/limberr"
 	"omono/domain/base/message/basterm"
 	"omono/internal/consts"
 	"omono/internal/core/coract"
@@ -12,6 +10,10 @@ import (
 	"omono/pkg/helper"
 	"regexp"
 	"strings"
+
+	"github.com/syronz/dict"
+	"github.com/syronz/limberr"
+	"gorm.io/gorm"
 )
 
 // UserTable is used inside the repo layer
@@ -21,18 +23,18 @@ const (
 
 // User model
 type User struct {
-	types.FixedCol `gorm:"embedded"`
-	RoleID         types.RowID `gorm:"index:role_id_idx" json:"role_id"`
-	Username       string      `gorm:"not null;unique" json:"username,omitempty"`
-	Password       string      `gorm:"not null" json:"password,omitempty"`
-	Lang           dict.Lang   `gorm:"type:varchar(2);default:'en'" json:"lang,omitempty"`
-	Email          string      `json:"email,omitempty"`
-	Name           string      `gorm:"<-:false" json:"name,omitempty" table:"-"`
-	Extra          interface{} `gorm:"-" json:"user_extra,omitempty" table:"-"`
-	Resources      string      `gorm:"-" json:"resources,omitempty" table:"bas_roles.resources"`
-	Role           string      `gorm:"->" json:"role,omitempty" table:"bas_roles.name as role"`
-	Phone          string      `gorm:"-" json:"phone,omitempty" table:"-"`
-	Status         types.Enum  `gorm:"default:'active';type:enum('active','inactive')" json:"status,omitempty"`
+	gorm.Model `gorm:"embedded"`
+	RoleID     uint        `gorm:"index:role_id_idx" json:"role_id"`
+	Username   string      `gorm:"not null;unique" json:"username,omitempty"`
+	Password   string      `gorm:"not null" json:"password,omitempty"`
+	Lang       dict.Lang   `gorm:"type:varchar(2);default:'en'" json:"lang,omitempty"`
+	Email      string      `json:"email,omitempty"`
+	Name       string      `gorm:"<-:false" json:"name,omitempty" table:"-"`
+	Extra      interface{} `gorm:"-" json:"user_extra,omitempty" table:"-"`
+	Resources  string      `gorm:"-" json:"resources,omitempty" table:"bas_roles.resources"`
+	Role       string      `gorm:"->" json:"role,omitempty" table:"bas_roles.name as role"`
+	Phone      string      `gorm:"-" json:"phone,omitempty" table:"-"`
+	Status     types.Enum  `gorm:"default:'active';type:enum('active','inactive')" json:"status,omitempty"`
 }
 
 // Validate check the type of
@@ -88,7 +90,7 @@ func validateUserUsername(err error, username string) error {
 	return err
 }
 
-func validateUserRole(err error, roleID types.RowID) error {
+func validateUserRole(err error, roleID uint) error {
 	if roleID == 0 {
 		return limberr.AddInvalidParam(err, "role_id",
 			corerr.VisRequired, dict.R(basterm.Role))

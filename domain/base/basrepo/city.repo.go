@@ -8,10 +8,8 @@ import (
 	"omono/internal/core/corterm"
 	"omono/internal/core/validator"
 	"omono/internal/param"
-	"omono/internal/types"
 	"omono/pkg/helper"
 	"reflect"
-	"time"
 
 	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
@@ -32,12 +30,12 @@ func ProvideCityRepo(engine *core.Engine) CityRepo {
 }
 
 // FindByID finds the city via its id
-func (p *CityRepo) FindByID(fix types.FixedCol) (city basmodel.City, err error) {
+func (p *CityRepo) FindByID(id uint) (city basmodel.City, err error) {
 	err = p.Engine.ReadDB.Table(basmodel.CityTable).
-		Where("id = ?", fix.ID.ToUint64()).
+		Where("id = ?", id).
 		First(&city).Error
 
-	city.ID = fix.ID
+	city.ID = id
 	err = p.dbError(err, "E1080299", city, corterm.List)
 
 	return
@@ -115,9 +113,7 @@ func (p *CityRepo) Create(city basmodel.City) (u basmodel.City, err error) {
 
 // Delete the city
 func (p *CityRepo) Delete(city basmodel.City) (err error) {
-	now := time.Now()
-	city.DeletedAt = &now
-	if err = p.Engine.DB.Table(basmodel.CityTable).Save(&city).Error; err != nil {
+	if err = p.Engine.DB.Unscoped().Table(basmodel.CityTable).Delete(&city).Error; err != nil {
 		err = p.dbError(err, "E1026719", city, corterm.Deleted)
 	}
 	return

@@ -9,7 +9,6 @@ import (
 	"omono/internal/core"
 	"omono/internal/core/corterm"
 	"omono/internal/response"
-	"omono/internal/types"
 	"omono/pkg/excel"
 
 	"github.com/gin-gonic/gin"
@@ -31,13 +30,13 @@ func (p *RoleAPI) FindByID(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
 	var role basmodel.Role
-	var fix types.FixedCol
+	var id uint
 
-	if fix, err = resp.GetFixedCol(c.Param("roleID"), "E1053982", basterm.Role); err != nil {
+	if id, err = resp.GetID(c.Param("roleID"), "E1053982", basterm.Role); err != nil {
 		return
 	}
 
-	if role, err = p.Service.FindByID(fix); err != nil {
+	if role, err = p.Service.FindByID(id); err != nil {
 		resp.Error(err).JSON()
 		return
 	}
@@ -101,9 +100,9 @@ func (p *RoleAPI) Update(c *gin.Context) {
 	var err error
 
 	var role, roleBefore, roleUpdated basmodel.Role
-	var fix types.FixedCol
+	var id uint
 
-	if fix, err = resp.GetFixedCol(c.Param("roleID"), "E1082097", basterm.Role); err != nil {
+	if id, err = resp.GetID(c.Param("roleID"), "E1082097", basterm.Role); err != nil {
 		return
 	}
 
@@ -111,12 +110,12 @@ func (p *RoleAPI) Update(c *gin.Context) {
 		return
 	}
 
-	if roleBefore, err = p.Service.FindByID(fix); err != nil {
+	if roleBefore, err = p.Service.FindByID(id); err != nil {
 		resp.Error(err).JSON()
 		return
 	}
 
-	role.ID = fix.ID
+	role.ID = id
 	role.CreatedAt = roleBefore.CreatedAt
 	if roleUpdated, err = p.Service.Save(role); err != nil {
 		resp.Error(err).JSON()
@@ -134,13 +133,13 @@ func (p *RoleAPI) Delete(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
 	var role basmodel.Role
-	var fix types.FixedCol
+	var id uint
 
-	if fix, err = resp.GetFixedCol(c.Param("roleID"), "E1088446", basterm.Role); err != nil {
+	if id, err = resp.GetID(c.Param("roleID"), "E1088446", basterm.Role); err != nil {
 		return
 	}
 
-	if role, err = p.Service.Delete(fix); err != nil {
+	if role, err = p.Service.Delete(id); err != nil {
 		resp.Error(err).JSON()
 		return
 	}

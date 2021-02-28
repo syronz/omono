@@ -5,6 +5,8 @@ import (
 	"reflect"
 	"testing"
 	"time"
+
+	"gorm.io/gorm"
 )
 
 // Company model
@@ -27,17 +29,12 @@ type Company struct {
 	Footer        string     `json:"footer" table:"-"`
 }
 
-type FixedCol struct {
-	ID        uint64     `gorm:"primary_key" json:"id,omitempty"`
-	DeletedAt *time.Time `json:"deleted_at,omitempty"`
-}
-
 // Result model
 type Result struct {
-	FixedCol
-	CreatedBy types.RowID `json:"created_by,omitempty"`
-	// UpdatedBy   types.RowID `json:"updated_by,omitempty"`
-	// PatientID   types.RowID `json:"patient_id,omitempty"`
+	gorm.Model
+	CreatedBy uint `json:"created_by,omitempty"`
+	// UpdatedBy   uint `json:"updated_by,omitempty"`
+	// PatientID   uint `json:"patient_id,omitempty"`
 	// Gender      types.Enum  `json:"gender,omitempty"`
 	// Doctor      string      `sql:"-" json:"doctor,omitempty" table:"doctors.name as doctor"`
 	Medications *string `json:"medications,omitempty"`

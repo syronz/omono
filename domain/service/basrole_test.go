@@ -29,7 +29,7 @@ func TestRoleCreate(t *testing.T) {
 	}{
 		{
 			in: basmodel.Role{
-				FixedCol: types.FixedCol{
+				gorm.Model: gorm.Model{
 					CompanyID: 1001,
 					NodeID:    101,
 				},
@@ -41,7 +41,7 @@ func TestRoleCreate(t *testing.T) {
 		},
 		{
 			in: basmodel.Role{
-				FixedCol: types.FixedCol{
+				gorm.Model: gorm.Model{
 					CompanyID: 1001,
 					NodeID:    101,
 				},
@@ -53,7 +53,7 @@ func TestRoleCreate(t *testing.T) {
 		},
 		{
 			in: basmodel.Role{
-				FixedCol: types.FixedCol{
+				gorm.Model: gorm.Model{
 					CompanyID: 1001,
 					NodeID:    101,
 				},
@@ -97,7 +97,7 @@ func TestRoleUpdate(t *testing.T) {
 	}{
 		{
 			in: basmodel.Role{
-				FixedCol: types.FixedCol{
+				gorm.Model: gorm.Model{
 					ID:        5,
 					CompanyID: 1001,
 					NodeID:    101,
@@ -110,7 +110,7 @@ func TestRoleUpdate(t *testing.T) {
 		},
 		{
 			in: basmodel.Role{
-				FixedCol: types.FixedCol{
+				gorm.Model: gorm.Model{
 					ID:        6,
 					CompanyID: 1001,
 					NodeID:    101,
@@ -135,11 +135,11 @@ func TestRoleDelete(t *testing.T) {
 	_, roleServ := initRoleTest()
 
 	samples := []struct {
-		fix types.FixedCol
+		id  uint
 		err error
 	}{
 		{
-			fix: types.FixedCol{
+			id: gorm.Model{
 				ID:        7,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -147,7 +147,7 @@ func TestRoleDelete(t *testing.T) {
 			err: nil,
 		},
 		{
-			fix: types.FixedCol{
+			id: gorm.Model{
 				ID:        99999999,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -157,9 +157,9 @@ func TestRoleDelete(t *testing.T) {
 	}
 
 	for _, v := range samples {
-		_, err := roleServ.Delete(v.fix)
+		_, err := roleServ.Delete(v.id)
 		if (v.err == nil && err != nil) || (v.err != nil && err == nil) {
-			t.Errorf("ERROR FOR ::::%+v::: \nRETURNS :::%+v:::, \nIT SHOULD BE :::%+v:::", v.fix.ID, err, v.err)
+			t.Errorf("ERROR FOR ::::%+v::: \nRETURNS :::%+v:::, \nIT SHOULD BE :::%+v:::", v.id, err, v.err)
 		}
 	}
 }

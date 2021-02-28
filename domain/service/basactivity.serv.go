@@ -76,7 +76,7 @@ func (p *BasActivityServ) ActivityWatcher() {
 // Record will save the activity
 // TODO: Record is deprecated we should go with channels
 func (p *BasActivityServ) Record(c *gin.Context, ev types.Event, data ...interface{}) {
-	var userID types.RowID
+	var userID uint
 	var username string
 
 	recordType := p.FindRecordType(data...)
@@ -94,7 +94,7 @@ func (p *BasActivityServ) Record(c *gin.Context, ev types.Event, data ...interfa
 		return
 	}
 	if userIDtmp, ok := c.Get("USER_ID"); ok {
-		userID = userIDtmp.(types.RowID)
+		userID = userIDtmp.(uint)
 	}
 	if usernameTmp, ok := c.Get("USERNAME"); ok {
 		username = usernameTmp.(string)

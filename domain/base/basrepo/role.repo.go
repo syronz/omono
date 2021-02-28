@@ -1,8 +1,6 @@
 package basrepo
 
 import (
-	"github.com/syronz/dict"
-	"github.com/syronz/limberr"
 	"omono/domain/base/basmodel"
 	"omono/domain/base/message/basterm"
 	"omono/internal/core"
@@ -10,10 +8,11 @@ import (
 	"omono/internal/core/corterm"
 	"omono/internal/core/validator"
 	"omono/internal/param"
-	"omono/internal/types"
 	"omono/pkg/helper"
 	"reflect"
-	"time"
+
+	"github.com/syronz/dict"
+	"github.com/syronz/limberr"
 
 	"gorm.io/gorm"
 )
@@ -33,12 +32,12 @@ func ProvideRoleRepo(engine *core.Engine) RoleRepo {
 }
 
 // FindByID finds the role via its id
-func (p *RoleRepo) FindByID(fix types.FixedCol) (role basmodel.Role, err error) {
+func (p *RoleRepo) FindByID(id uint) (role basmodel.Role, err error) {
 	err = p.Engine.ReadDB.Table(basmodel.RoleTable).
-		Where("id = ?", fix.ID.ToUint64()).
+		Where("id = ?", id).
 		First(&role).Error
 
-	role.ID = fix.ID
+	role.ID = id
 	err = p.dbError(err, "E1072991", role, corterm.List)
 
 	return
@@ -106,9 +105,7 @@ func (p *RoleRepo) TxCreate(db *gorm.DB, role basmodel.Role) (u basmodel.Role, e
 
 // Delete the role
 func (p *RoleRepo) Delete(role basmodel.Role) (err error) {
-	now := time.Now()
-	role.DeletedAt = &now
-	if err = p.Engine.DB.Table(basmodel.RoleTable).Save(&role).Error; err != nil {
+	if err = p.Engine.DB.Unscoped().Table(basmodel.RoleTable).Delete(&role).Error; err != nil {
 		err = p.dbError(err, "E1067392", role, corterm.Deleted)
 	}
 	return

@@ -8,10 +8,8 @@ import (
 	"omono/internal/core/corterm"
 	"omono/internal/core/validator"
 	"omono/internal/param"
-	"omono/internal/types"
 	"omono/pkg/helper"
 	"reflect"
-	"time"
 
 	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
@@ -34,25 +32,25 @@ func ProvideAccountRepo(engine *core.Engine) AccountRepo {
 }
 
 // FindByID finds the account via its id
-func (p *AccountRepo) FindByID(fix types.FixedCol) (account submodel.Account, err error) {
+func (p *AccountRepo) FindByID(id uint) (account submodel.Account, err error) {
 	err = p.Engine.ReadDB.Table(submodel.AccountTable).
-		Where("id = ? AND sub_accounts.deleted_at is null", fix.ID.ToUint64()).
+		Where("id = ? AND sub_accounts.deleted_at is null", id).
 		First(&account).Error
 
-	account.ID = fix.ID
+	account.ID = id
 	err = p.dbError(err, "E1045869", account, corterm.List)
 
 	return
 }
 
 // TxFindAccountStatus finds the account via its id and return back the status
-func (p *AccountRepo) TxFindAccountStatus(db *gorm.DB, fix types.FixedCol) (account submodel.Account, err error) {
+func (p *AccountRepo) TxFindAccountStatus(db *gorm.DB, id uint) (account submodel.Account, err error) {
 	// err = db.Clauses(clause.Locking{Strength: "UPDATE"}).Table(submodel.AccountTable).
 	err = db.Table(submodel.AccountTable).
-		Where("id = ? AND sub_accounts.deleted_at is null", fix.ID.ToUint64()).
+		Where("id = ? AND sub_accounts.deleted_at is null", id).
 		First(&account).Error
 
-	account.ID = fix.ID
+	account.ID = id
 	err = p.dbError(err, "E1042082", account, corterm.List)
 
 	return
@@ -138,9 +136,7 @@ func (p *AccountRepo) TxCreate(db *gorm.DB, account submodel.Account) (u submode
 
 // Delete the account
 func (p *AccountRepo) Delete(account submodel.Account) (err error) {
-	now := time.Now()
-	account.DeletedAt = &now
-	if err = p.Engine.DB.Table(submodel.AccountTable).Save(&account).Error; err != nil {
+	if err = p.Engine.DB.Unscoped().Table(submodel.AccountTable).Delete(&account).Error; err != nil {
 		err = p.dbError(err, "E1095299", account, corterm.Deleted)
 	}
 	return

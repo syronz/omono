@@ -1,12 +1,13 @@
 package response
 
 import (
-	"github.com/syronz/dict"
-	"github.com/syronz/limberr"
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
 	"omono/internal/types"
 	"strconv"
+
+	"github.com/syronz/dict"
+	"github.com/syronz/limberr"
 )
 
 // NotBind use special custom_error for reduced it
@@ -28,9 +29,9 @@ func (r *Response) Bind(st interface{}, code, domain, part string) (err error) {
 	return
 }
 
-// GetRowID convert string to the rowID and if not converted print a proper message
-func (r *Response) GetRowID(idIn, code, part string) (id types.RowID, err error) {
-	if id, err = types.StrToRowID(idIn); err != nil {
+// Getuint convert string to the rowID and if not converted print a proper message
+func (r *Response) Getuint(idIn, code, part string) (id uint, err error) {
+	if id, err = types.StrToUint(idIn); err != nil {
 		err = limberr.Take(err, code).
 			Message(corerr.InvalidVForV, dict.R(corterm.ID), dict.R(part)).
 			Custom(corerr.ValidationFailedErr).Build()
@@ -41,16 +42,17 @@ func (r *Response) GetRowID(idIn, code, part string) (id types.RowID, err error)
 	return
 }
 
-// func (r *Response) GetFixIDs(idIn, code, part string) (id types.RowID, err error) {
-// 	if id, err = r.GetRowID(idIn, code, part); err != nil {
+// func (r *Response) GetFixIDs(idIn, code, part string) (id uint, err error) {
+// 	if id, err = r.Getuint(idIn, code, part); err != nil {
 // 		return
 // 	}
 
 // 	return
 // }
 
-func (r *Response) GetFixedCol(idIn, code, part string) (fixedCol types.FixedCol, err error) {
-	fixedCol.ID, err = r.GetRowID(idIn, code, part)
+func (r *Response) GetID(idIn, code, part string) (id uint, err error) {
+	tmpID, err := strconv.ParseUint(idIn, 10, 32)
+	id = uint(tmpID)
 	return
 }
 

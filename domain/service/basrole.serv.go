@@ -2,8 +2,6 @@ package service
 
 import (
 	"fmt"
-	"github.com/syronz/dict"
-	"github.com/syronz/limberr"
 	"omono/domain/base/basmodel"
 	"omono/domain/base/basrepo"
 	"omono/domain/base/message/basterm"
@@ -11,8 +9,10 @@ import (
 	"omono/internal/core/coract"
 	"omono/internal/core/corerr"
 	"omono/internal/param"
-	"omono/internal/types"
 	"omono/pkg/glog"
+
+	"github.com/syronz/dict"
+	"github.com/syronz/limberr"
 
 	"gorm.io/gorm"
 )
@@ -32,9 +32,9 @@ func ProvideBasRoleService(p basrepo.RoleRepo) BasRoleServ {
 }
 
 // FindByID for getting role by it's id
-func (p *BasRoleServ) FindByID(fix types.FixedCol) (role basmodel.Role, err error) {
-	if role, err = p.Repo.FindByID(fix); err != nil {
-		err = corerr.Tick(err, "E1043183", "can't fetch the role", fix.ID)
+func (p *BasRoleServ) FindByID(id uint) (role basmodel.Role, err error) {
+	if role, err = p.Repo.FindByID(id); err != nil {
+		err = corerr.Tick(err, "E1043183", "can't fetch the role", id)
 		return
 	}
 
@@ -98,14 +98,14 @@ func (p *BasRoleServ) Save(role basmodel.Role) (savedRole basmodel.Role, err err
 }
 
 // Delete role, it is soft delete
-func (p *BasRoleServ) Delete(fix types.FixedCol) (role basmodel.Role, err error) {
-	if role, err = p.FindByID(fix); err != nil {
+func (p *BasRoleServ) Delete(id uint) (role basmodel.Role, err error) {
+	if role, err = p.FindByID(id); err != nil {
 		err = corerr.Tick(err, "E1052861", "role not found for deleting")
 		return
 	}
 
 	// check if a user exist with this role
-	params := param.NewForDelete("bas_users", "role_id", fix.ID)
+	params := param.NewForDelete("bas_users", "role_id", id)
 	userServ := ProvideBasUserService(basrepo.ProvideUserRepo(p.Engine))
 
 	var users []basmodel.User

@@ -7,9 +7,10 @@ import (
 	"omono/domain/subscriber/submodel"
 	"omono/domain/subscriber/subrepo"
 	"omono/internal/core"
-	"omono/internal/types"
 	"omono/pkg/glog"
 	"omono/pkg/helper"
+
+	"gorm.io/gorm"
 )
 
 // InsertAccounts for add required accounts
@@ -20,7 +21,7 @@ func InsertAccounts(engine *core.Engine) {
 	accountService := service.ProvideSubAccountService(accountRepo, phoneServ)
 	accounts := []submodel.Account{
 		{
-			FixedCol: types.FixedCol{
+			Model: gorm.Model{
 				ID: 1,
 			},
 			NameEn: "Test Customer",

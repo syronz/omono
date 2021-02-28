@@ -9,7 +9,7 @@ import (
 // JWTClaims for JWT
 type JWTClaims struct {
 	Username string    `json:"username"`
-	ID       RowID     `json:"id"`
+	ID       uint      `json:"id"`
 	Lang     dict.Lang `json:"language"`
 	jwt.StandardClaims
 }

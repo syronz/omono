@@ -32,7 +32,7 @@ func TestUserCreate(test *testing.T) {
 	}{
 		{
 			user: basmodel.User{
-				FixedCol: types.FixedCol{
+				gorm.Model: gorm.Model{
 					CompanyID: 1001,
 					NodeID:    101,
 				},
@@ -48,7 +48,7 @@ func TestUserCreate(test *testing.T) {
 		},
 		{
 			user: basmodel.User{
-				FixedCol: types.FixedCol{
+				gorm.Model: gorm.Model{
 					CompanyID: 1001,
 					NodeID:    101,
 				},
@@ -64,7 +64,7 @@ func TestUserCreate(test *testing.T) {
 
 		{
 			user: basmodel.User{
-				FixedCol: types.FixedCol{
+				gorm.Model: gorm.Model{
 					CompanyID: 1001,
 					NodeID:    101,
 				},
@@ -80,7 +80,7 @@ func TestUserCreate(test *testing.T) {
 
 		{
 			user: basmodel.User{
-				FixedCol: types.FixedCol{
+				gorm.Model: gorm.Model{
 					CompanyID: 1001,
 					NodeID:    101,
 				},
@@ -95,7 +95,7 @@ func TestUserCreate(test *testing.T) {
 		},
 		{
 			user: basmodel.User{
-				FixedCol: types.FixedCol{
+				gorm.Model: gorm.Model{
 					CompanyID: 1001,
 					NodeID:    101,
 				},
@@ -111,7 +111,7 @@ func TestUserCreate(test *testing.T) {
 		/*
 			{
 				user: basmodel.User{
-					FixedCol: types.FixedCol{
+					gorm.Model: gorm.Model{
 						CompanyID: 1001,
 						NodeID:    101,
 					},
@@ -147,7 +147,7 @@ func TestUserUpdate(test *testing.T) {
 	}{
 		{
 			user: basmodel.User{
-				FixedCol: types.FixedCol{
+				gorm.Model: gorm.Model{
 					ID:        11,
 					CompanyID: 1001,
 					NodeID:    101,
@@ -163,7 +163,7 @@ func TestUserUpdate(test *testing.T) {
 		},
 		{
 			user: basmodel.User{
-				FixedCol: types.FixedCol{
+				gorm.Model: gorm.Model{
 					ID:        11,
 					CompanyID: 1001,
 					NodeID:    101,
@@ -188,18 +188,18 @@ func TestUserUpdate(test *testing.T) {
 }
 
 //Test for delete
-//notice for deletion we just take the fixed columns
-//the service/user.Delete() func only accepts the fixed columnss
+//notice for deletion we just take the ided columns
+//the service/user.Delete() func only accepts the ided columnss
 func TestUserDelete(test *testing.T) {
 	//the engine is skipped
 	_, userService := initUserTest()
 	type err error
 	collector := []struct {
-		user types.FixedCol
+		user gorm.Model
 		err  error
 	}{
 		{
-			user: types.FixedCol{
+			user: gorm.Model{
 				ID:        12,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -207,7 +207,7 @@ func TestUserDelete(test *testing.T) {
 			err: nil,
 		},
 		{
-			user: types.FixedCol{
+			user: gorm.Model{
 				ID:        2525252,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -283,11 +283,11 @@ func TestUserFindByID(test *testing.T) {
 	_, userService := initUserTest()
 	type err error
 	collector := []struct {
-		user types.FixedCol
+		user gorm.Model
 		err  error
 	}{
 		{
-			user: types.FixedCol{
+			user: gorm.Model{
 				ID:        2,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -295,7 +295,7 @@ func TestUserFindByID(test *testing.T) {
 			err: nil,
 		},
 		{
-			user: types.FixedCol{
+			user: gorm.Model{
 				ID:        32131312,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -318,12 +318,12 @@ func TestUserFindByUsername(test *testing.T) {
 	_, userService := initUserTest()
 	type err error
 	collector := []struct {
-		fix      types.FixedCol
+		id       gorm.Model
 		username string
 		err      error
 	}{
 		{
-			fix: types.FixedCol{
+			id: gorm.Model{
 				ID:        11,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -332,7 +332,7 @@ func TestUserFindByUsername(test *testing.T) {
 			err:      nil,
 		},
 		{
-			fix: types.FixedCol{
+			id: gorm.Model{
 				ID:        0,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -345,7 +345,7 @@ func TestUserFindByUsername(test *testing.T) {
 	for _, value := range collector {
 		user, err := userService.FindByUsername(value.username)
 		if (value.err == nil && err != nil) || (value.err != nil && err == nil) {
-			test.Errorf("\nERROR FOR :::%+v::: \nRETURNS :::%+v:::, \nIT SHOULD BE :::%+v:::", value.username, user.ID, value.fix.ID)
+			test.Errorf("\nERROR FOR :::%+v::: \nRETURNS :::%+v:::, \nIT SHOULD BE :::%+v:::", value.username, user.ID, value.id)
 		}
 
 	}

@@ -7,10 +7,10 @@ import (
 	"omono/domain/base/enum/userstatus"
 	"omono/domain/service"
 	"omono/internal/core"
-	"omono/internal/types"
 	"omono/pkg/glog"
 
 	"github.com/syronz/dict"
+	"gorm.io/gorm"
 )
 
 // InsertUsers for add required users
@@ -21,7 +21,7 @@ func InsertUsers(engine *core.Engine) {
 	userService := service.ProvideBasUserService(userRepo)
 	users := []basmodel.User{
 		{
-			FixedCol: types.FixedCol{
+			Model: gorm.Model{
 				ID: 79,
 			},
 			RoleID:   1,
@@ -32,7 +32,7 @@ func InsertUsers(engine *core.Engine) {
 			Status:   userstatus.Active,
 		},
 		// {
-		// 	FixedCol: types.FixedCol{
+		// 	Model: gorm.Model{
 		// 	},
 		// 	RoleID:   2,
 		// 	Name:     "cashier",
@@ -41,7 +41,7 @@ func InsertUsers(engine *core.Engine) {
 		// 	Lang:     dict.En,
 		// },
 		// {
-		// 	FixedCol: types.FixedCol{
+		// 	Model: gorm.Model{
 		// 	},
 		// 	RoleID:   3,
 		// 	Name:     "reader",

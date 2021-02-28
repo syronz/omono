@@ -1,13 +1,14 @@
 package basmodel
 
 import (
-	"github.com/syronz/dict"
-	"github.com/syronz/limberr"
 	"omono/domain/base/message/basterm"
 	"omono/internal/core/coract"
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
-	"omono/internal/types"
+
+	"github.com/syronz/dict"
+	"github.com/syronz/limberr"
+	"gorm.io/gorm"
 )
 
 // CityTable is used inside the repo layer
@@ -17,7 +18,7 @@ const (
 
 // City model
 type City struct {
-	types.FixedCol
+	gorm.Model
 	City  string `gorm:"not null;unique" json:"city,omitempty"`
 	Notes string `json:"notes,omitempty"`
 }

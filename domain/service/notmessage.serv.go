@@ -3,7 +3,6 @@ package service
 import (
 	"crypto/rand"
 	"fmt"
-	"github.com/syronz/limberr"
 	"math/big"
 	"omono/domain/notification/enum/messagestatus"
 	"omono/domain/notification/notmodel"
@@ -12,9 +11,10 @@ import (
 	"omono/internal/core/coract"
 	"omono/internal/core/corerr"
 	"omono/internal/param"
-	"omono/internal/types"
 	"omono/pkg/glog"
 	"time"
+
+	"github.com/syronz/limberr"
 )
 
 // NotMessageServ for injecting auth notrepo
@@ -32,9 +32,9 @@ func ProvideNotMessageService(p notrepo.MessageRepo) NotMessageServ {
 }
 
 // FindByID for getting message by it's id
-func (p *NotMessageServ) FindByID(fix types.FixedCol) (message notmodel.Message, err error) {
-	if message, err = p.Repo.FindByID(fix); err != nil {
-		err = corerr.Tick(err, "E8218140", "can't fetch the message", fix.ID)
+func (p *NotMessageServ) FindByID(id uint) (message notmodel.Message, err error) {
+	if message, err = p.Repo.FindByID(id); err != nil {
+		err = corerr.Tick(err, "E8218140", "can't fetch the message", id)
 		return
 	}
 
@@ -147,8 +147,8 @@ func (p *NotMessageServ) Save(message notmodel.Message) (savedMessage notmodel.M
 }
 
 // Delete message, it is soft delete
-func (p *NotMessageServ) Delete(fix types.FixedCol) (message notmodel.Message, err error) {
-	if message, err = p.FindByID(fix); err != nil {
+func (p *NotMessageServ) Delete(id uint) (message notmodel.Message, err error) {
+	if message, err = p.FindByID(id); err != nil {
 		err = corerr.Tick(err, "E8217029", "message not found for deleting")
 		return
 	}

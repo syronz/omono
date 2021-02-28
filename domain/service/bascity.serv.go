@@ -2,15 +2,15 @@ package service
 
 import (
 	"fmt"
-	"github.com/syronz/limberr"
 	"omono/domain/base/basmodel"
 	"omono/domain/base/basrepo"
 	"omono/internal/core"
 	"omono/internal/core/coract"
 	"omono/internal/core/corerr"
 	"omono/internal/param"
-	"omono/internal/types"
 	"omono/pkg/glog"
+
+	"github.com/syronz/limberr"
 )
 
 // BasCityServ for injecting auth basrepo
@@ -28,9 +28,9 @@ func ProvideBasCityService(p basrepo.CityRepo) BasCityServ {
 }
 
 // FindByID for getting city by it's id
-func (p *BasCityServ) FindByID(fix types.FixedCol) (city basmodel.City, err error) {
-	if city, err = p.Repo.FindByID(fix); err != nil {
-		err = corerr.Tick(err, "E1032610", "can't fetch the city", fix.ID)
+func (p *BasCityServ) FindByID(id uint) (city basmodel.City, err error) {
+	if city, err = p.Repo.FindByID(id); err != nil {
+		err = corerr.Tick(err, "E1032610", "can't fetch the city", id)
 		return
 	}
 
@@ -98,8 +98,8 @@ func (p *BasCityServ) Save(city basmodel.City) (savedCity basmodel.City, err err
 }
 
 // Delete city, it is soft delete
-func (p *BasCityServ) Delete(fix types.FixedCol) (city basmodel.City, err error) {
-	if city, err = p.FindByID(fix); err != nil {
+func (p *BasCityServ) Delete(id uint) (city basmodel.City, err error) {
+	if city, err = p.FindByID(id); err != nil {
 		err = corerr.Tick(err, "E1079342", "city not found for deleting")
 		return
 	}

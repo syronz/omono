@@ -42,7 +42,7 @@ func TestPhoneCreate(test *testing.T) {
 	}{
 		{
 			phone: basmodel.Phone{
-				FixedCol: types.FixedCol{
+				gorm.Model: gorm.Model{
 					CompanyID: 1001,
 					NodeID:    101,
 				},
@@ -54,7 +54,7 @@ func TestPhoneCreate(test *testing.T) {
 		},
 		{
 			phone: basmodel.Phone{
-				FixedCol: types.FixedCol{
+				gorm.Model: gorm.Model{
 					CompanyID: 1001,
 					NodeID:    101,
 				},
@@ -67,7 +67,7 @@ func TestPhoneCreate(test *testing.T) {
 
 		{
 			phone: basmodel.Phone{
-				FixedCol: types.FixedCol{
+				gorm.Model: gorm.Model{
 					CompanyID: 1001,
 					NodeID:    101,
 				},
@@ -80,7 +80,7 @@ func TestPhoneCreate(test *testing.T) {
 
 		{
 			phone: basmodel.Phone{
-				FixedCol: types.FixedCol{
+				gorm.Model: gorm.Model{
 					CompanyID: 1001,
 					NodeID:    101,
 				},
@@ -112,7 +112,7 @@ func TestPhoneSave(test *testing.T) {
 		{
 			phone: basmodel.Phone{
 
-				FixedCol: types.FixedCol{
+				gorm.Model: gorm.Model{
 					ID:        1,
 					CompanyID: 1001,
 					NodeID:    101,
@@ -124,7 +124,7 @@ func TestPhoneSave(test *testing.T) {
 		},
 		{
 			phone: basmodel.Phone{
-				FixedCol: types.FixedCol{
+				gorm.Model: gorm.Model{
 					ID:        1314421,
 					CompanyID: 1001,
 					NodeID:    101,
@@ -136,7 +136,7 @@ func TestPhoneSave(test *testing.T) {
 		},
 		{
 			phone: basmodel.Phone{
-				FixedCol: types.FixedCol{
+				gorm.Model: gorm.Model{
 					ID:        1,
 					CompanyID: 1001,
 					NodeID:    101,
@@ -158,7 +158,7 @@ func TestPhoneSave(test *testing.T) {
 
 //TestPhoneUpdate() Commented Out(why?)
 /*
-	because service/update() accepts fixNode arg
+	because service/update() accepts idNode arg
 /*
 func TestPhoneUpdate(test *testing.T) {
 	//the engine is skipped
@@ -213,7 +213,7 @@ func TestPhoneUpdate(test *testing.T) {
 
 //TestPhoneDelete() Commented Out(why?)
 /*
-	because service/Delete() accepts fixNode arg
+	because service/Delete() accepts idNode arg
 /*
 /*
 func TestPhoneDelete(t *testing.T) {
@@ -244,7 +244,7 @@ func TestPhoneDelete(t *testing.T) {
 	for _, value := range testCollector {
 		_, err := phoneService.Delete(value)
 		if (value.err == nil && err != nil) || (value.err != nil && err == nil) {
-			t.Errorf("ERROR FOR ::::%+v::: \nRETURNS :::%+v:::, \nIT SHOULD BE :::%+v:::", value.fix.ID, err, value.err)
+			t.Errorf("ERROR FOR ::::%+v::: \nRETURNS :::%+v:::, \nIT SHOULD BE :::%+v:::", value.id, err, value.err)
 		}
 	}
 }
@@ -252,7 +252,7 @@ func TestPhoneDelete(t *testing.T) {
 */
 //TestPhoneFindByID() Commented Out(why?)
 /*
-	because service/FindByID() accepts fixNode arg
+	because service/FindByID() accepts idNode arg
 /*
 /*
 func TestPhoneFindByID(t *testing.T) {
@@ -282,7 +282,7 @@ func TestPhoneFindByID(t *testing.T) {
 	for _, value := range testCollector {
 		_, err := phoneService.Delete(value)
 		if (value.err == nil && err != nil) || (value.err != nil && err == nil) {
-			t.Errorf("ERROR FOR ::::%+v::: \nRETURNS :::%+v:::, \nIT SHOULD BE :::%+v:::", value.fix.ID, err, value.err)
+			t.Errorf("ERROR FOR ::::%+v::: \nRETURNS :::%+v:::, \nIT SHOULD BE :::%+v:::", value.id, err, value.err)
 		}
 	}
 }

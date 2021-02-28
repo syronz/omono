@@ -2,7 +2,6 @@ package basrepo
 
 import (
 	"omono/internal/core"
-	"omono/internal/types"
 )
 
 // AccessRepo for injecting engine
@@ -16,7 +15,7 @@ func ProvideAccessRepo(engine *core.Engine) AccessRepo {
 }
 
 // GetUserResources is used for finding all resources
-func (p *AccessRepo) GetUserResources(userID types.RowID) (result string, err error) {
+func (p *AccessRepo) GetUserResources(userID uint) (result string, err error) {
 	resources := struct {
 		Resources string
 	}{}

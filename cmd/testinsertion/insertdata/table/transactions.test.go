@@ -33,7 +33,7 @@ func InsertTransactions(engine *core.Engine) {
 
 	transactions := []eacmodel.Transaction{
 		{ // A -- 1000$ -- > B
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				CompanyID: 1001,
 				NodeID:    101,
 			},
@@ -47,7 +47,7 @@ func InsertTransactions(engine *core.Engine) {
 			CreatedBy:   11,
 		},
 		{ // A -- 800$ -- > B
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				CompanyID: 1001,
 				NodeID:    101,
 			},
@@ -61,7 +61,7 @@ func InsertTransactions(engine *core.Engine) {
 			CreatedBy:   11,
 		},
 		{ // C -- 200$ -- > B
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				CompanyID: 1001,
 				NodeID:    101,
 			},
@@ -75,7 +75,7 @@ func InsertTransactions(engine *core.Engine) {
 			CreatedBy:   11,
 		},
 		{ // D -- 300$ -- > A
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				CompanyID: 1001,
 				NodeID:    101,
 			},
@@ -122,7 +122,7 @@ func InsertJournals(engine *core.Engine) {
 				B:32	5	800	0	2800
 				C:33	5	0	1000	-1200
 			*/
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				CompanyID: 1001,
 				NodeID:    101,
 			},
@@ -133,7 +133,7 @@ func InsertJournals(engine *core.Engine) {
 			CreatedBy:   11,
 			Slots: []eacmodel.Slot{
 				{
-					FixedCol: types.FixedCol{
+					gorm.Model: gorm.Model{
 						CompanyID: 1001,
 						NodeID:    101,
 					},
@@ -145,7 +145,7 @@ func InsertJournals(engine *core.Engine) {
 					PostDate:    time2,
 				},
 				{
-					FixedCol: types.FixedCol{
+					gorm.Model: gorm.Model{
 						CompanyID: 1001,
 						NodeID:    101,
 					},
@@ -157,7 +157,7 @@ func InsertJournals(engine *core.Engine) {
 					PostDate:    time2,
 				},
 				{
-					FixedCol: types.FixedCol{
+					gorm.Model: gorm.Model{
 						CompanyID: 1001,
 						NodeID:    101,
 					},
@@ -171,7 +171,7 @@ func InsertJournals(engine *core.Engine) {
 			},
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				CompanyID: 1001,
 				NodeID:    101,
 			},
@@ -182,7 +182,7 @@ func InsertJournals(engine *core.Engine) {
 			CreatedBy:   11,
 			Slots: []eacmodel.Slot{
 				{
-					FixedCol: types.FixedCol{
+					gorm.Model: gorm.Model{
 						CompanyID: 1001,
 						NodeID:    101,
 					},
@@ -194,7 +194,7 @@ func InsertJournals(engine *core.Engine) {
 					PostDate:    time2,
 				},
 				{
-					FixedCol: types.FixedCol{
+					gorm.Model: gorm.Model{
 						CompanyID: 1001,
 						NodeID:    101,
 					},

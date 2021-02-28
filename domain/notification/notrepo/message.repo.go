@@ -1,8 +1,6 @@
 package notrepo
 
 import (
-	"github.com/syronz/dict"
-	"github.com/syronz/limberr"
 	"omono/domain/base/message/basterm"
 	"omono/domain/notification/notmodel"
 	"omono/internal/core"
@@ -10,9 +8,11 @@ import (
 	"omono/internal/core/corterm"
 	"omono/internal/core/validator"
 	"omono/internal/param"
-	"omono/internal/types"
 	"omono/pkg/helper"
 	"reflect"
+
+	"github.com/syronz/dict"
+	"github.com/syronz/limberr"
 )
 
 // MessageRepo for injecting engine
@@ -30,12 +30,12 @@ func ProvideMessageRepo(engine *core.Engine) MessageRepo {
 }
 
 // FindByID finds the message via its id
-func (p *MessageRepo) FindByID(fix types.FixedCol) (message notmodel.Message, err error) {
+func (p *MessageRepo) FindByID(id uint) (message notmodel.Message, err error) {
 	err = p.Engine.ReadDB.Table(notmodel.MessageTable).
-		Where("id = ?", fix.ID.ToUint64()).
+		Where("id = ?", id).
 		First(&message).Error
 
-	message.ID = fix.ID
+	message.ID = id
 	err = p.dbError(err, "E8270758", message, corterm.List)
 
 	return

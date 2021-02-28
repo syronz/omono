@@ -10,6 +10,7 @@ import (
 
 	"github.com/syronz/dict"
 	"github.com/syronz/limberr"
+	"gorm.io/gorm"
 )
 
 // AccountTable is used inside the repo layer
@@ -19,17 +20,17 @@ const (
 
 // Account model
 type Account struct {
-	types.FixedCol
-	ParentID  *types.RowID `json:"parent_id"`
-	Code      string       `gorm:"unique" json:"code"`
-	NameEn    string       `gorm:"unique" json:"name_en,omitempty"`
-	NameKu    *string      `gorm:"unique" json:"name_ku,omitempty" `
-	Type      types.Enum   `json:"type,omitempty"`
-	Status    types.Enum   `gorm:"default:'active';type:enum('active','inactive')" json:"status,omitempty"`
-	Balance   float64      `json:"balance"`
-	ReadOnly  bool         `gorm:"not null;default:0" json:"read_only"`
-	Phones    []Phone      `gorm:"-" json:"phones" table:"-"`
-	Childrens []Account    `gorm:"-" json:"childrens" table:"-"`
+	gorm.Model
+	ParentID  *uint      `json:"parent_id"`
+	Code      string     `gorm:"unique" json:"code"`
+	NameEn    string     `gorm:"unique" json:"name_en,omitempty"`
+	NameKu    *string    `gorm:"unique" json:"name_ku,omitempty" `
+	Type      types.Enum `json:"type,omitempty"`
+	Status    types.Enum `gorm:"default:'active';type:enum('active','inactive')" json:"status,omitempty"`
+	Balance   float64    `json:"balance"`
+	ReadOnly  bool       `gorm:"not null;default:0" json:"read_only"`
+	Phones    []Phone    `gorm:"-" json:"phones" table:"-"`
+	Childrens []Account  `gorm:"-" json:"childrens" table:"-"`
 }
 
 // Validate check the type of fields

@@ -1,7 +1,6 @@
 package basrepo
 
 import (
-	"github.com/syronz/limberr"
 	"log"
 	"omono/domain/base/basmodel"
 	"omono/domain/base/message/basterm"
@@ -10,9 +9,10 @@ import (
 	"omono/internal/core/corterm"
 	"omono/internal/core/validator"
 	"omono/internal/param"
-	"omono/internal/types"
 	"omono/pkg/helper"
 	"reflect"
+
+	"github.com/syronz/limberr"
 
 	"gorm.io/gorm"
 )
@@ -32,12 +32,12 @@ func ProvideSettingRepo(engine *core.Engine) SettingRepo {
 }
 
 // FindByID finds the setting via its id
-func (p *SettingRepo) FindByID(fix types.FixedCol) (setting basmodel.Setting, err error) {
+func (p *SettingRepo) FindByID(id uint) (setting basmodel.Setting, err error) {
 	err = p.Engine.ReadDB.Table(basmodel.SettingTable).
-		Where("id = ?", fix.ID.ToUint64()).
+		Where("id = ?", id).
 		First(&setting).Error
 
-	setting.ID = fix.ID
+	setting.ID = id
 	err = p.dbError(err, "E1063890", setting, corterm.List)
 
 	return

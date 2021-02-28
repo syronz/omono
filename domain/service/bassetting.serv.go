@@ -9,7 +9,6 @@ import (
 	"omono/internal/core/corerr"
 	"omono/internal/corstartoff"
 	"omono/internal/param"
-	"omono/internal/types"
 	"omono/pkg/glog"
 
 	"gorm.io/gorm"
@@ -30,9 +29,9 @@ func ProvideBasSettingService(p basrepo.SettingRepo) BasSettingServ {
 }
 
 // FindByID for getting setting by it's id
-func (p *BasSettingServ) FindByID(fix types.FixedCol) (setting basmodel.Setting, err error) {
-	if setting, err = p.Repo.FindByID(fix); err != nil {
-		err = corerr.Tick(err, "E1064390", "can't fetch the setting", fix.ID)
+func (p *BasSettingServ) FindByID(id uint) (setting basmodel.Setting, err error) {
+	if setting, err = p.Repo.FindByID(id); err != nil {
+		err = corerr.Tick(err, "E1064390", "can't fetch the setting", id)
 		return
 	}
 

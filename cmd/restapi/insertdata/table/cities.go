@@ -5,8 +5,9 @@ import (
 	"omono/domain/base/basrepo"
 	"omono/domain/service"
 	"omono/internal/core"
-	"omono/internal/types"
 	"omono/pkg/glog"
+
+	"gorm.io/gorm"
 )
 
 // InsertCities for add required cities
@@ -16,7 +17,7 @@ func InsertCities(engine *core.Engine) {
 	cityService := service.ProvideBasCityService(cityRepo)
 	cities := []basmodel.City{
 		{
-			FixedCol: types.FixedCol{
+			Model: gorm.Model{
 				ID: 1,
 			},
 			// TODO:  <23-02-21, yourname> use city in envs //
@@ -24,21 +25,21 @@ func InsertCities(engine *core.Engine) {
 			Notes: "",
 		},
 		{
-			FixedCol: types.FixedCol{
+			Model: gorm.Model{
 				ID: 2,
 			},
 			City:  "Hawler",
 			Notes: "please delete",
 		},
 		{
-			FixedCol: types.FixedCol{
+			Model: gorm.Model{
 				ID: 3,
 			},
 			City:  "Kirkuk",
 			Notes: "please delete",
 		},
 		{
-			FixedCol: types.FixedCol{
+			Model: gorm.Model{
 				ID: 4,
 			},
 			City:  "Duhok",

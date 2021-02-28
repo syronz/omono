@@ -1,10 +1,6 @@
 package basrepo
 
 import (
-	// "github.com/cockroachdb/errors"
-
-	"github.com/syronz/dict"
-	"github.com/syronz/limberr"
 	"omono/domain/base/basmodel"
 	"omono/domain/base/message/basterm"
 	"omono/internal/core"
@@ -12,10 +8,11 @@ import (
 	"omono/internal/core/corterm"
 	"omono/internal/core/validator"
 	"omono/internal/param"
-	"omono/internal/types"
 	"omono/pkg/helper"
 	"reflect"
-	"time"
+
+	"github.com/syronz/dict"
+	"github.com/syronz/limberr"
 
 	"gorm.io/gorm"
 )
@@ -35,7 +32,7 @@ func ProvideUserRepo(engine *core.Engine) UserRepo {
 }
 
 // FindByID finds the user via its id
-func (p *UserRepo) FindByID(fix types.FixedCol) (user basmodel.User, err error) {
+func (p *UserRepo) FindByID(id uint) (user basmodel.User, err error) {
 	var colsStr string
 	if colsStr, err = validator.CheckColumns(p.Cols, "*"); err != nil {
 		err = limberr.Take(err, "E1084438").Build()
@@ -45,10 +42,10 @@ func (p *UserRepo) FindByID(fix types.FixedCol) (user basmodel.User, err error) 
 	err = p.Engine.ReadDB.Table(basmodel.UserTable).
 		Select(colsStr).
 		Joins("INNER JOIN bas_roles ON bas_roles.id = bas_users.role_id").
-		Where("bas_users.id = ? AND bas_users.deleted_at IS NULL", fix.ID.ToUint64()).
+		Where("bas_users.id = ? AND bas_users.deleted_at IS NULL", id).
 		First(&user).Error
 
-	user.ID = fix.ID
+	user.ID = id
 	err = p.dbError(err, "E1063251", user, corterm.List)
 
 	return
@@ -144,9 +141,7 @@ func (p *UserRepo) TxCreate(db *gorm.DB, user basmodel.User) (u basmodel.User, e
 
 // Delete the user
 func (p *UserRepo) Delete(user basmodel.User) (err error) {
-	now := time.Now()
-	user.DeletedAt = &now
-	if err = p.Engine.DB.Table(basmodel.UserTable).Save(&user).Error; err != nil {
+	if err = p.Engine.DB.Unscoped().Table(basmodel.UserTable).Delete(&user).Error; err != nil {
 		err = p.dbError(err, "E1044329", user, corterm.Deleted)
 	}
 	return

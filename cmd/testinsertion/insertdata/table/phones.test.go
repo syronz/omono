@@ -17,7 +17,7 @@ func InsertPhones(engine *core.Engine) {
 	phones := []basmodel.Phone{
 
 		/*
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        11,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -30,7 +30,7 @@ func InsertPhones(engine *core.Engine) {
 		*/
 
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        1,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -42,7 +42,7 @@ func InsertPhones(engine *core.Engine) {
 		},
 
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        2,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -53,7 +53,7 @@ func InsertPhones(engine *core.Engine) {
 			Notes:     "original",
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        3,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -64,7 +64,7 @@ func InsertPhones(engine *core.Engine) {
 			Notes:     "original",
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        4,
 				CompanyID: 1001,
 				NodeID:    101,

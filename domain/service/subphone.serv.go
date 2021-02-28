@@ -8,7 +8,6 @@ import (
 	"omono/internal/core/coract"
 	"omono/internal/core/corerr"
 	"omono/internal/param"
-	"omono/internal/types"
 	"omono/pkg/glog"
 
 	"github.com/syronz/limberr"
@@ -31,9 +30,9 @@ func ProvideSubPhoneService(p subrepo.PhoneRepo) SubPhoneServ {
 }
 
 // FindByID for getting phone by it's id
-func (p *SubPhoneServ) FindByID(fix types.FixedCol) (phone submodel.Phone, err error) {
-	if phone, err = p.Repo.FindByID(fix); err != nil {
-		err = corerr.Tick(err, "E1057387", "can't fetch the phone", fix.ID)
+func (p *SubPhoneServ) FindByID(id uint) (phone submodel.Phone, err error) {
+	if phone, err = p.Repo.FindByID(id); err != nil {
+		err = corerr.Tick(err, "E1057387", "can't fetch the phone", id)
 		return
 	}
 
@@ -54,9 +53,9 @@ func (p *SubPhoneServ) FindByPhone(phoneNumber string) (phone submodel.Phone, er
 }
 
 // AccountsPhones return list of phones assigned to an account
-func (p *SubPhoneServ) AccountsPhones(fix types.FixedCol) (phones []submodel.Phone, err error) {
-	if phones, err = p.Repo.AccountsPhones(fix); err != nil {
-		err = corerr.Tick(err, "E1067138", "can't get account's phone", fix)
+func (p *SubPhoneServ) AccountsPhones(id uint) (phones []submodel.Phone, err error) {
+	if phones, err = p.Repo.AccountsPhones(id); err != nil {
+		err = corerr.Tick(err, "E1067138", "can't get account's phone", id)
 		return
 	}
 
@@ -145,8 +144,8 @@ func (p *SubPhoneServ) Save(phone submodel.Phone) (savedPhone submodel.Phone, er
 }
 
 // Delete phone, it is soft delete
-func (p *SubPhoneServ) Delete(fix types.FixedCol) (phone submodel.Phone, err error) {
-	if phone, err = p.FindByID(fix); err != nil {
+func (p *SubPhoneServ) Delete(id uint) (phone submodel.Phone, err error) {
+	if phone, err = p.FindByID(id); err != nil {
 		err = corerr.Tick(err, "E1044187", "phone not found for deleting")
 		return
 	}
@@ -160,8 +159,8 @@ func (p *SubPhoneServ) Delete(fix types.FixedCol) (phone submodel.Phone, err err
 }
 
 // Separate phone, it is soft delete
-func (p *SubPhoneServ) Separate(fix types.FixedCol) (aPhone submodel.AccountPhone, err error) {
-	if aPhone, err = p.Repo.FindAccountPhoneByID(fix); err != nil {
+func (p *SubPhoneServ) Separate(id uint) (aPhone submodel.AccountPhone, err error) {
+	if aPhone, err = p.Repo.FindAccountPhoneByID(id); err != nil {
 		err = corerr.Tick(err, "E1049677", "account-phone not found for deleting")
 		return
 	}

@@ -9,7 +9,6 @@ import (
 	"omono/internal/core"
 	"omono/internal/core/corterm"
 	"omono/internal/response"
-	"omono/internal/types"
 	"omono/pkg/excel"
 
 	"github.com/gin-gonic/gin"
@@ -31,13 +30,13 @@ func (p *SettingAPI) FindByID(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
 	var setting basmodel.Setting
-	var fix types.FixedCol
+	var id uint
 
-	if fix, err = resp.GetFixedCol(c.Param("settingID"), "E1013513", basterm.Setting); err != nil {
+	if id, err = resp.GetID(c.Param("settingID"), "E1013513", basterm.Setting); err != nil {
 		return
 	}
 
-	if setting, err = p.Service.FindByID(fix); err != nil {
+	if setting, err = p.Service.FindByID(id); err != nil {
 		resp.Error(err).JSON()
 		return
 	}
@@ -80,9 +79,9 @@ func (p *SettingAPI) Update(c *gin.Context) {
 	var err error
 
 	var setting, settingBefore, settingUpdated basmodel.Setting
-	var fix types.FixedCol
+	var id uint
 
-	if fix, err = resp.GetFixedCol(c.Param("settingID"), "E1074247", basterm.Setting); err != nil {
+	if id, err = resp.GetID(c.Param("settingID"), "E1074247", basterm.Setting); err != nil {
 		return
 	}
 
@@ -90,12 +89,12 @@ func (p *SettingAPI) Update(c *gin.Context) {
 		return
 	}
 
-	if settingBefore, err = p.Service.FindByID(fix); err != nil {
+	if settingBefore, err = p.Service.FindByID(id); err != nil {
 		resp.Error(err).JSON()
 		return
 	}
 
-	setting.ID = fix.ID
+	setting.ID = id
 	if settingUpdated, err = p.Service.Update(setting); err != nil {
 		resp.Error(err).JSON()
 		return

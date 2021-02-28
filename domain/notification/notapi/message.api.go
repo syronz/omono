@@ -31,13 +31,13 @@ func (p *MessageAPI) FindByID(c *gin.Context) {
 	resp := response.New(p.Engine, c, notification.Domain)
 	var err error
 	var message notmodel.Message
-	var fix types.FixedCol
+	var id uint
 
-	if fix, err = resp.GetFixedCol(c.Param("messageID"), "E8279820", corterm.Message); err != nil {
+	if id, err = resp.GetID(c.Param("messageID"), "E8279820", corterm.Message); err != nil {
 		return
 	}
 
-	if message, err = p.Service.FindByID(fix); err != nil {
+	if message, err = p.Service.FindByID(id); err != nil {
 		resp.Error(err).JSON()
 		return
 	}
@@ -121,8 +121,7 @@ func (p *MessageAPI) Create(c *gin.Context) {
 		return
 	}
 
-	message.CreatedBy = params.UserID.ToPointer()
-	// message.Status =
+	message.CreatedBy = types.UintToPointer(params.UserID)
 	if createdMessage, err = p.Service.Create(message); err != nil {
 		resp.Error(err).JSON()
 		return
@@ -140,9 +139,9 @@ func (p *MessageAPI) Update(c *gin.Context) {
 	var err error
 
 	var message, messageBefore, messageUpdated notmodel.Message
-	var fix types.FixedCol
+	var id uint
 
-	if fix, err = resp.GetFixedCol(c.Param("messageID"), "E8231892", corterm.Message); err != nil {
+	if id, err = resp.GetID(c.Param("messageID"), "E8231892", corterm.Message); err != nil {
 		return
 	}
 
@@ -150,12 +149,12 @@ func (p *MessageAPI) Update(c *gin.Context) {
 		return
 	}
 
-	if messageBefore, err = p.Service.FindByID(fix); err != nil {
+	if messageBefore, err = p.Service.FindByID(id); err != nil {
 		resp.Error(err).JSON()
 		return
 	}
 
-	message.ID = fix.ID
+	message.ID = id
 	message.CreatedAt = messageBefore.CreatedAt
 	if messageUpdated, err = p.Service.Save(message); err != nil {
 		resp.Error(err).JSON()
@@ -173,13 +172,13 @@ func (p *MessageAPI) Delete(c *gin.Context) {
 	resp := response.New(p.Engine, c, notification.Domain)
 	var err error
 	var message notmodel.Message
-	var fix types.FixedCol
+	var id uint
 
-	if fix, err = resp.GetFixedCol(c.Param("messageID"), "E8247907", corterm.Message); err != nil {
+	if id, err = resp.GetID(c.Param("messageID"), "E8247907", corterm.Message); err != nil {
 		return
 	}
 
-	if message, err = p.Service.Delete(fix); err != nil {
+	if message, err = p.Service.Delete(id); err != nil {
 		resp.Error(err).JSON()
 		return
 	}

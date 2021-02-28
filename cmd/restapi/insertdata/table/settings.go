@@ -6,8 +6,9 @@ import (
 	"omono/domain/base/basrepo"
 	"omono/domain/service"
 	"omono/internal/core"
-	"omono/internal/types"
 	"omono/pkg/glog"
+
+	"gorm.io/gorm"
 )
 
 // InsertSettings for add required settings
@@ -17,7 +18,7 @@ func InsertSettings(engine *core.Engine) {
 	settingService := service.ProvideBasSettingService(settingRepo)
 	settings := []basmodel.Setting{
 		{
-			FixedCol: types.FixedCol{
+			Model: gorm.Model{
 				ID: 1,
 			},
 			Property:    settingfields.CompanyName,
@@ -26,7 +27,7 @@ func InsertSettings(engine *core.Engine) {
 			Description: "company's name in the header of invoices",
 		},
 		{
-			FixedCol: types.FixedCol{
+			Model: gorm.Model{
 				ID: 2,
 			},
 			Property:    settingfields.DefaultLang,
@@ -35,7 +36,7 @@ func InsertSettings(engine *core.Engine) {
 			Description: "in case of user JWT not specified this value has been used",
 		},
 		{
-			FixedCol: types.FixedCol{
+			Model: gorm.Model{
 				ID: 3,
 			},
 			Property:    settingfields.CompanyLogo,
@@ -44,7 +45,7 @@ func InsertSettings(engine *core.Engine) {
 			Description: "logo for showed on the application and not invoices",
 		},
 		{
-			FixedCol: types.FixedCol{
+			Model: gorm.Model{
 				ID: 4,
 			},
 			Property:    settingfields.InvoiceLogo,
@@ -53,7 +54,7 @@ func InsertSettings(engine *core.Engine) {
 			Description: "path of logo, if branch logo won’t defined use this logo for invoices",
 		},
 		{
-			FixedCol: types.FixedCol{
+			Model: gorm.Model{
 				ID: 6,
 			},
 			Property:    settingfields.CashAccountID,
@@ -62,7 +63,7 @@ func InsertSettings(engine *core.Engine) {
 			Description: "cash_account_id is used for returning the default account's id which is set to the default cash account",
 		},
 		{
-			FixedCol: types.FixedCol{
+			Model: gorm.Model{
 				ID: 7,
 			},
 			Property:    settingfields.CompanyEmail,
@@ -71,7 +72,7 @@ func InsertSettings(engine *core.Engine) {
 			Description: "email in the header of invoice",
 		},
 		{
-			FixedCol: types.FixedCol{
+			Model: gorm.Model{
 				ID: 8,
 			},
 			Property:    settingfields.CompanyPhone,
@@ -80,7 +81,7 @@ func InsertSettings(engine *core.Engine) {
 			Description: "Phone in the header of invoice",
 		},
 		{
-			FixedCol: types.FixedCol{
+			Model: gorm.Model{
 				ID: 9,
 			},
 			Property:    settingfields.CompanyAddress,
@@ -89,7 +90,7 @@ func InsertSettings(engine *core.Engine) {
 			Description: "Phone in the header of invoice",
 		},
 		{
-			FixedCol: types.FixedCol{
+			Model: gorm.Model{
 				ID: 10,
 			},
 			Property:    settingfields.DefaultCurrency,

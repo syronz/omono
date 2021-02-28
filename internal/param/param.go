@@ -2,9 +2,9 @@ package param
 
 import (
 	"fmt"
-	"github.com/syronz/dict"
 	"omono/internal/consts"
-	"omono/internal/types"
+
+	"github.com/syronz/dict"
 )
 
 // Param for describing request's parameter
@@ -13,7 +13,7 @@ type Param struct {
 	Search          string
 	Filter          string
 	PreCondition    string
-	UserID          types.RowID
+	UserID          uint
 	CompanyID       uint64
 	NodeID          uint64
 	Lang            dict.Lang

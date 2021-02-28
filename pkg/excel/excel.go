@@ -189,7 +189,7 @@ func (b *Builder) WriteData(table interface{}) *Builder {
 			var inter []interface{}
 			for _, v := range b.Sheets[b.ActiveSheet].header {
 				f := reflect.Indirect(item).FieldByName(v)
-				// TODO: fix numbers and date types
+				// TODO: id numbers and date types
 				inter = append(inter, f)
 			}
 			b.File.SetSheetRow(b.ActiveSheet, fmt.Sprint("A", i+2), &inter)

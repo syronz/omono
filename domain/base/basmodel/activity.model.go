@@ -2,7 +2,8 @@ package basmodel
 
 import (
 	"omono/internal/core/validator"
-	"omono/internal/types"
+
+	"gorm.io/gorm"
 )
 
 const (
@@ -12,14 +13,14 @@ const (
 
 // Activity model
 type Activity struct {
-	types.FixedCol
-	Event    string      `gorm:"index:event_idx" json:"event"`
-	UserID   types.RowID `json:"user_id"`
-	Username string      `gorm:"index:username_idx" json:"username"`
-	IP       string      `json:"ip"`
-	URI      string      `gorm:"type:text" json:"uri"`
-	Before   string      `gorm:"type:text" json:"before"`
-	After    string      `gorm:"type:text" json:"after"`
+	gorm.Model
+	Event    string `gorm:"index:event_idx" json:"event"`
+	UserID   uint   `json:"user_id"`
+	Username string `gorm:"index:username_idx" json:"username"`
+	IP       string `json:"ip"`
+	URI      string `gorm:"type:text" json:"uri"`
+	Before   string `gorm:"type:text" json:"before"`
+	After    string `gorm:"type:text" json:"after"`
 }
 
 // Pattern returns the search pattern to be used inside the gorm's where

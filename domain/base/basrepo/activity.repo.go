@@ -1,7 +1,6 @@
 package basrepo
 
 import (
-	"github.com/syronz/limberr"
 	"omono/domain/base/basmodel"
 	"omono/internal/core"
 	"omono/internal/core/corerr"
@@ -9,6 +8,8 @@ import (
 	"omono/internal/param"
 	"omono/pkg/helper"
 	"reflect"
+
+	"github.com/syronz/limberr"
 )
 
 // ActivityRepo for injecting engine

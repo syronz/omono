@@ -8,7 +8,6 @@ import (
 	"omono/internal/core/corterm"
 	"omono/internal/core/validator"
 	"omono/internal/param"
-	"omono/internal/types"
 	"omono/pkg/helper"
 	"reflect"
 
@@ -33,35 +32,35 @@ func ProvidePhoneRepo(engine *core.Engine) PhoneRepo {
 }
 
 // FindByID finds the phone via its id
-func (p *PhoneRepo) FindByID(fix types.FixedCol) (phone submodel.Phone, err error) {
+func (p *PhoneRepo) FindByID(id uint) (phone submodel.Phone, err error) {
 	err = p.Engine.ReadDB.Table(submodel.PhoneTable).
-		Where("id = ?", fix.ID.ToUint64()).
+		Where("id = ?", id).
 		First(&phone).Error
 
-	phone.ID = fix.ID
+	phone.ID = id
 	err = p.dbError(err, "E1057421", phone, corterm.List)
 
 	return
 }
 
 // FindAccountPhoneByID finds the phone via its id
-func (p *PhoneRepo) FindAccountPhoneByID(fix types.FixedCol) (aPhone submodel.AccountPhone, err error) {
+func (p *PhoneRepo) FindAccountPhoneByID(id uint) (aPhone submodel.AccountPhone, err error) {
 	err = p.Engine.ReadDB.Table(submodel.AccountPhoneTable).
-		Where("id = ?", fix.ID.ToUint64()).
+		Where("id = ?", id).
 		First(&aPhone).Error
 
-	aPhone.ID = fix.ID
+	aPhone.ID = id
 	err = p.dbError(err, "E1038915", submodel.Phone{}, corterm.List)
 
 	return
 }
 
 // AccountsPhones return list of phones assigned to an account
-func (p *PhoneRepo) AccountsPhones(fix types.FixedCol) (phones []submodel.Phone, err error) {
+func (p *PhoneRepo) AccountsPhones(id uint) (phones []submodel.Phone, err error) {
 	err = p.Engine.ReadDB.Table(submodel.AccountPhoneTable).
 		Select("*").
 		Joins("INNER JOIN sub_phones on sub_account_phones.phone_id = sub_phones.id").
-		Where("sub_account_phones.account_id = ?", fix.ID.ToUint64()).
+		Where("sub_account_phones.account_id = ?", id).
 		Find(&phones).Error
 	err = p.dbError(err, "E1061411", submodel.Phone{}, corterm.List)
 

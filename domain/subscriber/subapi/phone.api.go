@@ -31,13 +31,13 @@ func (p *PhoneAPI) FindByID(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
 	var phone submodel.Phone
-	var fix types.FixedCol
+	var id uint
 
-	if fix.ID, err = types.StrToRowID(c.Param("phoneID")); err != nil {
+	if id, err = types.StrToUint(c.Param("phoneID")); err != nil {
 		return
 	}
 
-	if phone, err = p.Service.FindByID(fix); err != nil {
+	if phone, err = p.Service.FindByID(id); err != nil {
 		resp.Error(err).JSON()
 		return
 	}
@@ -101,9 +101,9 @@ func (p *PhoneAPI) Update(c *gin.Context) {
 	var err error
 
 	var phone, phoneBefore, phoneUpdated submodel.Phone
-	var fix types.FixedCol
+	var id uint
 
-	if fix.ID, err = types.StrToRowID(c.Param("phoneID")); err != nil {
+	if id, err = types.StrToUint(c.Param("phoneID")); err != nil {
 		return
 	}
 
@@ -111,12 +111,12 @@ func (p *PhoneAPI) Update(c *gin.Context) {
 		return
 	}
 
-	if phoneBefore, err = p.Service.FindByID(fix); err != nil {
+	if phoneBefore, err = p.Service.FindByID(id); err != nil {
 		resp.Error(err).JSON()
 		return
 	}
 
-	phone.ID = fix.ID
+	phone.ID = id
 	if phoneUpdated, err = p.Service.Save(phone); err != nil {
 		resp.Error(err).JSON()
 		return
@@ -133,13 +133,13 @@ func (p *PhoneAPI) Delete(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
 	var phone submodel.Phone
-	var fix types.FixedCol
+	var id uint
 
-	if fix.ID, err = types.StrToRowID(c.Param("phoneID")); err != nil {
+	if id, err = types.StrToUint(c.Param("phoneID")); err != nil {
 		return
 	}
 
-	if phone, err = p.Service.Delete(fix); err != nil {
+	if phone, err = p.Service.Delete(id); err != nil {
 		resp.Error(err).JSON()
 		return
 	}
@@ -155,13 +155,13 @@ func (p *PhoneAPI) Separate(c *gin.Context) {
 	resp := response.New(p.Engine, c, base.Domain)
 	var err error
 	var aPhone submodel.AccountPhone
-	var fix types.FixedCol
+	var id uint
 
-	if fix, err = resp.GetFixedCol(c.Param("accountPhoneID"), "E1042479", basterm.Phone); err != nil {
+	if id, err = resp.GetID(c.Param("accountPhoneID"), "E1042479", basterm.Phone); err != nil {
 		return
 	}
 
-	if aPhone, err = p.Service.Separate(fix); err != nil {
+	if aPhone, err = p.Service.Separate(id); err != nil {
 		resp.Error(err).JSON()
 		return
 	}

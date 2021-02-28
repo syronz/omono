@@ -22,18 +22,18 @@ func ProvideBasAccessService(p basrepo.AccessRepo) BasAccessServ {
 	return BasAccessServ{Repo: p, Engine: p.Engine}
 }
 
-var cacheResource map[types.RowID]string
+var cacheResource map[uint]string
 
 func init() {
-	cacheResource = make(map[types.RowID]string)
+	cacheResource = make(map[uint]string)
 }
 
 // CheckAccess is used inside each method to findout if user has permission or not
 func (p *BasAccessServ) CheckAccess(c *gin.Context, resource types.Resource) bool {
-	var userID types.RowID
+	var userID uint
 
 	if userIDtmp, ok := c.Get("USER_ID"); ok {
-		userID = userIDtmp.(types.RowID)
+		userID = userIDtmp.(uint)
 	} else {
 		return true
 	}
@@ -52,7 +52,7 @@ func (p *BasAccessServ) CheckAccess(c *gin.Context, resource types.Resource) boo
 
 }
 
-func IsSuperAdmin(userID types.RowID) bool {
+func IsSuperAdmin(userID uint) bool {
 	return strings.Contains(cacheResource[userID], string(base.SuperAccess))
 }
 
@@ -68,18 +68,18 @@ func (p *BasAccessServ) CheckRange(companyID, nodeID uint64) bool {
 }
 
 // BasAccessAddToCache add the resources to the cacheResource
-func BasAccessAddToCache(userID types.RowID, resources string) {
+func BasAccessAddToCache(userID uint, resources string) {
 	cacheResource[userID] = resources
 }
 
-func BasAccessDeleteFromCache(userID types.RowID) {
+func BasAccessDeleteFromCache(userID uint) {
 	delete(cacheResource, userID)
 }
 
-func BasAccessResetCache(userID types.RowID) {
+func BasAccessResetCache(userID uint) {
 	cacheResource[userID] = ""
 }
 
 func BasAccessResetFullCache() {
-	cacheResource = make(map[types.RowID]string)
+	cacheResource = make(map[uint]string)
 }

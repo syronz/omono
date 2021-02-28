@@ -16,7 +16,7 @@ func InsertCurrencies(engine *core.Engine) {
 	currencyService := service.ProvideEacCurrencyService(currencyRepo)
 	currencies := []eacmodel.Currency{
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        1,
 				CompanyID: 1001,
 				NodeID:    101,
@@ -26,7 +26,7 @@ func InsertCurrencies(engine *core.Engine) {
 			Code:   "USD",
 		},
 		{
-			FixedCol: types.FixedCol{
+			gorm.Model: gorm.Model{
 				ID:        2,
 				CompanyID: 1001,
 				NodeID:    101,

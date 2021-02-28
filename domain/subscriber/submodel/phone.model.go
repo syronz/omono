@@ -1,13 +1,14 @@
 package submodel
 
 import (
-	"github.com/syronz/dict"
-	"github.com/syronz/limberr"
 	"omono/domain/base/message/basterm"
 	"omono/internal/core/coract"
 	"omono/internal/core/corerr"
 	"omono/internal/core/corterm"
-	"omono/internal/types"
+
+	"github.com/syronz/dict"
+	"github.com/syronz/limberr"
+	"gorm.io/gorm"
 )
 
 // PhoneTable is used inside the repo layer
@@ -17,13 +18,13 @@ const (
 
 // Phone model
 type Phone struct {
-	types.FixedCol
+	gorm.Model
 	Phone string `gorm:"not null;unique" json:"phone,omitempty"`
 	Notes string `json:"notes"`
 	// CompanyID uint64      `gorm:"-" json:"company_id" table:"-"`
 	// NodeID    uint64      `gorm:"-" json:"node_id" table:"-"`
-	AccountID types.RowID `gorm:"-" json:"account_id" table:"-"`
-	Default   byte        `gorm:"-" json:"default" table:"-"`
+	AccountID uint `gorm:"-" json:"account_id" table:"-"`
+	Default   byte `gorm:"-" json:"default" table:"-"`
 }
 
 // Validate check the type of fields

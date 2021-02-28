@@ -1,7 +1,7 @@
 package submodel
 
 import (
-	"omono/internal/types"
+	"gorm.io/gorm"
 )
 
 // AccountPhoneTable is used inside the repo layer
@@ -11,8 +11,8 @@ const (
 
 // AccountPhone model
 type AccountPhone struct {
-	types.FixedCol
-	AccountID types.RowID `gorm:"not null;uniqueIndex:uniqueidx_account_phone" json:"account_id"`
-	PhoneID   types.RowID `gorm:"not null;uniqueIndex:uniqueidx_account_phone" json:"phone_id"`
-	Default   byte        `gorm:"default:0" json:"default"`
+	gorm.Model
+	AccountID uint `gorm:"not null;uniqueIndex:uniqueidx_account_phone" json:"account_id"`
+	PhoneID   uint `gorm:"not null;uniqueIndex:uniqueidx_account_phone" json:"phone_id"`
+	Default   byte `gorm:"default:0" json:"default"`
 }

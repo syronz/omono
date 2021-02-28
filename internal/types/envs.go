@@ -18,9 +18,27 @@ func (p Envs) ToBool(key Envkey) bool {
 	return strings.ToUpper(p[key]) == "TRUE"
 }
 
-// ToRowID casting string to RowID
-func (p Envs) ToRowID(key Envkey) RowID {
-	num, _ := StrToRowID(p[key])
+// StrTouint convert string number to RowID
+func StrTouint(strNum string) (id uint, err error) {
+	tmpID, err := strconv.ParseUint(strNum, 10, 64)
+	id = uint(tmpID)
+	return
+}
+
+func UintToPointer(id uint) *uint {
+	return &id
+}
+
+// StrToUint convert string number to RowID
+func StrToUint(strNum string) (id uint, err error) {
+	tmpID, err := strconv.ParseUint(strNum, 10, 64)
+	id = uint(tmpID)
+	return
+}
+
+// Touint casting string to uint
+func (p Envs) Touint(key Envkey) uint {
+	num, _ := StrTouint(p[key])
 	return num
 }
 
