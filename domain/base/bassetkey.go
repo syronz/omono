@@ -7,19 +7,21 @@ import (
 
 // settings key for base domain
 const (
+	DefaultLang           types.Setting = "default_language"
 	DefaultRegisteredRole types.Setting = "default_registered_role"
 )
 
-// SettingList is used for validation
-var SettingList = []types.Setting{
+// List is used for validation
+var List = []types.Setting{
+	DefaultLang,
 	DefaultRegisteredRole,
 }
 
-// SettingJoin make a string for showing in the api
-func SettingJoin() string {
+// Join make a string for showing in the api
+func Join() string {
 	var strArr []string
 
-	for _, v := range SettingList {
+	for _, v := range List {
 		strArr = append(strArr, string(v))
 	}
 
