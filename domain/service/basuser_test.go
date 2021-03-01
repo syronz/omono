@@ -4,6 +4,7 @@ import (
 	"errors"
 	"omono/domain/base/basmodel"
 	"omono/domain/base/basrepo"
+	"omono/domain/base/enum/userstatus"
 	"omono/internal/core"
 	"omono/internal/param"
 	"omono/test/kernel"
@@ -133,6 +134,7 @@ func TestUserUpdate(test *testing.T) {
 				Lang:     "ku",
 				Email:    "test@test.com",
 				Phone:    "updated",
+				Status:   userstatus.Active,
 			},
 			err: nil,
 		},
@@ -146,6 +148,7 @@ func TestUserUpdate(test *testing.T) {
 				Password: "32131323132",
 				Email:    "Updated",
 				Phone:    "",
+				Status:   userstatus.Active,
 			},
 			err: errors.New("language is required"),
 		},
@@ -161,7 +164,7 @@ func TestUserUpdate(test *testing.T) {
 }
 
 //Test for delete
-//notice for deletion we just take the ided columns
+//notice for deletion we just take the id columns
 //the service/user.Delete() func only accepts the ided columnss
 func TestUserDelete(test *testing.T) {
 	//the engine is skipped
@@ -181,10 +184,15 @@ func TestUserDelete(test *testing.T) {
 		},
 	}
 
-	for _, value := range collector {
-		_, err := userService.Delete(value.id)
-		test.Errorf("\nERROR FOR :::%+v::: \nRETURNS :::%+v:::, \nIT SHOULD BE :::%+v:::", value.id, err, value.err)
-
+	for _, v := range collector {
+		_, err := userService.Delete(v.id)
+		if err != nil && v.err != nil {
+			continue
+		}
+		if err == v.err {
+			continue
+		}
+		test.Errorf("\nERROR FOR :::%+v::: \nRETURNS :::%+v:::, \nIT SHOULD BE :::%+v:::", v.id, err, v.err)
 	}
 }
 
@@ -224,7 +232,7 @@ func TestUserList(t *testing.T) {
 		err    error
 	}{
 		{
-			params: param.Param{},
+			params: param.New(),
 			err:    nil,
 			count:  3,
 		},
@@ -252,7 +260,7 @@ func TestUserFindByID(test *testing.T) {
 		err error
 	}{
 		{
-			id:  2,
+			id:  11,
 			err: nil,
 		},
 		{

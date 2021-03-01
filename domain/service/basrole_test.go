@@ -152,9 +152,9 @@ func TestRoleList(t *testing.T) {
 		err    error
 	}{
 		{
-			params: param.Param{},
+			params: param.New(),
 			err:    nil,
-			count:  13,
+			count:  11,
 		},
 		{
 			params: regularParam,

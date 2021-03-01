@@ -73,14 +73,14 @@ func TestListSetting(t *testing.T) {
 		err    error
 	}{
 		{
-			params: param.Param{},
+			params: param.New(),
 			err:    nil,
-			count:  6,
+			count:  1,
 		},
 		{
 			params: regularParam,
 			err:    nil,
-			count:  3,
+			count:  0,
 		},
 	}
 
@@ -104,7 +104,7 @@ func TestSettingExcel(t *testing.T) {
 		{
 			params: regularParam,
 			err:    nil,
-			count:  6,
+			count:  1,
 		},
 	}
 

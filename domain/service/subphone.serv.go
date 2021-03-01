@@ -135,6 +135,14 @@ func (p *SubPhoneServ) Save(phone submodel.Phone) (savedPhone submodel.Phone, er
 		return
 	}
 
+	var phoneBefore submodel.Phone
+	if phoneBefore, err = p.FindByID(phone.ID); err != nil {
+		err = corerr.Tick(err, "E1082861", "phone not exist")
+		return
+	}
+
+	phone.CreatedAt = phoneBefore.CreatedAt
+
 	if savedPhone, err = p.Repo.Save(phone); err != nil {
 		err = corerr.Tick(err, "E1031295", "phone not saved")
 		return

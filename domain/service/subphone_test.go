@@ -134,124 +134,6 @@ func TestPhoneSave(test *testing.T) {
 	}
 }
 
-//TestPhoneUpdate() Commented Out(why?)
-/*
-	because service/update() accepts idNode arg
-/*
-func TestPhoneUpdate(test *testing.T) {
-	//the engine is skipped
-	_, phoneService := initPhoneTest()
-
-	type err error
-	collector := []struct {
-		phone submodel.Phone
-		err   error
-	}{
-		{
-			phone: submodel.Phone{
-
-				ID:        1,
-				Phone:     "23134142",
-				Notes:     "phone has been updated",
-			},
-			err: nil,
-		},
-		{
-			phone: submodel.Phone{
-				ID:        1314421,
-				Phone:     "3131233",
-				Notes:     "phone has been updated",
-			},
-			err: errors.New("Phone doesn't exist"),
-		},
-		{
-			phone: submodel.Phone{
-				ID:        1,
-				Notes:     "phone has been updated",
-			},
-			err: errors.New("Phone is required"),
-		},
-	}
-
-	for _, value := range collector {
-
-		_, err := phoneService.Save(value.phone)
-		if (value.err == nil && err != nil) || (value.err != nil && err == nil) {
-			test.Errorf("\nERROR FOR :::%+v::: \nRETURNS :::%+v:::, \nIT SHOULD BE :::%+v:::", value.phone, err, value.err)
-		}
-	}
-}
-*/
-
-//TestPhoneDelete() Commented Out(why?)
-/*
-	because service/Delete() accepts idNode arg
-/*
-/*
-func TestPhoneDelete(t *testing.T) {
-	_, phoneService := initPhoneTest()
-
-	testCollector := []struct {
-		phone submodel.Phone
-		err   error
-	}{
-		{
-			phone: submodel.Phone{
-				ID:        1,
-			},
-			err: nil,
-		},
-		{
-			phone: submodel.Phone{
-				ID:        1111111,
-			},
-			err: errors.New("phone was not found to be deleted"),
-		},
-	}
-
-	for _, value := range testCollector {
-		_, err := phoneService.Delete(value)
-		if (value.err == nil && err != nil) || (value.err != nil && err == nil) {
-			t.Errorf("ERROR FOR ::::%+v::: \nRETURNS :::%+v:::, \nIT SHOULD BE :::%+v:::", value.id, err, value.err)
-		}
-	}
-}
-
-*/
-//TestPhoneFindByID() Commented Out(why?)
-/*
-	because service/FindByID() accepts idNode arg
-/*
-/*
-func TestPhoneFindByID(t *testing.T) {
-	_, phoneService := initPhoneTest()
-
-	testCollector := []struct {
-		phone submodel.Phone
-		err   error
-	}{
-		{
-			phone: submodel.Phone{
-				ID:        1,
-			},
-			err: nil,
-		},
-		{
-			phone: submodel.Phone{
-				ID:        1324231,
-			err: errors.New("there is no phone record"),
-		},
-	}
-
-	for _, value := range testCollector {
-		_, err := phoneService.Delete(value)
-		if (value.err == nil && err != nil) || (value.err != nil && err == nil) {
-			t.Errorf("ERROR FOR ::::%+v::: \nRETURNS :::%+v:::, \nIT SHOULD BE :::%+v:::", value.id, err, value.err)
-		}
-	}
-}
-*/
-
 func TestPhoneFindByPhone(t *testing.T) {
 	_, phoneService := initPhoneTest()
 
@@ -283,15 +165,15 @@ func TestPhoneFindByPhone(t *testing.T) {
 
 func TestPhoneList(t *testing.T) {
 	_, phoneService := initPhoneTest()
-	regularParam := getRegularParam("base_phone.id asc")
-	regularParam.Filter = "Note[like]'original'"
+	regularParam := getRegularParam("sub_phones.id asc")
+	regularParam.Filter = "notes[like]'original'"
 	testCollector := []struct {
 		params param.Param
 		count  uint64
 		err    error
 	}{
 		{
-			params: param.Param{},
+			params: param.New(),
 			count:  4,
 			err:    nil,
 		},

@@ -63,7 +63,7 @@ func TestAccountDelete(t *testing.T) {
 func TestAccountList(t *testing.T) {
 	_, testAccountServ := initAccountTest()
 
-	regularParam := getRegularParam("bas_accounts.id")
+	regularParam := getRegularParam("sub_accounts.id")
 	regularParam.Filter = "name_en[like]'regular'"
 
 	collection := []struct {
@@ -72,14 +72,14 @@ func TestAccountList(t *testing.T) {
 		err    error
 	}{
 		{
-			params: param.Param{},
+			params: param.New(),
 			err:    nil,
-			count:  3,
+			count:  16,
 		},
 		{
 			params: regularParam,
 			err:    nil,
-			count:  0,
+			count:  1,
 		},
 	}
 
@@ -108,6 +108,7 @@ func TestAccountUpdate(t *testing.T) {
 				NameEn: "updated VIP Account",
 				Type:   accounttype.VIP,
 				Credit: 500000,
+				Status: accountstatus.Active,
 			},
 			err: nil,
 		},

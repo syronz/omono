@@ -15,14 +15,22 @@ import (
 func ConnectDB(engine *core.Engine, printQueries bool) {
 	var err error
 
+	var logLevel logger.LogLevel
+	switch printQueries {
+	case false:
+		logLevel = logger.Silent
+	case true:
+		logLevel = logger.Info
+	}
+
 	// engine.Sqldb.SetMaxIdleConns(20)
 	// engine.Sqldb.SetMaxOpenConns(1000)
 	newLogger := logger.New(
 		log.New(os.Stdout, "\r\n", log.LstdFlags), // io writer
 		logger.Config{
-			SlowThreshold: time.Second, // Slow SQL threshold
-			LogLevel:      logger.Info, // Log level
-			Colorful:      true,        // Disable color
+			SlowThreshold: 10 * time.Second, // Slow SQL threshold
+			LogLevel:      logLevel,         // Log level
+			Colorful:      true,             // Disable color
 		},
 	)
 
