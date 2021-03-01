@@ -1,0 +1,8 @@
+{
+  "method":"get",
+	"url":"_URL_/excel/companies?select=bas_users.id2",
+	"url":"_URL_/excel/companies?select=bas_users.id2",
+	"url":"_URL_/excel/companies",
+	"authorization":"Bearer _TOKEN_",
+	"payload": {}
+}

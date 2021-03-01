@@ -5,6 +5,7 @@ import (
 	"omono/domain/base"
 	"omono/domain/base/basmid"
 	"omono/domain/notification"
+	"omono/domain/segment"
 	"omono/domain/subscriber"
 	"omono/internal/core"
 
@@ -28,6 +29,9 @@ func Route(rg gin.RouterGroup, engine *core.Engine) {
 	// Subscriber Domain
 	basPhoneAPI := initSubPhoneAPI(engine)
 	basAccountAPI := initSubAccountAPI(engine, basPhoneAPI.Service)
+
+	// Segment Domain
+	segCompanyAPI := initSegCompanyAPI(engine)
 
 	// Html Domain
 	rg.StaticFS("/public", http.Dir("public"))
@@ -144,5 +148,19 @@ func Route(rg gin.RouterGroup, engine *core.Engine) {
 		access.Check(subscriber.PhoneExcel), basPhoneAPI.Excel)
 	rg.DELETE("/separate/:accountPhoneID",
 		access.Check(subscriber.PhoneWrite), basPhoneAPI.Separate)
+
+	// Segment Domain
+	rg.GET("/companies",
+		access.Check(segment.CompanyRead), segCompanyAPI.List)
+	rg.GET("/companies/:companyID",
+		access.Check(segment.CompanyRead), segCompanyAPI.FindByID)
+	rg.POST("/companies",
+		access.Check(segment.CompanyWrite), segCompanyAPI.Create)
+	rg.PUT("/companies/:companyID",
+		access.Check(segment.CompanyWrite), segCompanyAPI.Update)
+	rg.DELETE("/companies/:companyID",
+		access.Check(segment.CompanyWrite), segCompanyAPI.Delete)
+	rg.GET("/excel/companies",
+		access.Check(segment.CompanyExcel), segCompanyAPI.Excel)
 
 }

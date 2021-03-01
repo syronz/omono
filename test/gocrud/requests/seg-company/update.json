@@ -1,0 +1,10 @@
+{
+  "method":"put",
+  "url":"_URL_/companies/14",
+  "authorization":"Bearer _TOKEN_",
+  "payload": {
+    "name": "updated",
+    "type":"asset",
+    "status":"active"
+  }
+}

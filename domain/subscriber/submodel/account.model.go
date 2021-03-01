@@ -21,12 +21,13 @@ const (
 // Account model
 type Account struct {
 	gorm.Model
-	NameEn string     `gorm:"unique" json:"name_en,omitempty"`
-	NameKu *string    `gorm:"unique" json:"name_ku,omitempty" `
-	Type   types.Enum `json:"type,omitempty"`
-	Status types.Enum `gorm:"default:'active';type:enum('active','inactive')" json:"status,omitempty"`
-	Credit float64    `json:"credit,omitempty"`
-	Phones []Phone    `gorm:"-" json:"phones" table:"-"`
+	CompanyID uint       `json:"company_id,omitempty"`
+	NameEn    string     `gorm:"unique" json:"name_en,omitempty"`
+	NameKu    *string    `gorm:"unique" json:"name_ku,omitempty" `
+	Type      types.Enum `json:"type,omitempty"`
+	Status    types.Enum `gorm:"default:'active';type:enum('active','inactive')" json:"status,omitempty"`
+	Credit    float64    `json:"credit,omitempty"`
+	Phones    []Phone    `gorm:"-" json:"phones" table:"-"`
 }
 
 // Validate check the type of fields

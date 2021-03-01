@@ -7,6 +7,8 @@ import (
 	"omono/domain/base/basrepo"
 	"omono/domain/notification/notapi"
 	"omono/domain/notification/notrepo"
+	"omono/domain/segment/segapi"
+	"omono/domain/segment/segrepo"
 	"omono/domain/service"
 	"omono/domain/subscriber/subapi"
 	"omono/domain/subscriber/subrepo"
@@ -68,4 +70,11 @@ func initSubPhoneAPI(e *core.Engine) subapi.PhoneAPI {
 	wire.Build(subrepo.ProvidePhoneRepo, service.ProvideSubPhoneService,
 		subapi.ProvidePhoneAPI)
 	return subapi.PhoneAPI{}
+}
+
+// Segment Domain
+func initSegCompanyAPI(e *core.Engine) segapi.CompanyAPI {
+	wire.Build(segrepo.ProvideCompanyRepo, service.ProvideSegCompanyService,
+		segapi.ProvideCompanyAPI)
+	return segapi.CompanyAPI{}
 }

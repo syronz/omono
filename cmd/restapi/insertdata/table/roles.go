@@ -5,6 +5,7 @@ import (
 	"omono/domain/base/basmodel"
 	"omono/domain/base/basrepo"
 	"omono/domain/notification"
+	"omono/domain/segment"
 	"omono/domain/service"
 	"omono/domain/subscriber"
 	"omono/internal/core"
@@ -35,6 +36,7 @@ func InsertRoles(engine *core.Engine) {
 				notification.MessageWrite, notification.MessageExcel,
 				subscriber.AccountRead, subscriber.AccountWrite, subscriber.AccountExcel,
 				subscriber.PhoneRead, subscriber.PhoneWrite, subscriber.PhoneExcel,
+				segment.CompanyRead, segment.CompanyWrite, segment.CompanyExcel,
 			}),
 			Description: "admin has all privileges - do not edit",
 		},

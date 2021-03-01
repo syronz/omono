@@ -10,6 +10,8 @@ import (
 	"omono/domain/base/basrepo"
 	"omono/domain/notification/notapi"
 	"omono/domain/notification/notrepo"
+	"omono/domain/segment/segapi"
+	"omono/domain/segment/segrepo"
 	"omono/domain/service"
 	"omono/domain/subscriber/subapi"
 	"omono/domain/subscriber/subrepo"
@@ -81,4 +83,12 @@ func initSubPhoneAPI(e *core.Engine) subapi.PhoneAPI {
 	subPhoneServ := service.ProvideSubPhoneService(phoneRepo)
 	phoneAPI := subapi.ProvidePhoneAPI(subPhoneServ)
 	return phoneAPI
+}
+
+// Segment Domain
+func initSegCompanyAPI(e *core.Engine) segapi.CompanyAPI {
+	companyRepo := segrepo.ProvideCompanyRepo(e)
+	segCompanyServ := service.ProvideSegCompanyService(companyRepo)
+	companyAPI := segapi.ProvideCompanyAPI(segCompanyServ)
+	return companyAPI
 }

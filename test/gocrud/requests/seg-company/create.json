@@ -1,0 +1,9 @@
+{
+  "method":"post",
+  "url":"_URL_/companies",
+  "authorization":"Bearer _TOKEN_",
+  "payload": {
+    "name": "_RANDOM_NAME_",
+    "phone": "_RANDOM_NUMBER_"
+  }
+}

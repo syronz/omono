@@ -3,6 +3,7 @@ package startoff
 import (
 	"omono/domain/base/basmodel"
 	"omono/domain/notification/notmodel"
+	"omono/domain/segment/segmodel"
 	"omono/domain/subscriber/submodel"
 	"omono/internal/core"
 )
@@ -37,4 +38,6 @@ func Migrate(engine *core.Engine) {
 	engine.DB.Exec("ALTER TABLE not_messages ADD CONSTRAINT `fk_not_messages_created_by_bas_users` FOREIGN KEY (created_by) REFERENCES bas_users(id) ON DELETE RESTRICT ON UPDATE RESTRICT;")
 	engine.DB.Exec("ALTER TABLE not_messages ADD CONSTRAINT `fk_not_messages_recipient_id_bas_users` FOREIGN KEY (recipient_id) REFERENCES bas_users(id) ON DELETE RESTRICT ON UPDATE RESTRICT;")
 
+	// Segment Domain
+	engine.DB.Table(segmodel.CompanyTable).AutoMigrate(&segmodel.Company{})
 }

@@ -386,26 +386,6 @@ en = 'accounts'
 ku = 'hazhmarakan'
 ar = 'accounts'
 
-[company]
-en = 'company'
-ku = 'compania'
-ar = 'company'
-
-[companies]
-en = 'companies'
-ku = 'companieakan'
-ar = 'companies'
-
-[color]
-en = 'color'
-ku = 'rang'
-ar = 'color'
-
-[colors]
-en = 'colors'
-ku = 'rangakan'
-ar = 'colors'
-
 [phone]
 en = 'phone'
 ku = 'phone'
@@ -461,3 +441,14 @@ ar = 'column %v not not exist'
 en = 'filter is not valid'
 ku = 'filter halaya'
 ar = 'filter is not valid'
+
+# domain/segment/segterm/segterm.go -----------------------------------------------------
+["company"]
+en = 'company'
+ku = 'company'
+ar = 'company'
+
+["companies"]
+en = 'companies'
+ku = 'companies'
+ar = 'companies'

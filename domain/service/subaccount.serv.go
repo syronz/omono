@@ -21,8 +21,6 @@ type SubAccountServ struct {
 	PhoneServ SubPhoneServ
 }
 
-var cacheChartOffAccount *submodel.Tree
-
 // ProvideSubAccountService for account is used in wire
 func ProvideSubAccountService(p subrepo.AccountRepo, phoneServ SubPhoneServ) SubAccountServ {
 	return SubAccountServ{
