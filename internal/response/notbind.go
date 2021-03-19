@@ -31,10 +31,12 @@ func (r *Response) Bind(st interface{}, code, domain, part string) (err error) {
 // GetID returns the ID
 func (r *Response) GetID(idIn, code, part string) (id uint, err error) {
 	tmpID, err := strconv.ParseUint(idIn, 10, 32)
-	err = limberr.Take(err, code).
-		Message(corerr.InvalidVForV, dict.R(corterm.ID), dict.R(part)).
-		Custom(corerr.ValidationFailedErr).Build()
-	r.Error(err).JSON()
+	if err != nil {
+		err = limberr.Take(err, code).
+			Message(corerr.InvalidVForV, dict.R(corterm.ID), dict.R(part)).
+			Custom(corerr.ValidationFailedErr).Build()
+		r.Error(err).JSON()
+	}
 	id = uint(tmpID)
 	return
 }

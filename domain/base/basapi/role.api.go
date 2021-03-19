@@ -9,6 +9,7 @@ import (
 	"omono/internal/core"
 	"omono/internal/core/corterm"
 	"omono/internal/response"
+	"omono/pkg/glog"
 	"omono/pkg/helper/excel"
 
 	"github.com/gin-gonic/gin"
@@ -31,6 +32,8 @@ func (p *RoleAPI) FindByID(c *gin.Context) {
 	var err error
 	var role basmodel.Role
 	var id uint
+
+	glog.Debug(c.Param("roleID"))
 
 	if id, err = resp.GetID(c.Param("roleID"), "E1053982", basterm.Role); err != nil {
 		return
