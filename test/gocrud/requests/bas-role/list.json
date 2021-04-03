@@ -8,7 +8,7 @@
 	"url":"_URL_/roles?order_by=bas_roles.id&direction=asc&page_size=4",
 	"url":"_URL_/roles?select=bas_roles.name,bas_roles.id&lang=ku",
 	"url":"_URL_/roles",
-	"url":"_URL_/roles",
+	"url":"_URL_/roles?page_size=2&page=0&direction=asc&order_by=name",
 	"authorization":"Bearer _TOKEN_",
 	"payload": {}
 }

@@ -27,7 +27,7 @@ func AuthGuard(engine *core.Engine) gin.HandlerFunc {
 			if !ok || len(tokenArr[0]) == 0 {
 				err := limberr.New("token is required", "E1088822").
 					Custom(corerr.UnauthorizedErr).
-					Message(corerr.TokenIsRequired).Build()
+					Message(corerr.PleaseLoginAgain).Build()
 				response.New(engine, c, base.Domain).Error(err).Abort().JSON()
 				return
 			}

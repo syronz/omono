@@ -39,4 +39,5 @@ const (
 	VIsConnectedToAVVPleaseDeleteItFirst = "%v is connected to a %v:%v, please delete it first"
 	NeedDataToBeInserted                 = "need data to be inserted"
 	YouDontHavePermissionToThisV         = "you don't have permission to this %v"
+	PleaseLoginAgain                     = "please login again"
 )

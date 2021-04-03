@@ -184,6 +184,11 @@ en = "you don't have permission to this %v"
 ku = "you don't have permission to this %v"
 ar = "you don't have permission to this %v"
 
+["please login again"]
+en = "please login again"
+ku = "tkaya daxl bnawawa"
+ar = "please login again"
+
 # corterm/terms.go ----------------------------------------------------------------------
 [username]
 en = 'username'

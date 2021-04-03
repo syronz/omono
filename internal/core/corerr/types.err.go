@@ -30,7 +30,7 @@ func init() {
 	UniqErrorMap = make(map[limberr.CustomError]limberr.ErrorTheme)
 
 	UniqErrorMap[UnauthorizedErr] = limberr.ErrorTheme{
-		Type:   "#Unauthorized",
+		Type:   "#UNAUTHORIZED",
 		Title:  Unauthorized,
 		Domain: base.Domain,
 		Status: http.StatusUnauthorized,
